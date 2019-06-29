@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\City;
+use App\Entity\Handbook\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 

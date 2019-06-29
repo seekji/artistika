@@ -25,7 +25,7 @@ class Subscribe
     private $email;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\City", inversedBy="subscribes")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City", inversedBy="subscribes")
      * @ORM\JoinColumn(nullable=false)
      */
     private $city;
