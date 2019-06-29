@@ -1,6 +1,6 @@
 <?php
 
-    namespace App\Admin\HandBook;
+    namespace App\Admin\Handbook;
 
     class HallAdmin
     {

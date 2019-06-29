@@ -36,4 +36,6 @@ return [
     ADW\SonataMediaExtraBundle\ADWSonataMediaExtraBundle::class => ['all' => true],
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
+    ADW\GeoIpBundle\ADWGeoIpBundle::class => ['all' => true],
+    Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle::class => ['all' => true],
 ];
