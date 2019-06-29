@@ -3,6 +3,10 @@
 parameters:
     locale: 'en'
 
+imports:
+  - { resource: admin/content.yaml }
+  - { resource: admin/handbooks.yaml }
+
 services:
     # default configuration for services in *this* file
     _defaults:
