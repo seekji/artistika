@@ -1,0 +1,44 @@
+language: php
+sudo: true
+
+services:
+  - mysql
+
+cache:
+  directories:
+    - $HOME/.composer/cache/files
+    - ./bin/.phpunit
+
+env:
+  global:
+    - SYMFONY_PHPUNIT_DIR=./bin/.phpunit
+    - SYMFONY_DEPRECATIONS_HELPER=weak
+
+matrix:
+  fast_finish: true
+  include:
+    - php: 7.2
+#    - php: 7.3
+
+before_install:
+  - cp .env.travis .env
+  - cp .env.travis .env.test
+  - composer self-update
+  - pear config-set preferred_state beta
+  - pecl channel-update pecl.php.net
+  - yes | pecl install imagick
+
+install:
+  - composer install
+  - cp phpunit.xml.dist phpunit.xml
+  - ./bin/console doctrine:database:create -e test --if-not-exists
+  - ./bin/console doctrine:migrations:migrate -e test --no-interaction
+  - ./bin/console doctrine:fixtures:load -e test -n
+
+script:
+  - ./bin/console lint:yaml config
+  - ./bin/console lint:twig templates
+  - ./bin/console lint:xliff translations
+  - ./bin/console security:check
+  - ./bin/console doctrine:schema:validate -vvv --no-interaction
+  - ./vendor/bin/simple-phpunit
