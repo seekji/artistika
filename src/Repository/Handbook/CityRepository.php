@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Repository\Handbook;
 
 use App\Entity\Handbook\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
