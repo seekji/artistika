@@ -1,0 +1,5 @@
+#adw_js_context:
+#    user_listener:
+#        enabled: false #по умолчанию автодобавление юзера в контекст отключено
+#        field_name: user
+#        group: Default #Группа сериализации для юзера

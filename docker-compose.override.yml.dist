@@ -1,0 +1,29 @@
+version: '3.7'
+
+services:
+#  rabbitmq:
+#    image: rabbitmq:3.7-management
+#    hostname: "app"
+#    ports:
+#      - "17672:15672"
+#    volumes:
+#      - .docker/rabbitmq/rabbitmq.config:/etc/rabbitmq/rabbitmq.config
+#      - .docker/rabbitmq/definitions.json:/etc/rabbitmq/definitions.json
+#      - ./var/data/rabbitmq:/var/lib/rabbitmq:rw,delegated
+
+  app_cli:
+    command: "/bin/bash -c 'while true; do sleep 30; done;'"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:4.8
+    environment:
+      PMA_HOST: database
+      PMA_PORT: 3306
+      PMA_USER: root
+      PMA_PASSWORD: root
+    ports:
+      - 8765:80
+
+networks:
+  default:
+    driver: bridge

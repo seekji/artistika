@@ -1,0 +1,15 @@
+{#
+/**
+ * @file Twig template
+ * Twig template
+ *
+ * @author Anton Prokhorov
+ */
+#}
+
+{% if admin.hasAccess('history', object) and admin.hasRoute('history') %}
+    <a href="{{ admin.generateObjectUrl('history', object) }}" class="btn btn-sm btn-default view_link" title="{{ 'action_history'|trans({}, 'SonataAdminBundle') }}">
+        <i class="fa fa-history" aria-hidden="true"></i>
+        {{ 'action_history'|trans({}, 'SonataAdminBundle') }}
+    </a>
+{% endif %}

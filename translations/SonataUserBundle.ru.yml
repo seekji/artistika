@@ -1,0 +1,6 @@
+ROLE_ADMIN: Администратор
+ROLE_USER: Пользователь
+ROLE_SONATA_ADMIN: Администратор Сонаты
+ROLE_SUPER_ADMIN: Супер Администратор
+ROLE_ALLOWED_TO_SWITCH: Смена пользователя
+Group: Группа

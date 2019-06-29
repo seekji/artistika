@@ -1,0 +1,5 @@
+adwseo:
+    redirects:
+        enabled: true # Redirects feature disabled by default
+        not_found_only: true # Redirect listener only for NotFoundhttpException by default
+#    cache: my_doctrine_cache_provider_name # Cache for rules and metadata. Disabled by default

@@ -1,0 +1,22 @@
+Article: Статья
+Настройки robots: Robots.txt
+Redirect Rule List: Список правил редиректа
+Id: Id
+Rule List: Список правил
+Content: Контент(содержимое)
+Name: Название
+Config Site Create: Создание конифгурации
+sonata.media.provider.dailymotion: Дайлимоушен
+sonata.media.provider.youtube: Ютуб
+sonata.media.provider.image: Изображение
+sonata.media.provider.file: Файл
+sonata.media.provider.vimeo: Вимео
+default: Стандартный
+Article List: Спиcок статей
+Title: Название
+Preview: Обзор
+Article Create: Создание статьи
+message_close: Закрыть сообщение
+Action: Действия
+Property: Приоритет
+Rule Create: Создание правила

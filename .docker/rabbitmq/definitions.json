@@ -1,0 +1,53 @@
+{
+  "rabbit_version": "3.7.8",
+  "users": [
+    {
+      "name": "guest",
+      "password_hash": "snORP0bEiiEdB02XzDdLYADsUajImB4ZGMw0DaavMBsknItwi9o1ThjmdBCFkOrVk6zv5VBg0fRnWpY4qdBf8ybPKZI=",
+      "hashing_algorithm": "rabbit_password_hashing_sha512",
+      "tags": "administrator"
+    },
+    {
+      "name": "ws-customer",
+      "password_hash": "1QXDxYqtbMCt6VuR//170gKP5AGIR2/dPgOVJe96nitvvNJoqa0wOpvJCxpYuyVW96w+/O1QPwoAc1rltLYQTCenKt0=",
+      "hashing_algorithm": "rabbit_password_hashing_sha512",
+      "tags": ""
+    }
+  ],
+  "vhosts": [
+    {
+      "name": "dev"
+    }
+  ],
+  "permissions": [
+    {
+      "user": "guest",
+      "vhost": "dev",
+      "configure": ".*",
+      "write": ".*",
+      "read": ".*"
+    },
+    {
+      "user": "ws-customer",
+      "vhost": "dev",
+      "configure": "^stomp-subscription.+$",
+      "write": "^stomp-subscription.+$",
+      "read": "^(stomp-subscription.+|notifications)$"
+    }
+  ],
+  "parameters": [],
+  "policies": [],
+  "queues": [],
+  "exchanges": [
+    {
+      "name": "notifications",
+      "vhost": "dev",
+      "type": "direct",
+      "durable": false,
+      "auto_delete": false,
+      "internal": false,
+      "arguments": {}
+    }
+  ],
+  "bindings": []
+}
