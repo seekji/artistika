@@ -31,3 +31,5 @@ doctrine:
             SonataUserBundle: ~
             FOSUserBundle: ~
             ApplicationSonataUserBundle: ~
+            SonataClassificationBundle: ~
+            ApplicationSonataClassificationBundle: ~

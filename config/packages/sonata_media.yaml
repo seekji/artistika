@@ -19,6 +19,21 @@ sonata_media:
                 small: { width: 100 , quality: 70}
                 big:   { width: 500 , quality: 70}
 
+        events:
+          providers:
+            - sonata.media.provider.image
+            - sonata.media.provider.file
+
+        news:
+          providers:
+            - sonata.media.provider.image
+            - sonata.media.provider.file
+
+        static_pages:
+          providers:
+            - sonata.media.provider.image
+            - sonata.media.provider.file
+
     cdn:
         server:
             path: /uploads/media # http://media.sonata-project.org/
@@ -32,3 +47,4 @@ sonata_media:
         media: App\Application\Sonata\MediaBundle\Entity\Media
         gallery: App\Application\Sonata\MediaBundle\Entity\Gallery
         gallery_has_media: App\Application\Sonata\MediaBundle\Entity\GalleryHasMedia
+        category: App\Application\Sonata\ClassificationBundle\Entity\Category
