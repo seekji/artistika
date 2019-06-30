@@ -287,6 +287,15 @@
     "sonata-project/cache": {
         "version": "2.0.1"
     },
+    "sonata-project/classification-bundle": {
+        "version": "3.7",
+        "recipe": {
+            "repo": "github.com/symfony/recipes-contrib",
+            "branch": "master",
+            "version": "3.7",
+            "ref": "e79fbb2e8658677e5d5d9199db7d2735332c4b7d"
+        }
+    },
     "sonata-project/core-bundle": {
         "version": "3.9",
         "recipe": {
