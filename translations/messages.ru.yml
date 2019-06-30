@@ -20,3 +20,11 @@ message_close: Закрыть сообщение
 Action: Действия
 Property: Приоритет
 Rule Create: Создание правила
+Address: Адрес
+Phone: Контактный телефон
+Google Coords: Google координаты
+Hall List: Список площадок
+Hall: Площадка
+Handbook: Справочник
+Created At: Дата создания
+Updated At: Дата обновления
