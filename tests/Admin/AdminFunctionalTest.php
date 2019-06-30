@@ -110,7 +110,8 @@ class AdminFunctionalTest extends WebTestCase
             ['/admin/adw/seo/redirectrule/create'],
             ['/admin/adw/seo/rule/create'],
             ['/robots/edit'],
-            ['/admin/app/handbook-hall/create']
+            ['/admin/app/handbook-hall/create'],
+            ['/admin/app/handbook-city/create'],
         ];
     }
 
@@ -128,6 +129,7 @@ class AdminFunctionalTest extends WebTestCase
             ['/admin/adw/seo/redirectrule/list'],
             ['/admin/adw/seo/rule/list'],
             ['/admin/app/handbook-hall/list'],
+            ['/admin/app/handbook-city/list'],
         ];
     }
 }
