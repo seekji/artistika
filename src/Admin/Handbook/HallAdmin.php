@@ -15,6 +15,9 @@
     class HallAdmin extends AbstractAdmin
     {
 
+        /**
+         * @param DatagridMapper $filter
+         */
         protected function configureDatagridFilters(DatagridMapper $filter)
         {
             $filter
@@ -59,6 +62,9 @@
                 ->end();
         }
 
+        /**
+         * @param ShowMapper $showMapper
+         */
         public function configureShowFields(ShowMapper $showMapper)
         {
             $showMapper

@@ -109,7 +109,7 @@ class AdminFunctionalTest extends WebTestCase
             ['/admin/sonata/media/gallery/create?context=default'],
             ['/admin/adw/seo/redirectrule/create'],
             ['/admin/adw/seo/rule/create'],
-            ['/robots/edit']
+            ['/robots/edit'],
             ['/admin/app/handbook-hall/create']
         ];
     }
