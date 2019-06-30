@@ -32,7 +32,7 @@ docker-compose.override.yml
 !var/sessions/.gitkeep
 !var/SymfonyRequirements.php
 
-/web/bundles/
+/public_html/bundles/
 
 /.bundle/
 /app/bootstrap.php.cache
@@ -53,9 +53,9 @@ docker-compose.override.yml
 /.vagrant/local.json
 /.vagrant/machines/
 
-/web/uploads/*
-!web/uploads/media/.gitkeep
-/web/robots.txt
+/public_html/uploads/*
+!public_html/uploads/media/.gitkeep
+/public_html/robots.txt
 
 /log/
 

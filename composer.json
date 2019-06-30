@@ -98,7 +98,7 @@
         "symfony/symfony": "*"
     },
     "extra": {
-        "public-dir": "web",
+        "public-dir": "public_html",
         "symfony-tests-dir": "tests",
         "symfony-bin-dir": "bin",
         "symfony": {
