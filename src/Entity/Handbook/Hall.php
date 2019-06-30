@@ -3,12 +3,15 @@
 namespace App\Entity\Handbook;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Handbook\HallRepository")
  */
 class Hall
 {
+    use Timestampable;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
