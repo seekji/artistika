@@ -33,3 +33,10 @@ services:
 
     App\DataFixtures\ORM\LoadAdminDataFixture:
         tags: [doctrine.fixture.orm]
+
+    app.service.location_service:
+        class: App\Service\LocationService
+        arguments:
+            - '@session'
+            - '@adw.geoip.provider.maxmind'
+            - '@doctrine.orm.entity_manager'
