@@ -58,7 +58,6 @@
                     ->add('title')
                     ->add('address')
                     ->add('phone')
-                    ->add('googleCoords')
                 ->end();
         }
 
@@ -72,7 +71,6 @@
                 ->add('title')
                 ->add('address')
                 ->add('phone')
-                ->add('googleCoords')
                 ->add('createdAt')
                 ->add('updatedAt')
             ;

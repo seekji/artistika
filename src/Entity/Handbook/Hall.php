@@ -34,11 +34,6 @@ class Hall
      */
     private $phone;
 
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $googleCoords;
-
     public function getId(): ?int
     {
         return $this->id;
@@ -76,18 +71,6 @@ class Hall
     public function setPhone(?string $phone): self
     {
         $this->phone = $phone;
-
-        return $this;
-    }
-
-    public function getGoogleCoords(): ?string
-    {
-        return $this->googleCoords;
-    }
-
-    public function setGoogleCoords(?string $googleCoords): self
-    {
-        $this->googleCoords = $googleCoords;
 
         return $this;
     }
