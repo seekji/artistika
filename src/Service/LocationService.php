@@ -3,9 +3,9 @@
     namespace App\Service;
 
     use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Component\HttpFoundation\Session\Session;
+    use Symfony\Component\HttpFoundation\Session\SessionInterface;
     use Doctrine\ORM\EntityManagerInterface;
-    use ADW\GeoIpBundle\LocationProvider\MaxmindLocationProvider;
+    use seekji\GeoIpBundle\LocationProvider\MaxmindLocationProvider;
     use App\Entity\Handbook\City;
     use App\Model\Location;
 
@@ -21,7 +21,7 @@
         const SESSION_LOCATION = 'site.user_location';
 
         /**
-         * @var Session $session
+         * @var SessionInterface $session
          */
         private $session;
 
@@ -31,7 +31,7 @@
         private $userLocation;
 
         /**
-         * @var \ADW\GeoIpBundle\LocationProvider\MaxmindLocationProvider|object
+         * @var \seekji\GeoIpBundle\LocationProvider\MaxmindLocationProvider|object
          */
         private $maxmindProvider;
 
@@ -43,11 +43,11 @@
         /**
          * LocationService constructor.
          *
-         * @param Session                 $session
+         * @param SessionInterface        $session
          * @param MaxmindLocationProvider $provider
          * @param EntityManagerInterface  $entityManager
          */
-        public function __construct(Session $session, MaxmindLocationProvider $provider, EntityManagerInterface $entityManager)
+        public function __construct(SessionInterface $session, MaxmindLocationProvider $provider, EntityManagerInterface $entityManager)
         {
             $this->session         = $session;
             $this->maxmindProvider = $provider;
@@ -55,9 +55,9 @@
         }
 
         /**
-         * @return Location
+         * @return Location|null
          */
-        public function getUserLocation(): Location
+        public function getUserLocation(): ?Location
         {
             if (empty($this->userLocation)) {
                 if ($this->session->has(self::SESSION_LOCATION)) {
@@ -83,7 +83,7 @@
         {
             try {
                 $location = new Location();
-                $result = new $this->maxmindProvider->findLocationInBinary(Request::createFromGlobals()->getClientIp());
+                $result = $this->maxmindProvider->findLocationInBinary('109.205.253.39');
 
                 if (isset($result->city->names['ru'])) {
                     $location->setCity($result->city->names['ru']);
@@ -107,7 +107,7 @@
          */
         public function setUserLocation(Location $location): void
         {
-            if (empty($location) || !is_array($location)) {
+            if (empty($location) || !$location instanceof Location) {
                 throw new \LogicException('Location cannot be empty.');
             }
 
@@ -118,13 +118,19 @@
         /**
          * Check user location in available list of cities/regions.
          *
+         * @param Location $location
+         *
          * @return bool
          */
-        public function isUserLocationInList(): bool
+        public function isUserLocationInList(Location $location): bool
         {
-            $city = $this->entityManager->getRepository(City::class)->findOneBy(['name' => $this->getUserLocation()->getCity()]);
+            if ($location instanceof Location and $location->getCity()) {
+                $city = $this->entityManager->getRepository(City::class)->findOneBy([ 'name' => $location->getCity() ]);
 
-            return $city instanceof City ? true : false;
+                return $city instanceof City ? true : false;
+            }
+
+            return false;
         }
 
     }

@@ -38,5 +38,9 @@ services:
         class: App\Service\LocationService
         arguments:
             - '@session'
-            - '@adw.geoip.provider.maxmind'
+            - '@geoip.provider.maxmind'
             - '@doctrine.orm.entity_manager'
+
+    App\EventListener\RequestListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.request }

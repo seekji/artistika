@@ -4,50 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ce425627d20f72001af99f044cdbf399",
+    "content-hash": "629076eadf5c5df8f5fb0dd6eec4f1a2",
     "packages": [
-        {
-            "name": "adw/geoip-bundle",
-            "version": "1.1.2",
-            "source": {
-                "type": "git",
-                "url": "https://bitbucket.org/prodhub/adw-geoip-bundle.git",
-                "reference": "210defed38ad292016a64209b7bf5938100e4cfc"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://bitbucket.org/prodhub/adw-geoip-bundle/get/210defed38ad292016a64209b7bf5938100e4cfc.zip",
-                "reference": "210defed38ad292016a64209b7bf5938100e4cfc",
-                "shasum": ""
-            },
-            "require": {
-                "geoip2/geoip2": "^2.9",
-                "symfony/console": "~2.7|~3.0|~4.0",
-                "symfony/framework-bundle": "~2.7|~3.0|~4.0"
-            },
-            "require-dev": {
-                "symfony/phpunit-bridge": "~2.7|~3.0|~4.0"
-            },
-            "type": "symfony-bundle",
-            "autoload": {
-                "psr-4": {
-                    "ADW\\GeoIpBundle\\": ""
-                },
-                "files": [
-                    "Bases/Geobase/geobaza.php"
-                ]
-            },
-            "license": [
-                "proprietary"
-            ],
-            "description": "Bundle for define location by user ip",
-            "homepage": "https://bitbucket.org/prodhub/adw-geoip-bundle",
-            "support": {
-                "source": "https://bitbucket.org/prodhub/adw-geoip-bundle/src/210defed38ad292016a64209b7bf5938100e4cfc/?at=1.1.2",
-                "issues": "https://bitbucket.org/prodhub/adw-geoip-bundle/issues"
-            },
-            "time": "2018-12-25T11:04:24+00:00"
-        },
         {
             "name": "adw/js-context-bundle",
             "version": "v0.4.4",
@@ -3807,6 +3765,41 @@
             ],
             "description": "A polyfill for getallheaders.",
             "time": "2019-03-08T08:55:37+00:00"
+        },
+        {
+            "name": "seekji/geoip",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/seekji/user-location.git",
+                "reference": "b96776bac519f5e945a4ce00c50db6ed0462f0a5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/seekji/user-location/zipball/b96776bac519f5e945a4ce00c50db6ed0462f0a5",
+                "reference": "b96776bac519f5e945a4ce00c50db6ed0462f0a5",
+                "shasum": ""
+            },
+            "require": {
+                "geoip2/geoip2": "^2.9",
+                "symfony/console": "~2.7|~3.0|~4.0",
+                "symfony/framework-bundle": "~2.7|~3.0|~4.0"
+            },
+            "require-dev": {
+                "symfony/phpunit-bridge": "~2.7|~3.0|~4.0"
+            },
+            "type": "symfony-bundle",
+            "autoload": {
+                "psr-4": {
+                    "seekji\\GeoIpBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "proprietary"
+            ],
+            "description": "Detecting user location by his ip address.",
+            "time": "2019-07-04T18:06:35+00:00"
         },
         {
             "name": "sensio/framework-extra-bundle",
