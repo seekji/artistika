@@ -1,11 +1,11 @@
 services:
-  app.admin.handbook.city_admin:
+  app.admin.handbook.city:
     class: App\Admin\Handbook\CityAdmin
     arguments: [~, App\Entity\Handbook\City, SonataAdminBundle:CRUD]
     tags:
       - { name: sonata.admin, manager_type: orm, audit: false, group: Справочники, label: Города }
 
-  app.admin.handbook.hall_admin:
+  app.admin.handbook.hall:
     class: App\Admin\Handbook\HallAdmin
     arguments: [~, App\Entity\Handbook\Hall, SonataAdminBundle:CRUD]
     tags:

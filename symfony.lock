@@ -1,7 +1,4 @@
 {
-    "adw/geoip-bundle": {
-        "version": "1.1.2"
-    },
     "adw/js-context-bundle": {
         "version": "dev-master"
     },
@@ -253,6 +250,9 @@
     },
     "ralouphie/getallheaders": {
         "version": "2.0.5"
+    },
+    "seekji/geoip": {
+        "version": "1.0.0"
     },
     "sensio/framework-extra-bundle": {
         "version": "4.0",

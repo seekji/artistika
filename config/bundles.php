@@ -36,8 +36,8 @@ return [
     ADW\SonataMediaExtraBundle\ADWSonataMediaExtraBundle::class => ['all' => true],
     Symfony\Bundle\WebServerBundle\WebServerBundle::class => ['dev' => true],
     Symfony\Bundle\MakerBundle\MakerBundle::class => ['dev' => true],
-    ADW\GeoIpBundle\ADWGeoIpBundle::class => ['all' => true],
     Knp\DoctrineBehaviors\Bundle\DoctrineBehaviorsBundle::class => ['all' => true],
     Sonata\ClassificationBundle\SonataClassificationBundle::class => ['all' => true],
     App\Application\Sonata\ClassificationBundle\ApplicationSonataClassificationBundle::class => ['all' => true],
+    seekji\GeoIpBundle\GeoIpBundle::class => ['all' => true],
 ];
