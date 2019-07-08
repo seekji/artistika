@@ -42,6 +42,7 @@
 
             /**
              * trying to get user location by his ip address.
+             * todo: set user cookie.
              */
 //            if(!$this->requestStack->getMasterRequest()->cookies->has(LocationService::COOKIE_VALUE_NAME)) {
 //                $this->locationService->getUserLocation();
