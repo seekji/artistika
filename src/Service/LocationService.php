@@ -83,7 +83,7 @@
         {
             try {
                 $location = new Location();
-                $result = $this->maxmindProvider->findLocationInBinary('109.205.253.39');
+                $result = $this->maxmindProvider->findLocationInBinary(Request::createFromGlobals()->getClientIp());
 
                 if (isset($result->city->names['ru'])) {
                     $location->setCity($result->city->names['ru']);

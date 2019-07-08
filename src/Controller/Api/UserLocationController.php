@@ -11,7 +11,7 @@
     use Symfony\Component\Routing\Annotation\Route;
 
     /**
-     * Movie controller.
+     * UserLocation controller.
      * @Route("/api/user-location", name="api.user-location")
      */
     class UserLocationController extends AbstractFOSRestController

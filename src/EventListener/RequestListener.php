@@ -2,7 +2,10 @@
 
     namespace App\EventListener;
 
+    use App\Entity\Handbook\City;
+    use App\Model\Location;
     use App\Service\LocationService;
+    use Doctrine\ORM\EntityManagerInterface;
     use Symfony\Component\HttpFoundation\Session\SessionInterface;
     use Symfony\Component\HttpKernel\Event\RequestEvent;
 
@@ -23,15 +26,22 @@
         private $session;
 
         /**
+         * @var EntityManagerInterface $entityManager
+         */
+        private $entityManager;
+
+        /**
          * RequestListener constructor.
          *
          * @param LocationService $locationService
          * @param SessionInterface $session
+         * @param EntityManagerInterface $entityManager
          */
-        public function __construct(LocationService $locationService, SessionInterface $session)
+        public function __construct(LocationService $locationService, SessionInterface $session, EntityManagerInterface $entityManager)
         {
             $this->locationService = $locationService;
-            $this->session = $session;
+            $this->session         = $session;
+            $this->entityManager   = $entityManager;
         }
 
         public function onKernelRequest(RequestEvent $event)
@@ -43,8 +53,16 @@
             /**
              * trying to get user location by his ip address.
              */
-            if(!$this->session->has(LocationService::SESSION_LOCATION)) {
-                $this->locationService->getUserLocation();
-            }
+//            if(!$this->session->has(LocationService::SESSION_LOCATION)) {
+//                $location = $this->locationService->getUserLocation();
+//
+//                if ($location === null) {
+//
+//                    $defaultCity = $this->entityManager->getRepository(City::class)->findOneBy([ 'isDefault' => true ]);
+//
+//                    $location->setCity($defaultCity->getName());
+//                    $this->locationService->setUserLocation($location);
+//                }
+//            }
         }
     }
