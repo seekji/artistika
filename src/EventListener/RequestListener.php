@@ -2,11 +2,8 @@
 
     namespace App\EventListener;
 
-    use App\Entity\Handbook\City;
-    use App\Model\Location;
     use App\Service\LocationService;
-    use Doctrine\ORM\EntityManagerInterface;
-    use Symfony\Component\HttpFoundation\Session\SessionInterface;
+    use Symfony\Component\HttpFoundation\RequestStack;
     use Symfony\Component\HttpKernel\Event\RequestEvent;
 
     /**
@@ -21,27 +18,20 @@
         private $locationService;
 
         /**
-         * @var SessionInterface $session
+         * @var RequestStack $requestStack
          */
-        private $session;
-
-        /**
-         * @var EntityManagerInterface $entityManager
-         */
-        private $entityManager;
+        private $requestStack;
 
         /**
          * RequestListener constructor.
          *
          * @param LocationService $locationService
-         * @param SessionInterface $session
-         * @param EntityManagerInterface $entityManager
+         * @param RequestStack $requestStack
          */
-        public function __construct(LocationService $locationService, SessionInterface $session, EntityManagerInterface $entityManager)
+        public function __construct(LocationService $locationService, RequestStack $requestStack)
         {
             $this->locationService = $locationService;
-            $this->session         = $session;
-            $this->entityManager   = $entityManager;
+            $this->requestStack = $requestStack;
         }
 
         public function onKernelRequest(RequestEvent $event)
@@ -52,17 +42,10 @@
 
             /**
              * trying to get user location by his ip address.
+             * todo: set user cookie.
              */
-//            if(!$this->session->has(LocationService::SESSION_LOCATION)) {
-//                $location = $this->locationService->getUserLocation();
-//
-//                if ($location === null) {
-//
-//                    $defaultCity = $this->entityManager->getRepository(City::class)->findOneBy([ 'isDefault' => true ]);
-//
-//                    $location->setCity($defaultCity->getName());
-//                    $this->locationService->setUserLocation($location);
-//                }
+//            if(!$this->requestStack->getMasterRequest()->cookies->has(LocationService::COOKIE_VALUE_NAME)) {
+//                $this->locationService->getUserLocation();
 //            }
         }
     }

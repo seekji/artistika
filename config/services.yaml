@@ -37,10 +37,10 @@ services:
     app.service.location_service:
         class: App\Service\LocationService
         arguments:
-            - '@session'
+            - '@request_stack'
             - '@geoip.provider.maxmind'
             - '@doctrine.orm.entity_manager'
 
-    App\EventListener\RequestListener:
-        tags:
-            - { name: kernel.event_listener, event: kernel.request }
+#    App\EventListener\RequestListener:
+#        tags:
+#            - { name: kernel.event_listener, event: kernel.request }

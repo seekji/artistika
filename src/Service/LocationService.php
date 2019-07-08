@@ -2,12 +2,12 @@
 
     namespace App\Service;
 
-    use Symfony\Component\HttpFoundation\Request;
-    use Symfony\Component\HttpFoundation\Session\SessionInterface;
+    use Symfony\Component\HttpFoundation\Cookie;
     use Doctrine\ORM\EntityManagerInterface;
     use seekji\GeoIpBundle\LocationProvider\MaxmindLocationProvider;
     use App\Entity\Handbook\City;
     use App\Model\Location;
+    use Symfony\Component\HttpFoundation\RequestStack;
 
     /**
      * Class LocationService
@@ -18,12 +18,7 @@
         /**
          * Session variable name for location
          */
-        const SESSION_LOCATION = 'site.user_location';
-
-        /**
-         * @var SessionInterface $session
-         */
-        private $session;
+        const COOKIE_VALUE_NAME = 'site.user_location';
 
         /**
          * @var Location $userLocation
@@ -41,17 +36,22 @@
         private $entityManager;
 
         /**
+         * @var RequestStack $requestStack
+         */
+        private $requestStack;
+
+        /**
          * LocationService constructor.
          *
-         * @param SessionInterface        $session
+         * @param RequestStack $requestStack
          * @param MaxmindLocationProvider $provider
          * @param EntityManagerInterface  $entityManager
          */
-        public function __construct(SessionInterface $session, MaxmindLocationProvider $provider, EntityManagerInterface $entityManager)
+        public function __construct(RequestStack $requestStack, MaxmindLocationProvider $provider, EntityManagerInterface $entityManager)
         {
-            $this->session         = $session;
             $this->maxmindProvider = $provider;
             $this->entityManager   = $entityManager;
+            $this->requestStack    = $requestStack;
         }
 
         /**
@@ -60,8 +60,8 @@
         public function getUserLocation(): ?Location
         {
             if (empty($this->userLocation)) {
-                if ($this->session->has(self::SESSION_LOCATION)) {
-                    $this->userLocation = unserialize($this->session->get(self::SESSION_LOCATION));
+                if ($this->requestStack->getMasterRequest()->cookies->has(self::COOKIE_VALUE_NAME)) {
+                    $this->userLocation = unserialize($this->requestStack->getMasterRequest()->cookies->get(self::COOKIE_VALUE_NAME));
 
                     return $this->userLocation;
                 }
@@ -83,7 +83,7 @@
         {
             try {
                 $location = new Location();
-                $result = $this->maxmindProvider->findLocationInBinary(Request::createFromGlobals()->getClientIp());
+                $result = $this->maxmindProvider->findLocationInBinary($this->requestStack->getMasterRequest()->getClientIp());
 
                 if (isset($result->city->names['ru'])) {
                     $location->setCity($result->city->names['ru']);
@@ -103,16 +103,20 @@
         /**
          * @param Location $location
          *
-         * @return void
+         * @return self
          */
-        public function setUserLocation(Location $location): void
+        public function setUserLocation(Location $location): self
         {
             if (empty($location) || !$location instanceof Location) {
                 throw new \LogicException('Location cannot be empty.');
             }
 
-            $this->session->set(self::SESSION_LOCATION, serialize($location));
+            $cookie = new Cookie(self::COOKIE_VALUE_NAME, serialize($location), strtotime('1 year'));
+
+//            $this->requestStack->getMasterRequest()->cookies->set(, , );
             $this->userLocation = $location;
+
+            return $this;
         }
 
         /**
@@ -133,4 +137,11 @@
             return false;
         }
 
+        /**
+         * @return City
+         */
+        public function getCityByUserCookie(): City
+        {
+            return $this->entityManager->getRepository(City::class)->getCityByCookieOrDefault($this->getUserLocation()->getCity());
+        }
     }
