@@ -3,7 +3,7 @@
     namespace App\EventListener;
 
     use App\Service\LocationService;
-    use Symfony\Component\HttpFoundation\Session\SessionInterface;
+    use Symfony\Component\HttpFoundation\RequestStack;
     use Symfony\Component\HttpKernel\Event\RequestEvent;
 
     /**
@@ -18,20 +18,20 @@
         private $locationService;
 
         /**
-         * @var SessionInterface $session
+         * @var RequestStack $requestStack
          */
-        private $session;
+        private $requestStack;
 
         /**
          * RequestListener constructor.
          *
          * @param LocationService $locationService
-         * @param SessionInterface $session
+         * @param RequestStack $requestStack
          */
-        public function __construct(LocationService $locationService, SessionInterface $session)
+        public function __construct(LocationService $locationService, RequestStack $requestStack)
         {
             $this->locationService = $locationService;
-            $this->session = $session;
+            $this->requestStack = $requestStack;
         }
 
         public function onKernelRequest(RequestEvent $event)
@@ -42,9 +42,10 @@
 
             /**
              * trying to get user location by his ip address.
+             * todo: set user cookie.
              */
-            if(!$this->session->has(LocationService::SESSION_LOCATION)) {
-                $this->locationService->getUserLocation();
-            }
+//            if(!$this->requestStack->getMasterRequest()->cookies->has(LocationService::COOKIE_VALUE_NAME)) {
+//                $this->locationService->getUserLocation();
+//            }
         }
     }
