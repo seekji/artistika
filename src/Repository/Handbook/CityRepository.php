@@ -19,20 +19,21 @@ class CityRepository extends ServiceEntityRepository
         parent::__construct($registry, City::class);
     }
 
-//    /**
-//     * @param string $city
-//     *
-//     * @return City|null
-//     */
-//    public function isCityInList(string $city): ?City
-//    {
-//        return $this->createQueryBuilder('c')
-//            ->where('c.name = :city')
-//            ->setParameter('city', $city)
-//            ->setMaxResults(1)
-//            ->getQuery()
-//            ->getOneOrNullResult();
-//    }
+    /**
+     * @param string $city
+     *
+     * @return City
+     */
+    public function getCityByCookieOrDefault(string $city): City
+    {
+        return $this->createQueryBuilder('c')
+            ->where('c.name = :city')
+            ->orWhere('c.isDefault is true')
+            ->setParameter('city', $city)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getOneOrNullResult();
+    }
 
     // /**
     //  * @return City[] Returns an array of City objects
