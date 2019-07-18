@@ -2,6 +2,18 @@ adw_seo:
     resource: "@ADWSEOBundle/Admin/Controller/"
     type:     annotation
 
+admin_sonata_media_media_browser:
+    path: /admin/sonata/media/media/browser
+    controller: CoopTilleuls\Bundle\CKEditorSonataMediaBundle\Controller\MediaAdminController::browserAction
+    defaults:
+        _sonata_admin: sonata.media.admin.media
+
+admin_sonata_media_media_upload:
+    path: /admin/sonata/media/media/upload
+    controller: CoopTilleuls\Bundle\CKEditorSonataMediaBundle\Controller\MediaAdminController::uploadAction
+    defaults:
+        _sonata_admin: sonata.media.admin.media
+
 gallery:
     resource: '@SonataMediaBundle/Resources/config/routing/gallery.xml'
     prefix: /media/gallery
