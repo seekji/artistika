@@ -1,77 +1,338 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div id="wrapper">
-        <div id="container">
-            <div id="welcome">
-                <h1><span>Welcome to</span> Symfony {{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION') }}</h1>
+    <section class="promo-slider js-promo-slider">
+        <div class="promo-slider__container swiper-container">
+            <div class="promo-slider__wrapper swiper-wrapper">
+
+                <div class="promo-slider__slide slice-slide swiper-slide">
+                    <div class="slice-slide__container">
+                        <span class="slice-slide__picture" style="background-image: url({{ asset('assets/img/upload/slide1.png') }})"></span>
+
+                        <div class="slice-slide__info">
+                            <a href="#" data-cursor-pointer class="slice-slide__title">
+                                Вера Полозкова
+                            </a>
+
+                            <div class="slice-slide__footer">
+                                <div class="slice-slide__event-info">
+                                    <time class="slice-slide__event-time">21 июля</time> / <span class="slice-slide__event-place">Томская областная государственная филармония</span>
+                                </div>
+
+                                <a href="#" data-cursor-pointer class="slice-slide__event-bill">Билеты</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="promo-slider__slide slice-slide swiper-slide">
+                    <div class="slice-slide__container">
+                        <span class="slice-slide__picture" style="background-image: url({{ asset('assets/img/upload/slide2.jpg') }})"></span>
+
+                        <div class="slice-slide__info">
+                            <a href="#" data-cursor-pointer class="slice-slide__title">
+                                Дженнифер Лопез
+                            </a>
+
+                            <div class="slice-slide__footer">
+                                <div class="slice-slide__event-info">
+                                    <time class="slice-slide__event-time">21 СЕНТЯБРЯ</time> / <span class="slice-slide__event-place">Дворец Культуры Железнодорожников</span>
+                                </div>
+
+                                <a href="#" data-cursor-pointer class="slice-slide__event-bill">Билеты</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
-            <div id="status">
-                <p>
-                    <svg id="icon-status" width="1792" height="1792" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1671 566q0 40-28 68l-724 724-136 136q-28 28-68 28t-68-28l-136-136-362-362q-28-28-28-68t28-68l136-136q28-28 68-28t68 28l294 295 656-657q28-28 68-28t68 28l136 136q28 28 28 68z" fill="#759E1A"/></svg>
+            <div class="promo-slider__arrow arrow-prev"></div>
+            <div class="promo-slider__arrow arrow-next"></div>
 
-                    Your application is now ready. You can start working on it at:
-                    <code>{{ base_dir }}</code>
-
-                </p>
+            <div class="custom-cursor">
+                <svg class="icon custom-cursor__arrow" width="40" height="40">
+                    <use xlink:href="#arrow-cursor" />
+                </svg>
             </div>
-
-            <div id="next">
-                <h2>What's next?</h2>
-                <p>
-                    <svg id="icon-book" version="1.1" xmlns="http://www.w3.org/2000/svg" x="0px" y="0px" viewBox="-12.5 9 64 64" enable-background="new -12.5 9 64 64" xml:space="preserve">
-                        <path fill="#AAA" d="M6.8,40.8c2.4,0.8,4.5-0.7,4.9-2.5c0.2-1.2-0.3-2.1-1.3-3.2l-0.8-0.8c-0.4-0.5-0.6-1.3-0.2-1.9
-                            c0.4-0.5,0.9-0.8,1.8-0.5c1.3,0.4,1.9,1.3,2.9,2.2c-0.4,1.4-0.7,2.9-0.9,4.2l-0.2,1c-0.7,4-1.3,6.2-2.7,7.5
-                            c-0.3,0.3-0.7,0.5-1.3,0.6c-0.3,0-0.4-0.3-0.4-0.3c0-0.3,0.2-0.3,0.3-0.4c0.2-0.1,0.5-0.3,0.4-0.8c0-0.7-0.6-1.3-1.3-1.3
-                            c-0.6,0-1.4,0.6-1.4,1.7s1,1.9,2.4,1.8c0.8,0,2.5-0.3,4.2-2.5c2-2.5,2.5-5.4,2.9-7.4l0.5-2.8c0.3,0,0.5,0.1,0.8,0.1
-                            c2.4,0.1,3.7-1.3,3.7-2.3c0-0.6-0.3-1.2-0.9-1.2c-0.4,0-0.8,0.3-1,0.8c-0.1,0.6,0.8,1.1,0.1,1.5c-0.5,0.3-1.4,0.6-2.7,0.4l0.3-1.3
-                            c0.5-2.6,1-5.7,3.2-5.8c0.2,0,0.8,0,0.8,0.4c0,0.2,0,0.2-0.2,0.5c-0.2,0.3-0.3,0.4-0.2,0.7c0,0.7,0.5,1.1,1.2,1.1
-                            c0.9,0,1.2-1,1.2-1.4c0-1.2-1.2-1.8-2.6-1.8c-1.5,0.1-2.8,0.9-3.7,2.1c-1.1,1.3-1.8,2.9-2.3,4.5c-0.9-0.8-1.6-1.8-3.1-2.3
-                            c-1.1-0.7-2.3-0.5-3.4,0.3c-0.5,0.4-0.8,1-1,1.6c-0.4,1.5,0.4,2.9,0.8,3.4l0.9,1c0.2,0.2,0.6,0.8,0.4,1.5c-0.3,0.8-1.2,1.3-2.1,1
-                            c-0.4-0.2-1-0.5-0.9-0.9c0.1-0.2,0.2-0.3,0.3-0.5s0.1-0.3,0.1-0.3c0.2-0.6-0.1-1.4-0.7-1.6c-0.6-0.2-1.2,0-1.3,0.8
-                            C4.3,38.4,4.7,40,6.8,40.8z M46.1,20.9c0-4.2-3.2-7.5-7.1-7.5h-3.8C34.8,10.8,32.7,9,30.2,9L-2.3,9.1c-2.8,0.1-4.9,2.4-4.9,5.4
-                            L-7,58.6c0,4.8,8.1,13.9,11.6,14.1l34.7-0.1c3.9,0,7-3.4,7-7.6L46.1,20.9z M-0.3,36.4c0-8.6,6.5-15.6,14.5-15.6
-                            c8,0,14.5,7,14.5,15.6S22.1,52,14.2,52C6.1,52-0.3,45-0.3,36.4z M42.1,65.1c0,1.8-1.5,3.1-3.1,3.1H4.6c-0.7,0-3-1.8-4.5-4.4h30.4
-                            c2.8,0,5-2.4,5-5.4V17.9h3.7c1.6,0,2.9,1.4,2.9,3.1V65.1L42.1,65.1z"/>
-                    </svg>
-
-                    Read the documentation to learn
-                    <a href="http://symfony.com/doc/{{ constant('Symfony\\Component\\HttpKernel\\Kernel::VERSION')[:3] }}/page_creation.html">
-                        How to create your first page in Symfony
-                    </a>
-                </p>
-            </div>
-
         </div>
-    </div>
-{% endblock %}
+    </section>
 
-{% block stylesheets %}
-    <style>
-        body { background: #F5F5F5; font: 18px/1.5 sans-serif; }
-        h1, h2 { line-height: 1.2; margin: 0 0 .5em; }
-        h1 { font-size: 36px; }
-        h2 { font-size: 21px; margin-bottom: 1em; }
-        p { margin: 0 0 1em 0; }
-        a { color: #0000F0; }
-        a:hover { text-decoration: none; }
-        code { background: #F5F5F5; max-width: 100px; padding: 2px 6px; word-wrap: break-word; }
-        #wrapper { background: #FFF; margin: 1em auto; max-width: 800px; width: 95%; }
-        #container { padding: 2em; }
-        #welcome, #status { margin-bottom: 2em; }
-        #welcome h1 span { display: block; font-size: 75%; }
-        #icon-status, #icon-book { float: left; height: 64px; margin-right: 1em; margin-top: -4px; width: 64px; }
-        #icon-book { display: none; }
+    <section class="events">
+        <div class="events__filter filter-sort">
+            <div class="filter-sort__container">
+                <div class="filter-sort__heading">
+                    Мероприятия в новосибирске:
+                </div>
 
-        @media (min-width: 768px) {
-            #wrapper { width: 80%; margin: 2em auto; }
-            #icon-book { display: inline-block; }
-            #status a, #next a { display: block; }
+                <div class="filter-sort__navigation">
+                    <div class="filter-sort__navigation-inner">
+                        <a href="#filter=*" data-filter="*" class="filter-sort__navigation-link is-active">Все</a>
+                        <a href="#filter=.f_23" data-filter=".f_23" class="filter-sort__navigation-link">Концерты</a>
+                        <a href="#filter=.f_24" data-filter=".f_24" class="filter-sort__navigation-link">Театр</a>
+                        <a href="#filter=.f_25" data-filter=".f_25" class="filter-sort__navigation-link">Шоу</a>
+                        <a href="#filter=.f_26" data-filter=".f_26" class="filter-sort__navigation-link">Детям</a>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-            @-webkit-keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-            @keyframes fade-in { 0% { opacity: 0; } 100% { opacity: 1; } }
-            .sf-toolbar { opacity: 0; -webkit-animation: fade-in 1s .2s forwards; animation: fade-in 1s .2s forwards;}
-        }
-    </style>
+        <div class="events__grid events-grid js-group-filter">
+
+            <div class="events-grid__item event event_size_xs  f_23 f_25 f_24">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-1.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">Максим Аверин и Анна Якунина</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs  f_23 f_24">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-2.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">МАША И МЕДВЕДЬ</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs  f_23 f_25 f_24">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-3.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">ВИА СИНЯЯ ПТИЦА</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs  f_23 f_24">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-4.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">ЭМИН</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_md is-canceled f_23 f_25">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-5.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">ВАДИМ САМОЙЛОВ АГАТА КРИСТИ ХХХ</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs  f_23 f_26">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-6.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">ВЕРА ПОЛОСКОВА</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs is-canceled f_23 f_25 f_26">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-7.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">ЯРОСЛАВ СУМИШЕВСКИЙ</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs  f_23 f_26">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-8.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">АРИЯ</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs  f_23 f_26">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-9.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">ЛЕОНИД АГУТИН АНЖЕЛИКА ВАРУМ</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="events-grid__item event event_size_xs  f_23 f_24">
+                <span class="event__status">Отмена</span>
+
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-10.png);"></span>
+
+                <div class="event__content">
+                    <a href="#" class="event__bill">Билеты</a>
+
+                    <a href="#" class="event__main">
+                        <span class="event__title">Сергей Волчков</span>
+                        <span class="event__info">
+                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
+                        </span>
+                    </a>
+                </div>
+            </div>
+
+            <a href="#" class="events-grid__item event event_instagramm event_size_xs">
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-11.png);"></span>
+
+                <div class="event__content">
+                    <div class="event__main">
+                        <div class="event__logo">
+                            <img src="assets/img/instagram-logo.svg" alt=""/>
+                        </div>
+                        <div class="event__title">artistikashow</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="promo-numbers" style="background-image: url(assets/img/upload/cover-12.jpg)">
+        <div class="promo-numbers__container">
+            <div class="promo-numbers__heading">ARTISTIKA—ЭТО</div>
+
+            <div class="promo-numbers__numbers">
+                <div class="promo-numbers__numbers-item promo-number">
+                    <div class="promo-number__count">14</div>
+                    <div class="promo-number__info">ЛЕТ РАБОТЫ <br/>с 2005 года</div>
+                </div>
+
+                <div class="promo-numbers__numbers-item promo-number">
+                    <div class="promo-number__count">30</div>
+                    <div class="promo-number__info">ГОРОдов РОССИИ <br/>120 площадок</div>
+                </div>
+
+                <div class="promo-numbers__numbers-item promo-number promo-number_size_l">
+                    <div class="promo-number__count">180</div>
+                    <div class="promo-number__info">мероприятий в год <br/>концерты/туры/фестивали</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="feedback">
+        <div class="feedback__container">
+            <form action="" class="feedback__form">
+                <div class="feedback__form-field form-field">
+                    <input type="text" placeholder="Укажите эл. почту" name="FORM_EMAIL_FEEDBACK" class="custom-input">
+                </div>
+
+                <div class="feedback__form-field-actions">
+                    <div class="feedback__form-field-battons">
+                        <button class="button button_size_m button_theme_default button_with_icon">
+                            <svg class="icon icon-plain" width="32" height="31">
+                                <use xlink:href="#icon-plain" />
+                            </svg>
+                            Отправьте
+                        </button>
+
+                        <span class="form-hint">
+                        Нажимая эту кнопку вы соглашаетесь с правилами обработки персональных данных
+                    </span>
+                    </div>
+
+                    <div class="feedback__welcome">
+                        Будьте в курсе самых важных событий Новосибирска
+                    </div>
+                </div>
+            </form>
+
+            <div class="feedback__social social">
+                <a href="#" class="social__link" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.85 51.85">
+                        <path fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3.5" d="M25.92 1.75A24.18 24.18 0 1 0 50.1 25.92 24.17 24.17 0 0 0 25.92 1.75z"/>
+                        <path fill="#fff" d="M32.59 16.23h-3.52a1.32 1.32 0 0 0-1.38 1.51V21h4.88L32 26.56h-4.31v15.8h-6.54v-15.8H18V21h3.11v-3.59c0-2.57 1.22-6.6 6.6-6.6h4.84z"/>
+                    </svg>
+                    <span class="social__link-text">Facebook</span>
+                </a>
+
+                <a href="#" class="social__link" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.55 51.55">
+                        <path fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3.5" d="M25.78 1.75a24 24 0 1 0 24 24 24 24 0 0 0-24-24z"/>
+                        <path fill="#fff" d="M37.79 28.53c1.12 1.1 2.3 2.13 3.31 3.33a10 10 0 0 1 1.18 1.71c.46.89 0 1.86-.75 1.91h-4.92a3.84 3.84 0 0 1-3.14-1.28c-.68-.69-1.31-1.43-2-2.15a4.8 4.8 0 0 0-.89-.79 1 1 0 0 0-1.64.4 5.26 5.26 0 0 0-.52 2.3c-.05 1.16-.4 1.46-1.57 1.52a12.63 12.63 0 0 1-7-1.52 15.55 15.55 0 0 1-4.74-4.43A59.86 59.86 0 0 1 8.87 18.4c-.39-.87-.1-1.34.86-1.36h4.82a1.41 1.41 0 0 1 1.34 1 29.45 29.45 0 0 0 3.27 6.05 4.85 4.85 0 0 0 1.23 1.36.75.75 0 0 0 1.27-.37A4 4 0 0 0 22 23.8a18.84 18.84 0 0 0-.08-4.44 1.85 1.85 0 0 0-1.58-1.7c-.47-.09-.4-.27-.17-.53a1.74 1.74 0 0 1 1.51-.75h5.56c.88.18 1.07.57 1.19 1.45V24c0 .34.17 1.36.78 1.58s.82-.23 1.11-.54a19.41 19.41 0 0 0 3.14-4.82c.37-.76.7-1.55 1-2.34a1.2 1.2 0 0 1 1.23-.88H41a3.87 3.87 0 0 1 .48 0c.9.16 1.15.55.87 1.43a13.6 13.6 0 0 1-2.13 3.69c-.89 1.23-1.85 2.43-2.73 3.67s-.71 1.76.3 2.74z"/>
+                    </svg>
+                    <span class="social__link-text">Vkontakte</span>
+                </a>
+
+                <a href="#" class="social__link" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.5 48.48">
+                        <path fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3.5" d="M44 43.94a7.17 7.17 0 0 0 1.86-4 121.13 121.13 0 0 0 .94-15.67 121.2 121.2 0 0 0-.94-15.66 7.33 7.33 0 0 0-1.86-4 7.37 7.37 0 0 0-4-1.86 123.18 123.18 0 0 0-15.67-.94 122.89 122.89 0 0 0-15.66.94 7.29 7.29 0 0 0-4 1.86 7.3 7.3 0 0 0-1.86 4 121.08 121.08 0 0 0-.94 15.66 121.08 121.08 0 0 0 .82 15.63 7.3 7.3 0 0 0 1.86 4 7.3 7.3 0 0 0 4 1.86 121.25 121.25 0 0 0 15.67.94 121.2 121.2 0 0 0 15.66-.94A7.35 7.35 0 0 0 44 43.94z" class="cls-1"/>
+                        <path fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3.5" d="M35.43 24.24a11.18 11.18 0 1 1-11.18-11.18 11.18 11.18 0 0 1 11.18 11.18z"/>
+                        <path fill="#fff" d="M40.44 10.74a2.69 2.69 0 1 1-2.69-2.69 2.7 2.7 0 0 1 2.69 2.69z"/>
+                    </svg>
+                    <span class="social__link-text">Instagram</span>
+                </a>
+
+                <span class="social__title"> &mdash; Давайте дружить</span>
+            </div>
+        </div>
+    </section>
 {% endblock %}

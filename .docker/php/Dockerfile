@@ -1,7 +1,6 @@
-FROM php:7.2-fpm-alpine
+FROM php:7.2.19-fpm-alpine
 
-LABEL maintainer="denis.basov@isobar.ru"
-LABEL maintainer="aleksey.kolyadin@isobar.ru"
+LABEL maintainer="denibasov@yandex.ru"
 
 RUN apk update                          && \
     apk upgrade                         && \
