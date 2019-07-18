@@ -1,1 +1,6 @@
 services:
+  app.admin.subscribe:
+    class: App\Admin\SubscribeAdmin
+    arguments: [~, App\Entity\Subscribe, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Сайт, label: Подписки }

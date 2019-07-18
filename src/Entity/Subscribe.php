@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use App\Entity\Handbook\City;
 
@@ -22,6 +23,9 @@ class Subscribe
 
     /**
      * @ORM\Column(type="string", length=255)
+     *
+     * @Assert\Email(groups={"user_creation"}, message="email.email")
+     * @Assert\NotBlank(groups={"user_creation"}, message="email.not_blank")
      */
     private $email;
 
