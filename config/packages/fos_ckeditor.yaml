@@ -1,0 +1,16 @@
+
+fos_ck_editor:
+    default_config: default
+    configs:
+        default:
+            filebrowserUploadMethod: form
+            filebrowserBrowseRoute: admin_sonata_media_media_browser
+            filebrowserImageBrowseRoute: admin_sonata_media_media_browser
+            filebrowserImageBrowseRouteParameters:
+                provider: sonata.media.provider.image
+            filebrowserUploadRoute: admin_sonata_media_media_upload
+            filebrowserUploadRouteParameters:
+                provider: sonata.media.provider.file
+            filebrowserImageUploadRoute: admin_sonata_media_media_upload
+            filebrowserImageUploadRouteParameters:
+                provider: sonata.media.provider.image
