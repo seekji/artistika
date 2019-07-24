@@ -2,18 +2,21 @@
 
 namespace App\Entity\Handbook;
 
+use App\Entity\Event;
+use Knp\DoctrineBehaviors\Model\Sluggable\Sluggable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use App\Entity\Subscribe;
+use Cocur\Slugify\Slugify;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\Handbook\CityRepository")
  */
 class City
 {
-    use Timestampable;
+    use Timestampable, Sluggable;
 
     /**
      * @ORM\Id()
@@ -47,9 +50,15 @@ class City
      */
     private $subscribes;
 
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="city")
+     */
+    private $events;
+
     public function __construct()
     {
         $this->subscribes = new ArrayCollection();
+        $this->events = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -139,5 +148,94 @@ class City
     public function __toString()
     {
         return $this->getName();
+    }
+
+    /**
+     * @return Collection|Event[]
+     */
+    public function getEvents(): Collection
+    {
+        return $this->events;
+    }
+
+    public function addEvent(Event $event): self
+    {
+        if (!$this->events->contains($event)) {
+            $this->events[] = $event;
+            $event->setCity($this);
+        }
+
+        return $this;
+    }
+
+    public function removeEvent(Event $event): self
+    {
+        if ($this->events->contains($event)) {
+            $this->events->removeElement($event);
+            // set the owning side to null (unless already changed)
+            if ($event->getCity() === $this) {
+                $event->setCity(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     *
+     * @return $this
+     */
+    public function setSlug($slug): self
+    {
+        $this->slug = self::slugify($slug);
+
+        return $this;
+    }
+
+    /**
+     * @return null|string
+     */
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    /**
+     * @static
+     *
+     * @param string $text
+     *
+     * @return string
+     */
+    public static function slugify($text): string
+    {
+        $text = Slugify::create()->slugify($text);
+
+        if (empty($text)) {
+            return 'n-a';
+        }
+
+        return $text;
+    }
+
+    /**
+     * Returns an array of the fields used to generate the slug.
+     *
+     * @return array
+     */
+    public function getSluggableFields()
+    {
+        return ['name'];
+    }
+
+    /**
+     * Disable slug regeneration in update.
+     *
+     * @return bool
+     */
+    public function getRegenerateSlugOnUpdate()
+    {
+        return false;
     }
 }

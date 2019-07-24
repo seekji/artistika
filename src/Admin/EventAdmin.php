@@ -1,18 +1,20 @@
 <?php
 
-    namespace App\Admin\Handbook;
+    namespace App\Admin;
 
     use Sonata\AdminBundle\Admin\AbstractAdmin;
     use Sonata\AdminBundle\Datagrid\DatagridMapper;
     use Sonata\AdminBundle\Datagrid\ListMapper;
     use Sonata\AdminBundle\Form\FormMapper;
+    use Sonata\AdminBundle\Form\Type\ModelListType;
+    use Sonata\AdminBundle\Form\Type\ModelType;
     use Sonata\AdminBundle\Show\ShowMapper;
 
     /**
-     * Class CityAdmin
-     * @package App\Admin\Handbook
+     * Class HallAdmin
+     * @package App\Admin
      */
-    class CityAdmin extends AbstractAdmin
+    class EventAdmin extends AbstractAdmin
     {
 
         /**
@@ -22,7 +24,7 @@
         {
             $filter
                 ->add('id')
-                ->add('name')
+                ->add('title')
             ;
         }
 
@@ -35,8 +37,8 @@
 
             $list
                 ->add('id')
-                ->add('name')
-                ->add('isDefault')
+                ->add('title')
+                ->add('city')
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', null, [
@@ -53,17 +55,13 @@
          */
         protected function configureFormFields(FormMapper $form)
         {
-            $form->with('Свойства города')
-                ->add('name')
-                ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.'])
-                ->add('shortName')
-                ->add('description');
-
-            if ($this->isCurrentRoute('edit', 'app.admin.handbook.city')) {
-                $form->add('slug');
-            }
-
-            $form->end();
+            $form
+                ->with('Свойства мероприятия')
+                    ->add('title')
+                    ->add('city',  ModelListType::class)
+                    ->add('hall', ModelListType::class)
+                    ->add('artists',  ModelType::class, ['multiple' => true])
+                ->end();
         }
 
         /**
@@ -73,10 +71,9 @@
         {
             $showMapper
                 ->add('id')
-                ->add('name')
-                ->add('shortName')
-                ->add('description')
-                ->add('isDefault')
+                ->add('title')
+                ->add('city')
+                ->add('hall')
                 ->add('createdAt')
                 ->add('updatedAt')
             ;

@@ -1,4 +1,22 @@
 services:
+  app.admin.event:
+    class: App\Admin\EventAdmin
+    arguments: [~, App\Entity\Event, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Мероприятия, label: Список мероприятий }
+
+  app.admin.classification.tag:
+    class: App\Admin\Classification\TagAdmin
+    arguments: [~, App\Entity\Classification\Tag, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Мероприятия, label: Теги мероприятий }
+
+  app.admin.event_slider:
+    class: App\Admin\EventSliderAdmin
+    arguments: [~, App\Entity\EventSlider, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Мероприятия, label: Слайдер "Мероприятия" }
+
   app.admin.subscribe:
     class: App\Admin\SubscribeAdmin
     arguments: [~, App\Entity\Subscribe, SonataAdminBundle:CRUD]

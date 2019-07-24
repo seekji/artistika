@@ -1,18 +1,19 @@
 <?php
 
-    namespace App\Admin\Handbook;
+    namespace App\Admin\Classification;
 
     use Sonata\AdminBundle\Admin\AbstractAdmin;
     use Sonata\AdminBundle\Datagrid\DatagridMapper;
     use Sonata\AdminBundle\Datagrid\ListMapper;
     use Sonata\AdminBundle\Form\FormMapper;
+    use Sonata\AdminBundle\Form\Type\ModelAutocompleteType;
     use Sonata\AdminBundle\Show\ShowMapper;
 
     /**
-     * Class CityAdmin
-     * @package App\Admin\Handbook
+     * Class TagAdmin
+     * @package App\Admin\Classification
      */
-    class CityAdmin extends AbstractAdmin
+    class TagAdmin extends AbstractAdmin
     {
 
         /**
@@ -22,7 +23,8 @@
         {
             $filter
                 ->add('id')
-                ->add('name')
+                ->add('title')
+                ->add('slug')
             ;
         }
 
@@ -35,8 +37,8 @@
 
             $list
                 ->add('id')
-                ->add('name')
-                ->add('isDefault')
+                ->add('title')
+                ->add('slug')
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', null, [
@@ -53,13 +55,9 @@
          */
         protected function configureFormFields(FormMapper $form)
         {
-            $form->with('Свойства города')
-                ->add('name')
-                ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.'])
-                ->add('shortName')
-                ->add('description');
+            $form->with('Свойства тэга')->add('title');
 
-            if ($this->isCurrentRoute('edit', 'app.admin.handbook.city')) {
+            if ($this->isCurrentRoute('edit', 'app.admin.classification.tag')) {
                 $form->add('slug');
             }
 
@@ -73,10 +71,8 @@
         {
             $showMapper
                 ->add('id')
-                ->add('name')
-                ->add('shortName')
-                ->add('description')
-                ->add('isDefault')
+                ->add('title')
+                ->add('city')
                 ->add('createdAt')
                 ->add('updatedAt')
             ;

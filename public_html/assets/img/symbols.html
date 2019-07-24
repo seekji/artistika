@@ -160,6 +160,10 @@
 			<defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><path class="cls-1" d="M5.62 0l-.71.71 4.22 4.22H0v1h9.13l-4.22 4.22.71.71 5.43-5.43L5.62 0z" id="Слой_6" data-name="Слой 6"></path></g>
 		</symbol>
 	
+		<symbol id="icon-archive" viewBox="0 0 755.54 660.09">
+			<defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><path class="cls-1" d="M298.93 135.43v219.49l102.83 102.83 42.43-42.43-85.26-85.25V135.43h-60z"></path><path class="cls-1" d="M496.78 310.68l129.38 129.38 129.38-129.38-42.42-42.43L660 321.38a330 330 0 1 0-559.93 245.44 330.16 330.16 0 0 0 515.18-70.57l-51.88-30.15a269.92 269.92 0 1 1 36.75-136.94l-60.91-60.91z"></path></g></g>
+		</symbol>
+	
 		<symbol id="icon-clock" viewBox="0 0 41.36 41.36">
 			<defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><path class="cls-1" d="M20.68 0a20.68 20.68 0 1 0 20.68 20.68A20.71 20.71 0 0 0 20.68 0zm0 37.86a17.18 17.18 0 1 1 17.18-17.18 17.2 17.2 0 0 1-17.18 17.18z"></path><path class="cls-1" d="M22.43 7.82h-3.5v13.53l8.15 9.06 2.6-2.34-7.25-8.06V7.82z"></path></g></g>
 		</symbol>
@@ -187,7 +191,7 @@
 </svg>
 
 <header>
-    <h1 id="logo">Gulp SVG Sprites <small>(7 icons in &lt;symbol&gt; mode)</small></h1>
+    <h1 id="logo">Gulp SVG Sprites <small>(8 icons in &lt;symbol&gt; mode)</small></h1>
     <h4>Files Generated:</h4>
     <ol>
         <li><a href="svg/symbols.svg">svg/symbols.svg</a></li>
@@ -219,6 +223,23 @@
             <button onclick="invertBackground('icon-box-arrow-cursor')">Invert Background</button>
             <div class="snippet-popover" id="snippet-arrow-cursor">
                 <pre><code>&lt;svg class=&quot;icon arrow-cursor&quot;&gt;&lt;use xlink:href=&quot;#arrow-cursor&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code></pre>
+                <button onclick="hidePopover()">Close</button>
+            </div>
+        </li>
+        
+
+        <li title="icon-archive">
+            <div class="icon-box" id="icon-box-icon-archive">
+                <svg class="icon icon-archive">
+                    <use xlink:href="#icon-archive" />
+                </svg>
+            </div>
+            <h2>icon-archive</h2>
+            <button onclick="showPopover('snippet-icon-archive')">Show Snippet</button>
+            <br/>
+            <button onclick="invertBackground('icon-box-icon-archive')">Invert Background</button>
+            <div class="snippet-popover" id="snippet-icon-archive">
+                <pre><code>&lt;svg class=&quot;icon icon-archive&quot;&gt;&lt;use xlink:href=&quot;#icon-archive&quot;&gt;&lt;/use&gt;&lt;/svg&gt;</code></pre>
                 <button onclick="hidePopover()">Close</button>
             </div>
         </li>
