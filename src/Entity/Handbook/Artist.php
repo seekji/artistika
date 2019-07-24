@@ -33,7 +33,7 @@ class Artist
     private $biography;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="Artists")
+     * @ORM\ManyToMany(targetEntity="App\Entity\Event", mappedBy="artists")
      */
     private $events;
 

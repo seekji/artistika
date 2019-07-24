@@ -51,7 +51,7 @@ class City
     private $subscribes;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="City")
+     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="city")
      */
     private $events;
 
