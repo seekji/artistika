@@ -53,14 +53,17 @@
          */
         protected function configureFormFields(FormMapper $form)
         {
-            $form
-                ->with('Свойства города')
-                    ->add('name')
-                    ->add('shortName')
-                    ->add('description')
-                    ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.'])
-                ->end()
-            ;
+            $form->with('Свойства города')
+                ->add('name')
+                ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.'])
+                ->add('shortName')
+                ->add('description');
+
+            if ($this->isCurrentRoute('edit', 'app.admin.handbook.city')) {
+                $form->add('slug');
+            }
+
+            $form->end();
         }
 
         /**
