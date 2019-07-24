@@ -15,7 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 class CityController extends AbstractController
 {
     /**
-     * @Route("-{slug}", name="app.city")
+     * @Route("-{slug}/", name="app.city")
      */
     public function indexAction(Request $request, City $city)
     {
