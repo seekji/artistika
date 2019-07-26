@@ -7,7 +7,6 @@
     use Sonata\AdminBundle\Datagrid\ListMapper;
     use Sonata\AdminBundle\Form\FormMapper;
     use Sonata\AdminBundle\Form\Type\ModelListType;
-    use Sonata\AdminBundle\Form\Type\ModelType;
     use Sonata\AdminBundle\Show\ShowMapper;
 
     /**
@@ -60,7 +59,6 @@
                     ->add('title')
                     ->add('city',  ModelListType::class)
                     ->add('hall', ModelListType::class)
-                    ->add('artists',  ModelType::class, ['multiple' => true])
                 ->end();
         }
 
