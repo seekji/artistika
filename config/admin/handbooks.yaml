@@ -10,9 +10,3 @@ services:
     arguments: [~, App\Entity\Handbook\Hall, SonataAdminBundle:CRUD]
     tags:
       - { name: sonata.admin, manager_type: orm, audit: false, group: Справочники, label: Площадки }
-
-  app.admin.handbook.artist:
-    class: App\Admin\Handbook\ArtistAdmin
-    arguments: [~, App\Entity\Handbook\Artist, SonataAdminBundle:CRUD]
-    tags:
-      - { name: sonata.admin, manager_type: orm, audit: false, group: Справочники, label: Артисты }

@@ -30,11 +30,6 @@ class Event
     private $title;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Handbook\Artist", inversedBy="events")
-     */
-    private $artists;
-
-    /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City", inversedBy="events")
      */
     private $city;
@@ -49,11 +44,6 @@ class Event
      */
     private $hall;
 
-    public function __construct()
-    {
-        $this->artists = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -67,32 +57,6 @@ class Event
     public function setTitle(string $title): self
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * @return Collection|Artist[]
-     */
-    public function getArtists(): Collection
-    {
-        return $this->artists;
-    }
-
-    public function addArtist(Artist $artist): self
-    {
-        if (!$this->artists->contains($artist)) {
-            $this->artists[] = $artist;
-        }
-
-        return $this;
-    }
-
-    public function removeArtist(Artist $artist): self
-    {
-        if ($this->artists->contains($artist)) {
-            $this->artists->removeElement($artist);
-        }
 
         return $this;
     }
