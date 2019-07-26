@@ -41,6 +41,14 @@ services:
             - '@geoip.provider.maxmind'
             - '@doctrine.orm.entity_manager'
 
+    App\EventListener\AdminMenuListener:
+      tags:
+        - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }
+
+    App\Service\SettingsService:
+      arguments:
+        - '%kernel.root_dir%'
+
 #    App\EventListener\RequestListener:
 #        tags:
 #            - { name: kernel.event_listener, event: kernel.request }

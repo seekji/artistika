@@ -2,6 +2,10 @@ adw_seo:
     resource: "@ADWSEOBundle/Admin/Controller/"
     type:     annotation
 
+admin_routes:
+    resource: ../src/Admin/Controller/
+    type:     annotation
+
 admin_sonata_media_media_browser:
     path: /admin/sonata/media/media/browser
     controller: CoopTilleuls\Bundle\CKEditorSonataMediaBundle\Controller\MediaAdminController::browserAction
