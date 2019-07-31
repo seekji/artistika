@@ -1,0 +1,36 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="page-content">
+        <div class="page-content__container">
+            <h1>Новости</h1>
+
+            <div class="news">
+                <div class="news__grid js-post-grid">
+                    {% if news is defined and news is not null %}
+
+                        {% for item in news %}
+                            <a href="{{ path('app.news.show', {'slug' : item.getSlug()}) }}" class="news__grid-item post">
+
+                                {% if item.picture is defined and item.picture is not null %}
+                                    <div class="post__pic">
+                                        <span class="post__pic-img" style="background-image: url({% path item.getPicture(), 'reference' %});"></span>
+                                    </div>
+                                {% endif %}
+
+                                <div class="post__info">
+                                    <div class="post__title">
+                                        <span class="post__title-text">{{ item.getTitle() }}</span>
+                                    </div>
+                                    <div class="post__text">{{ item.getPreviewDescription() }}</div>
+                                    <time class="post__date">{{ item.getCreatedAt()|localizeddate('none', 'none', app.request.locale, null, 'dd MMMM yyyy' ) }}</time>
+                                </div>
+                            </a>
+                        {% endfor %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
