@@ -26,20 +26,6 @@
                                     <time class="post__date">{{ item.getCreatedAt()|localizeddate('none', 'none', app.request.locale, null, 'dd MMMM yyyy' ) }}</time>
                                 </div>
                             </a>
-
-{#                            <a href="#" class="news__grid-item post">#}
-{#                                <div class="post__pic">#}
-{#                                    <span class="post__pic-img" style="background-image: url(assets/img/upload/img2.png);"></span>#}
-{#                                </div>#}
-
-{#                                <div class="post__info">#}
-{#                                    <div class="post__title">#}
-{#                                        <span class="post__title-text">Алёна Апина беременна, по слухам, от Михаила Боярского. Актер всё отрицает</span>#}
-{#                                    </div>#}
-{#                                    <div class="post__text">Слухи пошли после того, как пьяная в ноль Алёна ругалась с персоналам гостинницы, используя, кроме прочих, такие бранные слова, как: «каналья» и «тысяча чертей». </div>#}
-{#                                    <time class="post__date">21 июня 2019 </time>#}
-{#                                </div>#}
-{#                            </a>#}
                         {% endfor %}
 
                     {% endif %}
