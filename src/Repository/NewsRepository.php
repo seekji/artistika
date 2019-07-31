@@ -19,6 +19,24 @@ class NewsRepository extends ServiceEntityRepository
         parent::__construct($registry, News::class);
     }
 
+    /**
+     * @param int $offset
+     * @param int $limit
+     *
+     * @return array|null
+     */
+    public function getListOfNews(int $offset = 0, int $limit = 50): ?array
+    {
+        return $this->createQueryBuilder('n')
+            ->where('n.isPublished = true')
+            ->addOrderBy('n.createdAt', 'DESC')
+            ->addOrderBy('n.id', 'DESC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
     // /**
     //  * @return News[] Returns an array of News objects
     //  */
