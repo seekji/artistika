@@ -7,7 +7,12 @@
     use Sonata\AdminBundle\Datagrid\ListMapper;
     use Sonata\AdminBundle\Form\FormMapper;
     use Sonata\AdminBundle\Form\Type\ModelListType;
+    use Sonata\AdminBundle\Form\Type\ModelType;
     use Sonata\AdminBundle\Show\ShowMapper;
+    use Symfony\Component\Form\Extension\Core\Type\CollectionType;
+    use Symfony\Component\Form\Extension\Core\Type\TextType;
+    use Symfony\Component\Form\Extension\Core\Type\TimeType;
+    use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
     /**
      * Class HallAdmin
@@ -55,10 +60,37 @@
         protected function configureFormFields(FormMapper $form)
         {
             $form
-                ->with('Свойства мероприятия')
-                    ->add('title')
+                ->tab('Основные свойства мероприятия')
+                    ->with('Основные свойства мероприятия', ['class' => 'col-md-9'])
+                        ->add('title');
+
+            if ($this->isCurrentRoute('edit', 'app.admin.event')) {
+                $form->add('slug');
+            }
+
+            $form
+                    ->add('artist',  TextType::class)
                     ->add('city',  ModelListType::class)
                     ->add('hall', ModelListType::class)
+                ->end()
+                ->with('Теги', ['class' => 'col-md-3'])
+                    ->add('tags', ModelType::class, ['multiple' => true])
+                ->end()
+                ->end()
+                ->tab('Описание и визуал')
+                    ->with('Описание и визуал')
+                        ->add('color', ColorType::class)
+                    ->end()
+                ->end()
+                ->tab('Время')
+                    ->with('Время')
+                        ->add('startedAt')
+                        ->add('times', CollectionType::class, [
+                            'entry_type' => TimeType::class,
+                            'allow_add' => true,
+                            'allow_delete' => true,
+                        ])
+                    ->end()
                 ->end();
         }
 
