@@ -48,6 +48,11 @@ class News
      */
     private $isPublished = false;
 
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $previewDescription;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -168,6 +173,18 @@ class News
     public function setIsPublished(bool $isPublished): self
     {
         $this->isPublished = $isPublished;
+
+        return $this;
+    }
+
+    public function getPreviewDescription(): ?string
+    {
+        return $this->previewDescription;
+    }
+
+    public function setPreviewDescription(string $previewDescription): self
+    {
+        $this->previewDescription = $previewDescription;
 
         return $this;
     }

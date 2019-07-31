@@ -8,12 +8,8 @@ use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
 use Sonata\AdminBundle\Form\Type\ModelListType;
-use Sonata\AdminBundle\Form\Type\ModelType;
 use Sonata\AdminBundle\Show\ShowMapper;
-use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\TimeType;
-use Symfony\Component\Form\Extension\Core\Type\ColorType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 
 /**
  * Class NewsAdmin
@@ -72,6 +68,7 @@ class NewsAdmin extends AbstractAdmin
         $form
             ->add('isPublished')
             ->add('picture', ModelListType::class, ['required' => false], ['link_parameters' => ['context' => 'news']])
+            ->add('previewDescription', TextareaType::class)
             ->add('description', CKEditorType::class)
             ->end();
     }
@@ -86,6 +83,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('title')
             ->add('slug')
             ->add('description')
+            ->add('previewDescription')
             ->add('isPublished')
             ->add('createdAt')
             ->add('updatedAt')

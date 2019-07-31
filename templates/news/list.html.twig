@@ -1,5 +1,50 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <main class="page-content">
+        <div class="page-content__container">
+            <h1>Новости</h1>
 
+            <div class="news">
+                <div class="news__grid js-post-grid">
+                    {% if news is defined and news is not null %}
+
+                        {% for item in news %}
+                            <a href="{{ path('app.news.show', {'slug' : item.getSlug()}) }}" class="news__grid-item post">
+
+                                {% if item.picture is defined and item.picture is not null %}
+                                    <div class="post__pic">
+                                        <span class="post__pic-img" style="background-image: url({% path item.getPicture(), 'reference' %});"></span>
+                                    </div>
+                                {% endif %}
+
+                                <div class="post__info">
+                                    <div class="post__title">
+                                        <span class="post__title-text">{{ item.getTitle() }}</span>
+                                    </div>
+                                    <div class="post__text">{{ item.getPreviewDescription() }}</div>
+                                    <time class="post__date">{{ item.getCreatedAt()|localizeddate('none', 'none', app.request.locale, null, 'dd MMMM yyyy' ) }}</time>
+                                </div>
+                            </a>
+
+{#                            <a href="#" class="news__grid-item post">#}
+{#                                <div class="post__pic">#}
+{#                                    <span class="post__pic-img" style="background-image: url(assets/img/upload/img2.png);"></span>#}
+{#                                </div>#}
+
+{#                                <div class="post__info">#}
+{#                                    <div class="post__title">#}
+{#                                        <span class="post__title-text">Алёна Апина беременна, по слухам, от Михаила Боярского. Актер всё отрицает</span>#}
+{#                                    </div>#}
+{#                                    <div class="post__text">Слухи пошли после того, как пьяная в ноль Алёна ругалась с персоналам гостинницы, используя, кроме прочих, такие бранные слова, как: «каналья» и «тысяча чертей». </div>#}
+{#                                    <time class="post__date">21 июня 2019 </time>#}
+{#                                </div>#}
+{#                            </a>#}
+                        {% endfor %}
+
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </main>
 {% endblock %}

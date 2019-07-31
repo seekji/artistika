@@ -34,6 +34,11 @@ services:
     App\DataFixtures\ORM\LoadAdminDataFixture:
         tags: [doctrine.fixture.orm]
 
+    twig.extension.intl:
+      class: Twig_Extensions_Extension_Intl
+      tags:
+        - { name: twig.extension }
+
     app.service.location_service:
         class: App\Service\LocationService
         arguments:
