@@ -43,6 +43,11 @@ class News
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPublished = false;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -153,5 +158,17 @@ class News
     public function __toString()
     {
         return $this->getTitle();
+    }
+
+    public function getIsPublished(): ?bool
+    {
+        return $this->isPublished;
+    }
+
+    public function setIsPublished(bool $isPublished): self
+    {
+        $this->isPublished = $isPublished;
+
+        return $this;
     }
 }

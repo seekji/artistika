@@ -30,6 +30,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('slug')
+            ->add('isPublished')
         ;
     }
 
@@ -44,6 +45,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('slug')
+            ->add('isPublished')
             ->add('createdAt')
             ->add('updatedAt')
             ->add('_action', null, [
@@ -68,7 +70,8 @@ class NewsAdmin extends AbstractAdmin
         }
 
         $form
-            ->add('picture', ModelListType::class, [], ['link_parameters' => ['context' => 'news']])
+            ->add('isPublished')
+            ->add('picture', ModelListType::class, ['required' => false], ['link_parameters' => ['context' => 'news']])
             ->add('description', CKEditorType::class)
             ->end();
     }
@@ -83,6 +86,7 @@ class NewsAdmin extends AbstractAdmin
             ->add('title')
             ->add('slug')
             ->add('description')
+            ->add('isPublished')
             ->add('createdAt')
             ->add('updatedAt')
         ;
