@@ -22,3 +22,9 @@ services:
     arguments: [~, App\Entity\Subscribe, SonataAdminBundle:CRUD]
     tags:
       - { name: sonata.admin, manager_type: orm, audit: false, group: Сайт, label: Подписки }
+
+  app.admin.news:
+    class: App\Admin\NewsAdmin
+    arguments: [~, App\Entity\News, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Сайт, label: Новости }
