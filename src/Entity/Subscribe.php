@@ -31,7 +31,7 @@ class Subscribe
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City")
-     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(nullable=true)
      */
     private $city;
 
