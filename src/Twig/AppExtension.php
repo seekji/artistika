@@ -3,6 +3,7 @@
     namespace App\Twig;
 
     use App\Service\LocationService;
+    use App\Service\MenuService;
     use App\Service\SettingsService;
     use Twig\Extension\AbstractExtension;
     use Twig\TwigFunction;
@@ -20,15 +21,22 @@
         private $settingsService;
 
         /**
+         * @var MenuService $menuService
+         */
+        private $menuService;
+
+        /**
          * AppExtension constructor.
          *
          * @param LocationService $locationService
          * @param SettingsService $settingsService
+         * @param MenuService $menuService
          */
-        public function __construct(LocationService $locationService, SettingsService $settingsService)
+        public function __construct(LocationService $locationService, SettingsService $settingsService, MenuService $menuService)
         {
             $this->locationService = $locationService;
             $this->settingsService = $settingsService;
+            $this->menuService     = $menuService;
         }
 
         /**
@@ -39,6 +47,7 @@
             return [
                 new TwigFunction('isUserLocationInList', [$this, 'isUserLocationInList']),
                 new TwigFunction('getSiteSettingByKey', [$this, 'getSiteSettingByKey']),
+                new TwigFunction('getActiveMenuItems', [$this, 'getActiveMenuItems']),
             ];
         }
 
@@ -57,5 +66,13 @@
         public function getSiteSettingByKey(string $key): ?string
         {
             return $this->settingsService->getValues()[$key] ?? null;
+        }
+
+        /**
+         * @return array
+         */
+        public function getActiveMenuItems(): array
+        {
+            return $this->menuService->getActiveItems();
         }
     }
