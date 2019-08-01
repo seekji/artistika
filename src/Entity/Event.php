@@ -33,7 +33,7 @@ class Event
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City", inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City")
      */
     private $city;
 
@@ -43,7 +43,7 @@ class Event
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\Hall", inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\Hall")
      */
     private $hall;
 
