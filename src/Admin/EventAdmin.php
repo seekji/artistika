@@ -2,6 +2,9 @@
 
     namespace App\Admin;
 
+    use App\Entity\EventSchedule;
+    use App\Form\Type\EventScheduleForm;
+    use FOS\CKEditorBundle\Form\Type\CKEditorType;
     use Sonata\AdminBundle\Admin\AbstractAdmin;
     use Sonata\AdminBundle\Datagrid\DatagridMapper;
     use Sonata\AdminBundle\Datagrid\ListMapper;
@@ -62,7 +65,10 @@
             $form
                 ->tab('Основные свойства мероприятия')
                     ->with('Основные свойства мероприятия', ['class' => 'col-md-9'])
-                        ->add('title');
+                        ->add('title')
+                        ->add('isActive')
+                        ->add('isCanceled')
+            ;
 
             if ($this->isCurrentRoute('edit', 'app.admin.event')) {
                 $form->add('slug');
@@ -80,15 +86,21 @@
                 ->tab('Описание и визуал')
                     ->with('Описание и визуал')
                         ->add('color', ColorType::class)
+                        ->add('isPreviewBig')
+                        ->add('description', CKEditorType::class)
+                        ->add('picture', ModelListType::class, [], ['link_parameters' => ['context' => 'events']])
+                        ->add('bigPicture', ModelListType::class, [], ['link_parameters' => ['context' => 'events']])
                     ->end()
                 ->end()
                 ->tab('Время')
                     ->with('Время')
                         ->add('startedAt')
-                        ->add('times', CollectionType::class, [
-                            'entry_type' => TimeType::class,
-                            'allow_add' => true,
-                            'allow_delete' => true,
+                        ->add('tickets', CollectionType::class, [
+                            'by_reference' => false, // Use this because of reasons
+                            'allow_add' => true, // True if you want allow adding new entries to the collection
+                            'allow_delete' => true, // True if you want to allow deleting entries
+                            'prototype' => true, // True if you want to use a custom form type
+                            'entry_type' => EventScheduleForm::class, // Form type for the Entity that is being attached to the object
                         ])
                     ->end()
                 ->end();
