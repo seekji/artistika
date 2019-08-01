@@ -1,7 +1,7 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    locale: 'en'
+    locale: 'ru'
 
 imports:
   - { resource: admin/content.yaml }
@@ -53,6 +53,13 @@ services:
     App\Service\SettingsService:
       arguments:
         - '%kernel.root_dir%'
+
+    app.serialization.event_handler:
+      class: App\Serializer\EventHandler
+      tags:
+        - { name: jms_serializer.handler, type: App\Entity\Event, direction: serialization, format: json, method: serializeEvent }
+      arguments: [ "@sonata.media.provider.image", "@sonata.media.provider.file", "@router.default" ]
+
 
 #    App\EventListener\RequestListener:
 #        tags:

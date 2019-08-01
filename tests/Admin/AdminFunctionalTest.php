@@ -112,6 +112,12 @@ class AdminFunctionalTest extends WebTestCase
             ['/robots/edit'],
             ['/admin/app/handbook-hall/create'],
             ['/admin/app/handbook-city/create'],
+            ['/admin/app/event/create'],
+            ['/admin/app/classification-tag/create'],
+            ['/admin/app/eventslider/create'],
+            ['/admin/app/subscribe/create'],
+            ['/admin/app/news/create'],
+            ['/admin/site/settings/edit'],
         ];
     }
 
@@ -130,6 +136,11 @@ class AdminFunctionalTest extends WebTestCase
             ['/admin/adw/seo/rule/list'],
             ['/admin/app/handbook-hall/list'],
             ['/admin/app/handbook-city/list'],
+            ['/admin/app/event/list'],
+            ['/admin/app/classification-tag/list'],
+            ['/admin/app/eventslider/list'],
+            ['/admin/app/subscribe/list'],
+            ['/admin/app/news/list'],
         ];
     }
 }

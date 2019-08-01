@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Application\Sonata\MediaBundle\Entity\Media;
 use App\Entity\Classification\Tag;
 use App\Entity\Handbook\City;
 use App\Entity\Handbook\Hall;
@@ -32,7 +33,7 @@ class Event
     private $title;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City", inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City")
      */
     private $city;
 
@@ -42,7 +43,7 @@ class Event
     private $description;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\Hall", inversedBy="events")
+     * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\Hall")
      */
     private $hall;
 
@@ -62,18 +63,56 @@ class Event
     private $startedAt;
 
     /**
-     * @ORM\Column(type="array", nullable=true)
-     */
-    private $times = [];
-
-    /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $color;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isCanceled;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isPreviewBig;
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="App\Application\Sonata\MediaBundle\Entity\Media",
+     *     cascade={"persist", "remove"},
+     * )
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $picture;
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="App\Application\Sonata\MediaBundle\Entity\Media",
+     *     cascade={"persist", "remove"},
+     * )
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
+    private $bigPicture;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\EventSchedule", mappedBy="event", orphanRemoval=true, cascade={"persist"})
+     */
+    private $tickets;
+
     public function __construct()
     {
         $this->tags = new ArrayCollection();
+        $this->tickets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,18 +218,6 @@ class Event
         return $this;
     }
 
-    public function getTimes(): ?array
-    {
-        return $this->times;
-    }
-
-    public function setTimes(?array $times): self
-    {
-        $this->times = $times;
-
-        return $this;
-    }
-
     /**
      * {@inheritdoc}
      *
@@ -262,6 +289,113 @@ class Event
     public function setColor(?string $color): self
     {
         $this->color = $color;
+
+        return $this;
+    }
+
+    public function getIsCanceled(): ?bool
+    {
+        return $this->isCanceled;
+    }
+
+    public function setIsCanceled(bool $isCanceled): self
+    {
+        $this->isCanceled = $isCanceled;
+
+        return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getIsPreviewBig(): ?bool
+    {
+        return $this->isPreviewBig;
+    }
+
+    public function setIsPreviewBig(bool $isPreviewBig): self
+    {
+        $this->isPreviewBig = $isPreviewBig;
+
+        return $this;
+    }
+
+    /**
+     * @return null|Media
+     */
+    public function getPicture(): ?Media
+    {
+        return $this->picture;
+    }
+
+    /**
+     * @param Media $picture
+     *
+     * @return $this
+     */
+    public function setPicture(Media $picture): self
+    {
+        $this->picture = $picture;
+
+        return $this;
+    }
+
+    /**
+     * @return null|Media
+     */
+    public function getBigPicture(): ?Media
+    {
+        return $this->bigPicture;
+    }
+
+    /**
+     * @param Media $bigPicture
+     *
+     * @return $this
+     */
+    public function setBigPicture(Media $bigPicture): self
+    {
+        $this->bigPicture = $bigPicture;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection|EventSchedule[]
+     */
+    public function getTickets(): Collection
+    {
+        return $this->tickets;
+    }
+
+    public function addTicket(EventSchedule $ticket): self
+    {
+        if (!$this->tickets->contains($ticket)) {
+            $this->tickets[] = $ticket;
+            $ticket->setEvent($this);
+        }
+
+        return $this;
+    }
+
+    public function removeTicket(EventSchedule $ticket): self
+    {
+        if ($this->tickets->contains($ticket)) {
+            $this->tickets->removeElement($ticket);
+            // set the owning side to null (unless already changed)
+            if ($ticket->getEvent() === $this) {
+                $ticket->setEvent(null);
+            }
+        }
 
         return $this;
     }

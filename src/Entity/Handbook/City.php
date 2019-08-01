@@ -45,22 +45,6 @@ class City
      */
     private $isDefault;
 
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Subscribe", mappedBy="city")
-     */
-    private $subscribes;
-
-    /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Event", mappedBy="city")
-     */
-    private $events;
-
-    public function __construct()
-    {
-        $this->subscribes = new ArrayCollection();
-        $this->events = new ArrayCollection();
-    }
-
     public function getId(): ?int
     {
         return $this->id;
@@ -114,71 +98,9 @@ class City
         return $this;
     }
 
-    /**
-     * @return Collection|Subscribe[]
-     */
-    public function getSubscribes(): Collection
-    {
-        return $this->subscribes;
-    }
-
-    public function addSubscribe(Subscribe $subscribe): self
-    {
-        if (!$this->subscribes->contains($subscribe)) {
-            $this->subscribes[] = $subscribe;
-            $subscribe->setCity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeSubscribe(Subscribe $subscribe): self
-    {
-        if ($this->subscribes->contains($subscribe)) {
-            $this->subscribes->removeElement($subscribe);
-            // set the owning side to null (unless already changed)
-            if ($subscribe->getCity() === $this) {
-                $subscribe->setCity(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function __toString()
     {
         return $this->getName();
-    }
-
-    /**
-     * @return Collection|Event[]
-     */
-    public function getEvents(): Collection
-    {
-        return $this->events;
-    }
-
-    public function addEvent(Event $event): self
-    {
-        if (!$this->events->contains($event)) {
-            $this->events[] = $event;
-            $event->setCity($this);
-        }
-
-        return $this;
-    }
-
-    public function removeEvent(Event $event): self
-    {
-        if ($this->events->contains($event)) {
-            $this->events->removeElement($event);
-            // set the owning side to null (unless already changed)
-            if ($event->getCity() === $this) {
-                $event->setCity(null);
-            }
-        }
-
-        return $this;
     }
 
     /**

@@ -8,7 +8,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190731100223 extends AbstractMigration
+final class Version20190801154419 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
@@ -17,12 +17,13 @@ final class Version20190731100223 extends AbstractMigration
 
         $this->addSql('CREATE TABLE subscribe (id INT AUTO_INCREMENT NOT NULL, city_id INT NOT NULL, email VARCHAR(255) NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_68B95F3E8BAC62AF (city_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE menu (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, link VARCHAR(255) NOT NULL, sort INT DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE event (id INT AUTO_INCREMENT NOT NULL, city_id INT DEFAULT NULL, hall_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, artist LONGTEXT NOT NULL, started_at DATE NOT NULL, times LONGTEXT DEFAULT NULL COMMENT \'(DC2Type:array)\', color VARCHAR(255) DEFAULT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, INDEX IDX_3BAE0AA78BAC62AF (city_id), INDEX IDX_3BAE0AA752AFCFD6 (hall_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE event (id INT AUTO_INCREMENT NOT NULL, city_id INT DEFAULT NULL, hall_id INT DEFAULT NULL, picture_id INT DEFAULT NULL, big_picture_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description LONGTEXT DEFAULT NULL, artist LONGTEXT NOT NULL, started_at DATE NOT NULL, color VARCHAR(255) DEFAULT NULL, is_canceled TINYINT(1) NOT NULL, is_active TINYINT(1) NOT NULL, is_preview_big TINYINT(1) NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, INDEX IDX_3BAE0AA78BAC62AF (city_id), INDEX IDX_3BAE0AA752AFCFD6 (hall_id), INDEX IDX_3BAE0AA7EE45BDBF (picture_id), INDEX IDX_3BAE0AA78F2D9B59 (big_picture_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event_tag (event_id INT NOT NULL, tag_id INT NOT NULL, INDEX IDX_1246725071F7E88B (event_id), INDEX IDX_12467250BAD26311 (tag_id), PRIMARY KEY(event_id, tag_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE city (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, short_name VARCHAR(255) DEFAULT NULL, description VARCHAR(255) DEFAULT NULL, is_default TINYINT(1) NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE hall (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, address VARCHAR(255) NOT NULL, phone VARCHAR(255) DEFAULT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE tag (id INT AUTO_INCREMENT NOT NULL, title VARCHAR(255) NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
-        $this->addSql('CREATE TABLE news (id INT AUTO_INCREMENT NOT NULL, picture_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, INDEX IDX_1DD39950EE45BDBF (picture_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE event_schedule (id INT AUTO_INCREMENT NOT NULL, event_id INT NOT NULL, time TIME NOT NULL, tickets VARCHAR(255) NOT NULL, INDEX IDX_1CD4F82B71F7E88B (event_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE news (id INT AUTO_INCREMENT NOT NULL, picture_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, description LONGTEXT NOT NULL, is_published TINYINT(1) NOT NULL, preview_description LONGTEXT NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, slug VARCHAR(255) DEFAULT NULL, INDEX IDX_1DD39950EE45BDBF (picture_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE event_slider (id INT AUTO_INCREMENT NOT NULL, event_id INT NOT NULL, picture_id INT DEFAULT NULL, title VARCHAR(255) NOT NULL, created_at DATETIME DEFAULT NULL, updated_at DATETIME DEFAULT NULL, INDEX IDX_FD5E675571F7E88B (event_id), INDEX IDX_FD5E6755EE45BDBF (picture_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE seo_rules (id VARCHAR(255) NOT NULL, pattern VARCHAR(255) NOT NULL, title VARCHAR(255) NOT NULL, meta_tags LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', extra LONGTEXT NOT NULL COMMENT \'(DC2Type:array)\', priority INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE seo_redirect_rules (id VARCHAR(255) NOT NULL, source_template VARCHAR(255) NOT NULL, destination VARCHAR(255) NOT NULL, code INT NOT NULL, priority INT NOT NULL, stopped TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -40,8 +41,11 @@ final class Version20190731100223 extends AbstractMigration
         $this->addSql('ALTER TABLE subscribe ADD CONSTRAINT FK_68B95F3E8BAC62AF FOREIGN KEY (city_id) REFERENCES city (id)');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA78BAC62AF FOREIGN KEY (city_id) REFERENCES city (id)');
         $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA752AFCFD6 FOREIGN KEY (hall_id) REFERENCES hall (id)');
+        $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA7EE45BDBF FOREIGN KEY (picture_id) REFERENCES media__media (id) ON DELETE SET NULL');
+        $this->addSql('ALTER TABLE event ADD CONSTRAINT FK_3BAE0AA78F2D9B59 FOREIGN KEY (big_picture_id) REFERENCES media__media (id) ON DELETE SET NULL');
         $this->addSql('ALTER TABLE event_tag ADD CONSTRAINT FK_1246725071F7E88B FOREIGN KEY (event_id) REFERENCES event (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE event_tag ADD CONSTRAINT FK_12467250BAD26311 FOREIGN KEY (tag_id) REFERENCES tag (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE event_schedule ADD CONSTRAINT FK_1CD4F82B71F7E88B FOREIGN KEY (event_id) REFERENCES event (id)');
         $this->addSql('ALTER TABLE news ADD CONSTRAINT FK_1DD39950EE45BDBF FOREIGN KEY (picture_id) REFERENCES media__media (id) ON DELETE SET NULL');
         $this->addSql('ALTER TABLE event_slider ADD CONSTRAINT FK_FD5E675571F7E88B FOREIGN KEY (event_id) REFERENCES event (id)');
         $this->addSql('ALTER TABLE event_slider ADD CONSTRAINT FK_FD5E6755EE45BDBF FOREIGN KEY (picture_id) REFERENCES media__media (id) ON DELETE SET NULL');
@@ -64,6 +68,7 @@ final class Version20190731100223 extends AbstractMigration
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE event_tag DROP FOREIGN KEY FK_1246725071F7E88B');
+        $this->addSql('ALTER TABLE event_schedule DROP FOREIGN KEY FK_1CD4F82B71F7E88B');
         $this->addSql('ALTER TABLE event_slider DROP FOREIGN KEY FK_FD5E675571F7E88B');
         $this->addSql('ALTER TABLE subscribe DROP FOREIGN KEY FK_68B95F3E8BAC62AF');
         $this->addSql('ALTER TABLE event DROP FOREIGN KEY FK_3BAE0AA78BAC62AF');
@@ -77,6 +82,8 @@ final class Version20190731100223 extends AbstractMigration
         $this->addSql('ALTER TABLE classification__category DROP FOREIGN KEY FK_43629B36727ACA70');
         $this->addSql('ALTER TABLE media__media DROP FOREIGN KEY FK_5C6DD74E12469DE2');
         $this->addSql('ALTER TABLE media__gallery_media DROP FOREIGN KEY FK_80D4C5414E7AF8F');
+        $this->addSql('ALTER TABLE event DROP FOREIGN KEY FK_3BAE0AA7EE45BDBF');
+        $this->addSql('ALTER TABLE event DROP FOREIGN KEY FK_3BAE0AA78F2D9B59');
         $this->addSql('ALTER TABLE news DROP FOREIGN KEY FK_1DD39950EE45BDBF');
         $this->addSql('ALTER TABLE event_slider DROP FOREIGN KEY FK_FD5E6755EE45BDBF');
         $this->addSql('ALTER TABLE classification__collection DROP FOREIGN KEY FK_A406B56AEA9FDD75');
@@ -89,6 +96,7 @@ final class Version20190731100223 extends AbstractMigration
         $this->addSql('DROP TABLE city');
         $this->addSql('DROP TABLE hall');
         $this->addSql('DROP TABLE tag');
+        $this->addSql('DROP TABLE event_schedule');
         $this->addSql('DROP TABLE news');
         $this->addSql('DROP TABLE event_slider');
         $this->addSql('DROP TABLE seo_rules');
