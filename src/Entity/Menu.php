@@ -3,12 +3,15 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\MenuRepository")
  */
 class Menu
 {
+    use Timestampable;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -30,6 +33,11 @@ class Menu
      * @ORM\Column(type="integer", nullable=true)
      */
     private $sort;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive;
 
     public function getId(): ?int
     {
@@ -70,5 +78,22 @@ class Menu
         $this->sort = $sort;
 
         return $this;
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
     }
 }
