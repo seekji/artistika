@@ -19,6 +19,66 @@ class EventRepository extends ServiceEntityRepository
         parent::__construct($registry, Event::class);
     }
 
+    /**
+     * @param int $offset
+     * @param int $limit
+     * @param array $tags
+     * @param int|null $city
+     * @return array|null
+     */
+    public function getEventsByFilter(int $offset = 0, int $limit = 20, $tags = [], int $city = null): ?array
+    {
+        $query = $this
+            ->createQueryBuilder('event')
+            ->leftJoin('event.tags', 'tag');
+
+        if(is_array($tags) && !empty($tags)) {
+            $query->andWhere('tag.id IN (:tags)')
+                ->setParameter('tags', $tags);
+        }
+
+        if($city !== null) {
+            $query->andWhere('event.city = :city')
+                ->setParameter('city', $city);
+        }
+
+        return $query
+            ->addOrderBy('event.startedAt', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param array $tags
+     * @param string|null $city
+     * @return int
+     * @throws \Doctrine\ORM\NonUniqueResultException
+     */
+    public function getEventsCountByFilter($tags = [], string $city = null): int
+    {
+        $query = $this
+            ->createQueryBuilder('event')
+            ->select('COUNT(event.id)')
+            ->leftJoin('event.tags', 'tag');
+
+        if(is_array($tags) && !empty($tags)) {
+            $query->andWhere('tag.id IN (:tags)')
+                ->setParameter('tags', $tags);
+        }
+
+        if($city !== null) {
+            $query->andWhere('event.city = :city')
+                ->setParameter('city', $city);
+        }
+
+        return $query
+            ->addOrderBy('event.startedAt', 'ASC')
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
     // /**
     //  * @return Event[] Returns an array of Event objects
     //  */
