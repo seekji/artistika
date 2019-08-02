@@ -45,6 +45,16 @@ class City
      */
     private $isDefault;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isMain;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sort;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -159,5 +169,29 @@ class City
     public function getRegenerateSlugOnUpdate()
     {
         return false;
+    }
+
+    public function getIsMain(): ?bool
+    {
+        return $this->isMain;
+    }
+
+    public function setIsMain(bool $isMain): self
+    {
+        $this->isMain = $isMain;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
+
+        return $this;
     }
 }

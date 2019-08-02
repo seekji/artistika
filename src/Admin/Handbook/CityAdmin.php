@@ -37,6 +37,8 @@
                 ->add('id')
                 ->add('name')
                 ->add('isDefault')
+                ->add('isMain')
+                ->add('sort')
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', null, [
@@ -55,8 +57,10 @@
         {
             $form->with('Свойства города')
                 ->add('name')
-                ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.'])
                 ->add('shortName')
+                ->add('sort')
+                ->add('isMain')
+                ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.'])
                 ->add('description');
 
             if ($this->isCurrentRoute('edit', 'app.admin.handbook.city')) {
