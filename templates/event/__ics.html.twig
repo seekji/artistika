@@ -1,0 +1,15 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//hacksw/handcal//NONSGML v1.0//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+DESCRIPTION:{{ event.artist }}
+SUMMARY:{{ event.artist }}
+LOCATION:{{ event.city.name }}, {{ event.hall.address }}
+URL;VALUE=URI:{{ path('app.event.show', {'event': event.slug, 'city': event.city.slug}) }}
+UID:{{ uniqid }}
+DTSTAMP:{{ currentDate }}
+DTSTART:{{ eventStartDate }}
+DTEND:{{ eventStartDate }}
+END:VEVENT
+END:VCALENDAR

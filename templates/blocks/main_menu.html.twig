@@ -1,0 +1,30 @@
+{% set currentPath = app.request.requestUri %}
+{% set menuItems = getActiveMenuItems() %}
+
+{% if menuItems is defined and menuItems|length > 0 %}
+    <div class="navigation">
+        <div class="navigation__button-menu js-mobile-nav-toggle btn-navigation">
+            <span class="btn-navigation-top"></span>
+            <span class="btn-navigation-mid"></span>
+            <span class="btn-navigation-bot"></span>
+        </div>
+
+        <div class="navigation__layout">
+            <div class="navigation__layout-content">
+                <div class="navigation__layout-content-inner">
+                    <nav class="menu">
+                        <ul class="menu__list">
+                            {% for item in menuItems %}
+                                <li class="menu__item">
+                                    <a href="{{ item.getLink() == currentPath ? '#' : item.getLink() }}" class="menu__link">
+                                        {{ item.getTitle()|upper }}
+                                    </a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endif %}

@@ -12,6 +12,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Sluggable\Sluggable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
@@ -34,6 +35,7 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\City")
+     * @Assert\NotBlank()
      */
     private $city;
 
@@ -44,6 +46,7 @@ class Event
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Handbook\Hall")
+     * @Assert\NotBlank()
      */
     private $hall;
 
@@ -106,6 +109,7 @@ class Event
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EventSchedule", mappedBy="event", orphanRemoval=true, cascade={"persist"})
+     * @Assert\NotBlank()
      */
     private $tickets;
 

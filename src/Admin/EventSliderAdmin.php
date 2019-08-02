@@ -25,6 +25,7 @@ class EventSliderAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('title')
+            ->add('isActive')
         ;
     }
 
@@ -38,6 +39,8 @@ class EventSliderAdmin extends AbstractAdmin
         $list
             ->add('id')
             ->add('title')
+            ->add('sort')
+            ->add('isActive')
             ->add('createdAt')
             ->add('updatedAt')
             ->add('_action', null, [
@@ -56,9 +59,11 @@ class EventSliderAdmin extends AbstractAdmin
     {
         $form
             ->with('Свойства слайда')
+                ->add('isActive')
                 ->add('title')
                 ->add('picture', ModelListType::class, [], ['link_parameters' => ['context' => 'default']])
                 ->add('event',  ModelListType::class)
+                ->add('sort')
             ->end();
     }
 
@@ -71,6 +76,8 @@ class EventSliderAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('event')
+            ->add('sort')
+            ->add('isActive')
             ->add('createdAt')
             ->add('updatedAt')
         ;

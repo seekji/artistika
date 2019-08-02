@@ -42,6 +42,16 @@ class EventSlider
      */
     private $picture;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isActive = false;
+
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $sort = 0;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -87,6 +97,35 @@ class EventSlider
     public function setPicture(Media $picture): self
     {
         $this->picture = $picture;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->getTitle();
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(bool $isActive): self
+    {
+        $this->isActive = $isActive;
+
+        return $this;
+    }
+
+    public function getSort(): ?int
+    {
+        return $this->sort;
+    }
+
+    public function setSort(int $sort): self
+    {
+        $this->sort = $sort;
 
         return $this;
     }
