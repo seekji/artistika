@@ -36,7 +36,7 @@
                             {% endif %}
 
                             <li class="locations__city-list-item {{ city.isMain ? 'locations__city-list-item_main' : '' }} {{ isSelected ? 'is-selected' : '' }}">
-                                <a href="#" class="locations__city-list-link">{{ city.name }}</a>
+                                <a href="{{ path('app.city', {'slug': city.slug }) }}" class="locations__city-list-link">{{ city.name }}</a>
                             </li>
                         {% endfor %}
                     </ul>
