@@ -1,62 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <section class="promo-slider js-promo-slider">
-        <div class="promo-slider__container swiper-container">
-            <div class="promo-slider__wrapper swiper-wrapper">
-
-                <div class="promo-slider__slide slice-slide swiper-slide">
-                    <div class="slice-slide__container">
-                        <span class="slice-slide__picture" style="background-image: url({{ asset('assets/img/upload/slide1.png') }})"></span>
-
-                        <div class="slice-slide__info">
-                            <a href="#" data-cursor-pointer class="slice-slide__title">
-                                Вера Полозкова
-                            </a>
-
-                            <div class="slice-slide__footer">
-                                <div class="slice-slide__event-info">
-                                    <time class="slice-slide__event-time">21 июля</time> / <span class="slice-slide__event-place">Томская областная государственная филармония</span>
-                                </div>
-
-                                <a href="#" data-cursor-pointer class="slice-slide__event-bill">Билеты</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="promo-slider__slide slice-slide swiper-slide">
-                    <div class="slice-slide__container">
-                        <span class="slice-slide__picture" style="background-image: url({{ asset('assets/img/upload/slide2.jpg') }})"></span>
-
-                        <div class="slice-slide__info">
-                            <a href="#" data-cursor-pointer class="slice-slide__title">
-                                Дженнифер Лопез
-                            </a>
-
-                            <div class="slice-slide__footer">
-                                <div class="slice-slide__event-info">
-                                    <time class="slice-slide__event-time">21 СЕНТЯБРЯ</time> / <span class="slice-slide__event-place">Дворец Культуры Железнодорожников</span>
-                                </div>
-
-                                <a href="#" data-cursor-pointer class="slice-slide__event-bill">Билеты</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <div class="promo-slider__arrow arrow-prev"></div>
-            <div class="promo-slider__arrow arrow-next"></div>
-
-            <div class="custom-cursor">
-                <svg class="icon custom-cursor__arrow" width="40" height="40">
-                    <use xlink:href="#arrow-cursor" />
-                </svg>
-            </div>
-        </div>
-    </section>
+    {{ include('components/main_slider.html.twig', {'slides': slides}) }}
 
     <section class="events">
         <div class="events__filter filter-sort">
