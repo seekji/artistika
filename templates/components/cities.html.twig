@@ -1,0 +1,47 @@
+{% set defaultCity = getDefaultCity() %}
+{% set cities = getCitiesList() %}
+
+<div class="locations__current js-set-locations">
+    <svg class="icon icon-pin" width="26" height="32">
+        <use xlink:href="#icon-pin" />
+    </svg>
+
+    {% if currentCity is defined and currentCity is not null %}
+        <span class="locations__current-city">{{ currentCity.name }}</span>
+    {% elseif defaultCity is defined and defaultCity is not null %}
+        <span class="locations__current-city">{{ defaultCity.name }}</span>
+    {% endif %}
+</div>
+
+<div class="locations__layout">
+    <div class="locations__layout-close js-close-locations">
+        <svg class="icon icon-close" width="30" height="30">
+            <use xlink:href="#icon-close" />
+        </svg>
+    </div>
+
+    <div class="locations__layout-content">
+        <div class="locations__layout-content-inner">
+            <div class="locations__title">Выберите свой город</div>
+            <div class="locations__city-list">
+                {% for row in cities|batch(8) %}
+                    <ul class="locations__city-list-col">
+                        {% for city in row %}
+                            {% set isSelected = false %}
+
+                            {% if currentCity is defined and currentCity.name == city.name %}
+                                {% set isSelected = true %}
+                            {% elseif currentCity is not defined and city.isDefault %}
+                                {% set isSelected = true %}
+                            {% endif %}
+
+                            <li class="locations__city-list-item {{ city.isMain ? 'locations__city-list-item_main' : '' }} {{ isSelected ? 'is-selected' : '' }}">
+                                <a href="#" class="locations__city-list-link">{{ city.name }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>

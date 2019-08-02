@@ -7,7 +7,9 @@
         <div class="header__box">
             <div class="search"></div>
 
-            <div class="locations"></div>
+            <div class="locations">
+                {{ include('components/cities.html.twig') }}
+            </div>
 
             <div class="navigation">
                 {{ include('blocks/main_menu.html.twig') }}

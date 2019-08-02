@@ -38,6 +38,6 @@ class CityService
      */
     public function getCitiesList(): array
     {
-        return $this->cityRepository->findBy([], ['isMain' => 'ASC', 'sort' => 'ASC', 'name' => 'ASC']);
+        return $this->cityRepository->findBy([], ['isMain' => 'DESC', 'sort' => 'ASC', 'name' => 'ASC']);
     }
 }

@@ -53,7 +53,7 @@ class City
     /**
      * @ORM\Column(type="integer")
      */
-    private $sort;
+    private $sort = 0;
 
     public function getId(): ?int
     {
