@@ -23,7 +23,7 @@
                                         <span class="post__title-text">{{ item.getTitle() }}</span>
                                     </div>
                                     <div class="post__text">{{ item.getPreviewDescription() }}</div>
-                                    <time class="post__date">{{ item.getCreatedAt()|localizeddate('none', 'none', app.request.locale, null, 'dd MMMM yyyy' ) }}</time>
+                                    <time class="post__date">{{ item.getCreatedAt()|localizeddate('none', 'none', app.request.locale, null, 'd MMMM yyyy' ) }}</time>
                                 </div>
                             </a>
                         {% endfor %}

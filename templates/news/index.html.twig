@@ -1,5 +1,63 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    <main class="page-content">
+        <div class="page-content__container">
+            <div class="h1">Новости</div>
 
+            <div class="news-detail">
+                <div class="news-detail__content">
+                    <div class="post post_size_lg">
+                        {% if news.picture is defined and news.picture is not null %}
+                            <div class="post__pic">
+                                <span class="post__pic-img" style="background-image: url({% path news.picture, 'reference' %});"></span>
+                            </div>
+                        {% endif %}
+
+                        <div class="post__info">
+                            <div class="post__title">
+                                <h1 class="post__title-text">
+                                    {{ news.title }}
+                                </h1>
+                            </div>
+                            <div class="post__text">
+                                {{ news.description|raw }}
+                            </div>
+                            <time class="post__date">{{ news.getCreatedAt()|localizeddate('none', 'none', app.request.locale, null, 'd MMMM yyyy' ) }}</time>
+                        </div>
+                    </div>
+                </div>
+
+                {% if lastNews is defined and lastNews|length > 0 %}
+                    <div class="news-detail__aside">
+
+                        {% for item in lastNews %}
+                            <a href="{{ path('app.news.show', {'slug' : item.getSlug()}) }}" class="post">
+                                {% if item.picture is defined and item.picture is not null %}
+                                    <div class="post__pic">
+                                        <span class="post__pic-img" style="background-image: url({% path item.getPicture(), 'reference' %});"></span>
+                                    </div>
+                                {% endif %}
+
+                                <div class="post__info">
+                                    <div class="post__title">
+                                        <span class="post__title-text">{{ item.title }}</span>
+                                    </div>
+                                    <div class="post__text">{{ item.previewDescription|raw }}</div>
+                                    <time class="post__date">{{ item.getCreatedAt()|localizeddate('none', 'none', app.request.locale, null, 'd MMMM yyyy' ) }}</time>
+                                </div>
+                            </a>
+                        {% endfor %}
+
+                        <a href="{{ path('app.news.list') }}" class="news-detail__link-view">
+                            <svg class="icon icon-list" width="31" height="31">
+                                <use xlink:href="#icon-list" />
+                            </svg>
+                            Все новости
+                        </a>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+    </main>
 {% endblock %}

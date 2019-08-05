@@ -52,6 +52,9 @@
                 $this->createNotFoundException();
             }
 
-            return $this->render('news/index.html.twig', ['news' => $news]);
+            return $this->render('news/index.html.twig', [
+                'news' => $news,
+                'lastNews' => $this->newsService->getLastNewsAndExclude(2, [$news->getId()])
+            ]);
         }
     }
