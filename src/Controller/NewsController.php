@@ -54,7 +54,7 @@
 
             return $this->render('news/index.html.twig', [
                 'news' => $news,
-                'lastNews' => $this->newsService->getListOfNews(0, 2)
+                'lastNews' => $this->newsService->getLastNewsAndExclude(2, [$news->getId()])
             ]);
         }
     }

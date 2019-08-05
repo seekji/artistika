@@ -34,4 +34,9 @@ class NewsService
     {
         return $this->newsRepository->getListOfNews($offset, $limit);
     }
+
+    public function getLastNewsAndExclude(int $limit = 5, array $exclude = []): ?array
+    {
+        return $this->newsRepository->getLastNewsAndExclude($limit, $exclude);
+    }
 }

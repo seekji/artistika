@@ -37,6 +37,31 @@ class NewsRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    /**
+     * @param int $limit
+     * @param array $exclude
+     *
+     * @return array|null
+     */
+    public function getLastNewsAndExclude(int $limit = 5, array $exclude = []): ?array
+    {
+       $query = $this->createQueryBuilder('n')
+           ->where('n.isPublished = true')
+           ->addOrderBy('n.createdAt', 'DESC')
+           ->addOrderBy('n.id', 'DESC');
+
+       if(count($exclude) > 0) {
+           $query->andWhere('n.id NOT IN (:ids)')
+               ->setParameter('ids', $exclude);
+       }
+
+       return $query
+           ->setMaxResults($limit)
+           ->getQuery()
+           ->getResult();
+
+    }
+
     // /**
     //  * @return News[] Returns an array of News objects
     //  */
