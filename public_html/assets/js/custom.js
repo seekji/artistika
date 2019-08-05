@@ -46,4 +46,54 @@ $(document).ready(function() {
 
         $('[data-time]').text(time).attr('data-time', time);
     });
+
+    /*
+    *
+    * Select Variants
+    * */
+    var $contactsForm = $('.js-contacts-form');
+    var $selectVariant = $('.js-variant-select');
+
+    $selectVariant.niceSelect();
+
+    $selectVariant.on('change', function() {
+        var value = $(this).val();
+
+        $contactsForm.find('fieldset').prop('disabled', true);
+        $contactsForm.find('fieldset[data-type="' + value + '"]').prop('disabled', false);
+    });
+
+    $('input[type="tel"]').inputmask({
+        'mask': '+7 (999) 999-9999'
+    });
+
+    /*
+    *
+    * Event Calendar
+    * */
+    $('.js-event-calendar').on('click', function(e) {
+        e.preventDefault();
+
+        $(this).parent().toggleClass('is-opened');
+    });
+
+    /*
+    *
+    * Notification close
+    * */
+    $('.js-close-notification').on('click', function(e) {
+        e.preventDefault();
+
+        $(this).parent().removeClass('is-opened');
+    });
+
+    /*
+    *
+    * Search open
+    * */
+    $('.js-open-search').on('click', function(e) {
+        e.preventDefault();
+
+        $('html').addClass('is-show-search');
+    });
 });
