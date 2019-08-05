@@ -1,0 +1,26 @@
+{# templates/bundles/TwigBundle/Exception/error404.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="page-content">
+        <div class="page-header-promo page-header-promo_align_center" style="background-image: url({{ asset('assets/img/upload/slide6.jpg') }})">
+            <div class="page-header-promo__container">
+                <div class="page-header-promo__content">
+
+                    <div class="error-box">
+                        <div class="error-box__number">404</div>
+                        <div class="error-box__content">
+                            Куда-то не туда. <br/>
+                            может лучше
+                            <svg class="icon icon-arrow-long" width="167" height="22">
+                                <use xlink:href="#icon-arrow-long" />
+                            </svg>
+                            <a href="{{ path('app.homepage') }}">НА&nbsp;ГЛАВНУЮ</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </main>
+{% endblock %}
