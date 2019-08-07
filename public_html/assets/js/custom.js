@@ -1,34 +1,79 @@
 $(document).ready(function() {
     /*
-    *
     * Filter Portfolio
     * */
-
     var $filterGroup = $('.js-group-filter'),
-        $filterGroupBtn = $('[data-filter]');
+        tags = [],
+        eventsContainer = $('section.events'),
+        instagramElement = eventsContainer.find('a.event.event_instagramm'),
+        feedbackContainer = $('section.feedback'),
+        offset = eventsContainer.find('.event__item').length,
+        limit = 10,
+        isDone = false,
+        city = $('#current-city').data('id'),
+        inProgress = false,
+        $filterGroupBtn = $('.filter-item__tag');
 
     $filterGroup.isotope({
         itemSelector: '.event'
     });
 
-    $filterGroupBtn.on('click', function(){
-        var href = $(this).attr('href').replace( /^#/, '' ),
-            option = $.deparam( href, true );
+    $filterGroupBtn.on('click', function() {
+        if(!$(this).hasClass('is-active')) {
+            offset = 0;
+            isDone = false;
+            tags = [];
 
-        $.bbq.pushState( option );
+            $filterGroupBtn.removeClass('is-active');
+            $(this).addClass('is-active');
+
+            if ($(this).data('id')) {
+                tags.push($(this).data('id'));
+            }
+
+            eventsContainer.find('.event__item').fadeOut(500, function () {
+                $(this).remove();
+            });
+
+            loadLazyItems();
+        }
+
         return false;
     });
 
-    $(window).bind( 'hashchange', function( event ) {
+    if(eventsContainer.length > 0) {
+        $(window).scroll(function() {
+            if ((($(window).scrollTop() + $(window).height()) + 600) >= feedbackContainer.offset().top && inProgress === false && isDone === false) {
+                loadLazyItems();
+            }
+        });
+    }
 
-        var hashOptions = $.deparam.fragment();
+    function loadLazyItems() {
+        inProgress = true;
 
-        $filterGroup.isotope( hashOptions );
+        $.ajax({
+            dataType: 'json',
+            method: 'GET',
+            url: '/api/event/list/',
+            data: {
+                'offset': offset,
+                'limit': limit,
+                'city': city,
+                'tags': tags
+            },
+            success: function(response) {
+                isDone = response.is_done;
+                offset = offset + limit;
 
-        $filterGroupBtn.removeClass('is-active');
-        $('[data-filter="'+hashOptions.filter+'"]').addClass('is-active');
+                if(response.events.length > 0) {
+                    instagramElement.fadeIn(100, function () { $(this).before($(response.events))});
+                }
 
-    }).trigger('hashchange');
+                inProgress = false;
+            }
+        })
+    }
 
     /*
     *
@@ -96,4 +141,5 @@ $(document).ready(function() {
 
         $('html').addClass('is-show-search');
     });
+
 });
