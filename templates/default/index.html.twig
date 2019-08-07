@@ -10,188 +10,29 @@
                     Мероприятия в новосибирске:
                 </div>
 
-                <div class="filter-sort__navigation">
-                    <div class="filter-sort__navigation-inner">
-                        <a href="#filter=*" data-filter="*" class="filter-sort__navigation-link is-active">Все</a>
-                        <a href="#filter=.f_23" data-filter=".f_23" class="filter-sort__navigation-link">Концерты</a>
-                        <a href="#filter=.f_24" data-filter=".f_24" class="filter-sort__navigation-link">Театр</a>
-                        <a href="#filter=.f_25" data-filter=".f_25" class="filter-sort__navigation-link">Шоу</a>
-                        <a href="#filter=.f_26" data-filter=".f_26" class="filter-sort__navigation-link">Детям</a>
+                {% if tags is defined and tags is not null %}
+                    <div class="filter-sort__navigation">
+                        <div class="filter-sort__navigation-inner">
+                            <a href="#*" data-id="" class="filter-item__tag filter-sort__navigation-link is-active">Все</a>
+                            {% for tag in tags %}
+                                <a href="#.f_{{ tag.id }}" data-id="{{ tag.id }}"  class="filter-item__tag filter-sort__navigation-link">{{ tag.title }}</a>
+                            {% endfor %}
+                        </div>
                     </div>
-                </div>
+                {% endif %}
             </div>
         </div>
 
-        <div class="events__grid events-grid js-group-filter">
-
-            <div class="events-grid__item event event_size_xs  f_23 f_25 f_24">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-1.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">Максим Аверин и Анна Якунина</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs  f_23 f_24">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-2.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">МАША И МЕДВЕДЬ</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs  f_23 f_25 f_24">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-3.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">ВИА СИНЯЯ ПТИЦА</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs  f_23 f_24">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-4.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">ЭМИН</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_md is-canceled f_23 f_25">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-5.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">ВАДИМ САМОЙЛОВ АГАТА КРИСТИ ХХХ</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs  f_23 f_26">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-6.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">ВЕРА ПОЛОСКОВА</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs is-canceled f_23 f_25 f_26">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-7.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">ЯРОСЛАВ СУМИШЕВСКИЙ</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs  f_23 f_26">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-8.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">АРИЯ</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs  f_23 f_26">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-9.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">ЛЕОНИД АГУТИН АНЖЕЛИКА ВАРУМ</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
-            <div class="events-grid__item event event_size_xs  f_23 f_24">
-                <span class="event__status">Отмена</span>
-
-                <span class="event__picture" style="background-image: url(assets/img/upload/cover-10.png);"></span>
-
-                <div class="event__content">
-                    <a href="#" class="event__bill">Билеты</a>
-
-                    <a href="#" class="event__main">
-                        <span class="event__title">Сергей Волчков</span>
-                        <span class="event__info">
-                            <time class="event__time">21 СЕНТЯБРЯ</time> / <span class="event__place">Дворец Культуры Железнодорожников</span>
-                        </span>
-                    </a>
-                </div>
-            </div>
+        <div class="events__grid events-grid ">
+            {{ include('event/__events_list.html.twig', {'events': events}) }}
 
             <a href="#" class="events-grid__item event event_instagramm event_size_xs">
-                <span class="event__picture" style="background-image: url({{ asset('assets/img/upload/cover-11.png') }});"></span>
+                <span class="event__picture" style="background-image: url(assets/img/upload/cover-11.png);"></span>
 
                 <div class="event__content">
                     <div class="event__main">
                         <div class="event__logo">
-                            <img src="{{ asset('assets/img/instagram-logo.svg') }}" alt=""/>
+                            <img src="assets/img/instagram-logo.svg" alt="instagram logo"/>
                         </div>
                         <div class="event__title">artistikashow</div>
                     </div>
@@ -200,13 +41,13 @@
         </div>
     </section>
 
-    <section class="promo-numbers" style="background-image: url(assets/img/upload/cover-12.jpg)">
+    <section class="promo-numbers" style="background-image: url({{ asset('assets/img/upload/cover-12.jpg') }})">
         <div class="promo-numbers__container">
             <div class="promo-numbers__heading">ARTISTIKA—ЭТО</div>
 
             <div class="promo-numbers__numbers">
                 <div class="promo-numbers__numbers-item promo-number">
-                    <div class="promo-number__count">14</div>
+                    <div class="promo-number__count">{{ "now"|date('Y') - 2005 }}</div>
                     <div class="promo-number__info">ЛЕТ РАБОТЫ <br/>с 2005 года</div>
                 </div>
 

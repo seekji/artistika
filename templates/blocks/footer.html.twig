@@ -1,8 +1,8 @@
 <section class="feedback">
     <div class="feedback__container">
-        <form action="" class="feedback__form">
+        <form action="{{ path('api.subscribe.add') }}" class="feedback__form">
             <div class="feedback__form-field form-field">
-                <input type="text" placeholder="Укажите эл. почту" name="FORM_EMAIL_FEEDBACK" class="custom-input">
+                <input type="email" placeholder="Укажите эл. почту" required name="email" class="custom-input">
             </div>
 
             <div class="feedback__form-field-actions">
@@ -26,7 +26,6 @@
         </form>
 
         <div class="feedback__social social">
-
             {% if getSiteSettingByKey('facebook') is not null %}
                 <a href="{{ getSiteSettingByKey('facebook') }}" class="social__link" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.85 51.85">
@@ -36,7 +35,6 @@
                     <span class="social__link-text">Facebook</span>
                 </a>
             {% endif %}
-
             {% if getSiteSettingByKey('vk') is not null %}
                 <a href="{{ getSiteSettingByKey('vk') }}" class="social__link" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.55 51.55">
@@ -46,7 +44,6 @@
                     <span class="social__link-text">Vkontakte</span>
                 </a>
             {% endif %}
-
             {% if getSiteSettingByKey('instagram') is not null %}
                 <a href="{{ getSiteSettingByKey('instagram') }}" class="social__link" target="_blank">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 48.5 48.48">
@@ -57,8 +54,58 @@
                     <span class="social__link-text">Instagram</span>
                 </a>
             {% endif %}
-
             <span class="social__title"> &mdash; Давайте дружить</span>
+        </div>
+    </div>
+    <div class="notification notification_error">
+        <div class="notification__close js-close-notification">
+            <svg class="icon icon-close" width="28" height="28">
+                <use xlink:href="#icon-close" />
+            </svg>
+        </div>
+
+        <div class="notification__content">
+            <div class="notification__information">
+                <div class="notification__heading">
+                    ОЙ!
+                </div>
+
+                <div class="notification__description">
+                    <div class="notification__title">
+                        Кажется вы неправильно указали
+                        адрес электронной почты
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="notification notification_success">
+        <div class="notification__close">
+            <svg class="icon icon-close" width="28" height="28">
+                <use xlink:href="#icon-close" />
+            </svg>
+        </div>
+
+        <div class="notification__content">
+            <div class="notification__information">
+                <div class="notification__heading">
+                    СПАСИБО!
+                </div>
+
+                <div class="notification__description">
+                    <div class="notification__title">
+                        Мы будем присылать вам
+                        только самые важные
+                        и интересные новости
+                    </div>
+
+                    <div class="notification__text">
+                        Вы можете отписаться от рассылки в любое время,
+                        нажав кнопку на своем пупке.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -104,8 +151,24 @@
         <defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><path class="cls-1" d="M5.62 0l-.71.71 4.22 4.22H0v1h9.13l-4.22 4.22.71.71 5.43-5.43L5.62 0z" id="Слой_6" data-name="Слой 6"></path></g>
     </symbol>
 
+    <symbol id="icon-archive" viewBox="0 0 755.54 660.09">
+        <defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><path class="cls-1" d="M298.93 135.43v219.49l102.83 102.83 42.43-42.43-85.26-85.25V135.43h-60z"></path><path class="cls-1" d="M496.78 310.68l129.38 129.38 129.38-129.38-42.42-42.43L660 321.38a330 330 0 1 0-559.93 245.44 330.16 330.16 0 0 0 515.18-70.57l-51.88-30.15a269.92 269.92 0 1 1 36.75-136.94l-60.91-60.91z"></path></g></g>
+    </symbol>
+
+    <symbol id="icon-arrow-long" viewBox="0 0 154.87 20.88">
+        <defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><path class="cls-1" d="M144.43 0l-2.13 2.12 6.82 6.82H0v3h149.12l-6.82 6.82 2.13 2.13 10.44-10.45L144.43 0z" id="Слой_1-2" data-name="Слой 1"></path></g>
+    </symbol>
+
     <symbol id="icon-clock" viewBox="0 0 41.36 41.36">
         <defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><path class="cls-1" d="M20.68 0a20.68 20.68 0 1 0 20.68 20.68A20.71 20.71 0 0 0 20.68 0zm0 37.86a17.18 17.18 0 1 1 17.18-17.18 17.2 17.2 0 0 1-17.18 17.18z"></path><path class="cls-1" d="M22.43 7.82h-3.5v13.53l8.15 9.06 2.6-2.34-7.25-8.06V7.82z"></path></g></g>
+    </symbol>
+
+    <symbol id="icon-close" viewBox="0 0 7.18 7.18">
+        <defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><path class="cls-1" d="M7.18.71L6.47 0 3.59 2.88.71 0 0 .71l2.88 2.88L0 6.47l.71.71 2.88-2.89 2.88 2.89.71-.71-2.89-2.88L7.18.71z" id="Слой_6" data-name="Слой 6"></path></g>
+    </symbol>
+
+    <symbol id="icon-list" viewBox="0 0 665.39 665.38">
+        <defs><style></style></defs><g id="Слой_2" data-name="Слой 2"><g id="Слой_1-2" data-name="Слой 1"><path class="cls-1" d="M639.23 203.18a333.66 333.66 0 1 0 26.16 129.51 331.56 331.56 0 0 0-26.16-129.51zM525.52 525.52a272.7 272.7 0 0 1-385.65-385.65 272.7 272.7 0 0 1 385.65 385.65z"></path><path class="cls-1" d="M170.69 236.69h324v60h-324zm0 136h266.14v60H170.69z"></path></g></g>
     </symbol>
 
     <symbol id="icon-mail" viewBox="0 0 85.63 85.63">

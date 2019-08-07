@@ -7,9 +7,9 @@
     </svg>
 
     {% if currentCity is defined and currentCity is not null %}
-        <span class="locations__current-city">{{ currentCity.name }}</span>
+        <span id="current-city" data-id="{{ currentCity.id }}" class="locations__current-city">{{ currentCity.name }}</span>
     {% elseif defaultCity is defined and defaultCity is not null %}
-        <span class="locations__current-city">{{ defaultCity.name }}</span>
+        <span id="current-city" data-id="{{ defaultCity.id }}" class="locations__current-city">{{ defaultCity.name }}</span>
     {% endif %}
 </div>
 

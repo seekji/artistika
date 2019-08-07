@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\CityService;
+use App\Service\EventService;
 use App\Service\SlidesService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -19,12 +21,26 @@ class DefaultController extends AbstractController
     protected $slidesService;
 
     /**
+     * @var EventService
+     */
+    protected $eventService;
+
+    /**
+     * @var CityService
+     */
+    protected $cityService;
+
+    /**
      * DefaultController constructor.
      * @param SlidesService $slidesService
+     * @param EventService $eventService
+     * @param CityService $cityService
      */
-    public function __construct(SlidesService $slidesService)
+    public function __construct(SlidesService $slidesService, EventService $eventService, CityService $cityService)
     {
         $this->slidesService = $slidesService;
+        $this->eventService = $eventService;
+        $this->cityService = $cityService;
     }
 
     /**
@@ -35,8 +51,12 @@ class DefaultController extends AbstractController
      */
     public function indexAction(Request $request)
     {
+        $defaultCity = $this->cityService->getDefaultCity();
+
         return $this->render('default/index.html.twig', [
-            'slides' => $this->slidesService->getActiveEventSlides()
+            'slides' => $this->slidesService->getActiveEventSlides(),
+            'events' => $this->eventService->getEventsByCity($defaultCity),
+            'tags' => $this->eventService->getEventTagsByCity($defaultCity)
         ]);
     }
 }
