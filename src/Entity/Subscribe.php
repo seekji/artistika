@@ -6,9 +6,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use App\Entity\Handbook\City;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\SubscribeRepository")
+ * @UniqueEntity("email", message="email.not_unique")
  */
 class Subscribe
 {

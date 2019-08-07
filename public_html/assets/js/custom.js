@@ -142,4 +142,30 @@ $(document).ready(function() {
         $('html').addClass('is-show-search');
     });
 
+    /*
+    *
+    * Feedback form
+     */
+    $('.feedback__form').on('submit', function (event) {
+        event.preventDefault();
+
+        var form = $(this);
+        var url = form.attr('action');
+
+        $.ajax({
+            type: "POST",
+            url: url,
+            dateType: 'json',
+            data: form.serialize(),
+            statusCode: {
+                201: function (data) {
+                    $(form)[0].reset();
+                    $('div.notification_success').addClass('is-opened');
+                },
+                400: function (data) {
+                    $('div.notification_error').addClass('is-opened');
+                }
+            }
+        });
+    })
 });
