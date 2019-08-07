@@ -34,6 +34,15 @@ services:
     App\DataFixtures\ORM\LoadAdminDataFixture:
         tags: [doctrine.fixture.orm]
 
+    App\DataFixtures\ORM\LoadCityDataFixture:
+        tags: [doctrine.fixture.orm]
+
+    App\DataFixtures\ORM\LoadTagDataFixture:
+        tags: [doctrine.fixture.orm]
+
+    App\DataFixtures\ORM\LoadHallDataFixture:
+      tags: [doctrine.fixture.orm]
+
     twig.extension.intl:
       class: Twig_Extensions_Extension_Intl
       tags:

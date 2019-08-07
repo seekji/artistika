@@ -43,6 +43,7 @@ class EventController extends AbstractFOSRestController
      * @param Request $request
      * @return JsonResponse
      * @throws \Doctrine\ORM\NonUniqueResultException
+     * @throws \Doctrine\ORM\NoResultException
      */
     public function events(Request $request)
     {
@@ -54,7 +55,7 @@ class EventController extends AbstractFOSRestController
         $events = $this->eventService->getEventsByFilter($offset, $limit, $tags, $city);
         $eventsCount = $this->eventService->getEventsCountByFilter($tags, $city);
 
-        $json = $this->serializer->serialize([ 'events' => $events, 'limit' => $limit, 'offset' => $offset, 'total' => $eventsCount, 'is_done' => ($offset + count($events) >= $eventsCount)], 'json');
+        $json = $this->serializer->serialize([ 'events' => $this->renderView('event/__events_list.html.twig', ['events' => $events]), 'limit' => $limit, 'offset' => $offset, 'total' => $eventsCount, 'is_done' => ($offset + count($events) >= $eventsCount)], 'json');
 
         return new JsonResponse($json, JsonResponse::HTTP_OK, [], true);
     }

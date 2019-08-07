@@ -14,7 +14,7 @@
     /**
      * Class SubscribeController
      * @package App\Controller\Api
-     * @Route("/api/subscribe", name="api.subscribe")
+     * @Route("/api/subscribe")
      */
     class SubscribeController extends AbstractFOSRestController
     {
@@ -29,7 +29,7 @@
         }
 
         /**
-         * @Rest\Post("/add")
+         * @Rest\Post("/add", name="api.subscribe.add")
          *
          * @param Request $request
          *

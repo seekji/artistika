@@ -2,10 +2,26 @@
 
 namespace App\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\DataFixtures\ORM\LoadCityDataFixture;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 class DefaultControllerTest extends WebTestCase
 {
+    protected static $wasSetup = false;
+
+    protected function setUp()
+    {
+        parent::setUp();
+
+        if (false === static::$wasSetup) {
+            $this->loadFixtures([
+                LoadCityDataFixture::class,
+            ]);
+
+            static::$wasSetup = true;
+        }
+    }
+
     public function testIndex()
     {
         $client = static::createClient();

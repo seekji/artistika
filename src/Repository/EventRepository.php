@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Event;
+use App\Entity\Handbook\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,6 +21,43 @@ class EventRepository extends ServiceEntityRepository
     }
 
     /**
+     * @param City $city
+     * @param int $offset
+     * @param int $limit
+     * @return array|null
+     */
+    public function getEventsByCity(City $city, int $offset = 0, int $limit = 20): ?array
+    {
+        return $this->createQueryBuilder('event')
+            ->where('event.isActive = true')
+            ->andWhere('event.city = :city')
+            ->setParameter('city', $city)
+            ->addOrderBy('event.startedAt', 'ASC')
+            ->setFirstResult($offset)
+            ->setMaxResults($limit)
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
+     * @param City $city
+     * @return array|null
+     */
+    public function getEventTagsByCity(City $city): ?array
+    {
+        return $this->createQueryBuilder('event')
+            ->andWhere('event.city = :city')
+            ->andWhere('event.isActive = true')
+            ->leftJoin('event.tags', 'tags')
+            ->select('tags.title', 'tags.id')
+            ->setParameter('city', $city)
+            ->addOrderBy('tags.title', 'ASC')
+            ->groupBy('tags.title')
+            ->getQuery()
+            ->getResult();
+    }
+
+    /**
      * @param int $offset
      * @param int $limit
      * @param array $tags
@@ -30,20 +68,22 @@ class EventRepository extends ServiceEntityRepository
     {
         $query = $this
             ->createQueryBuilder('event')
-            ->leftJoin('event.tags', 'tag');
-
-        if(is_array($tags) && !empty($tags)) {
-            $query->andWhere('tag.id IN (:tags)')
-                ->setParameter('tags', $tags);
-        }
+            ->where('event.isActive = true')
+            ->leftJoin('event.tags', 'tags');
 
         if($city !== null) {
             $query->andWhere('event.city = :city')
                 ->setParameter('city', $city);
         }
 
+        if(is_array($tags) && !empty($tags) && count($tags) > 0) {
+            $query->andWhere('tags.id IN (:tags)')
+                ->setParameter('tags', $tags);
+        }
+
         return $query
             ->addOrderBy('event.startedAt', 'ASC')
+            ->groupBy('event')
             ->setFirstResult($offset)
             ->setMaxResults($limit)
             ->getQuery()
@@ -52,59 +92,31 @@ class EventRepository extends ServiceEntityRepository
 
     /**
      * @param array $tags
-     * @param string|null $city
+     * @param int|null $city
      * @return int
+     * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getEventsCountByFilter($tags = [], string $city = null): int
+    public function getEventsCountByFilter($tags = [], int $city = null): int
     {
         $query = $this
             ->createQueryBuilder('event')
-            ->select('COUNT(event.id)')
-            ->leftJoin('event.tags', 'tag');
-
-        if(is_array($tags) && !empty($tags)) {
-            $query->andWhere('tag.id IN (:tags)')
-                ->setParameter('tags', $tags);
-        }
+            ->select('COUNT(DISTINCT event.id)')
+            ->where('event.isActive = true')
+            ->leftJoin('event.tags', 'tags');
 
         if($city !== null) {
             $query->andWhere('event.city = :city')
                 ->setParameter('city', $city);
         }
 
+        if(is_array($tags) && !empty($tags) && count($tags) > 0) {
+            $query->andWhere('tags.id IN (:tags)')
+                ->setParameter('tags', $tags);
+        }
+
         return $query
-            ->addOrderBy('event.startedAt', 'ASC')
             ->getQuery()
             ->getSingleScalarResult();
     }
-
-    // /**
-    //  * @return Event[] Returns an array of Event objects
-    //  */
-    /*
-    public function findByExampleField($value)
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('e.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    */
-
-    /*
-    public function findOneBySomeField($value): ?Event
-    {
-        return $this->createQueryBuilder('e')
-            ->andWhere('e.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
-    }
-    */
 }
