@@ -16,6 +16,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
+ * @ORM\Table(indexes={@ORM\Index(columns={"description", "artist"}, flags={"fulltext"})})
  */
 class Event
 {

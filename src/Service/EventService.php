@@ -67,4 +67,9 @@ class EventService
     {
         return $this->eventRepository->getEventTagsByCity($city);
     }
+
+    public function searchEvents(string $query)
+    {
+        return $this->eventRepository->searchEventsByQuery($query);
+    }
 }
