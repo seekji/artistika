@@ -22,11 +22,11 @@
 
                                         {% if slide.event.tickets is not null %}
                                             {% if slide.event.tickets|length > 1 %}
-                                                <a href="{{ path('app.event.show', {'city' : slide.event.city.getSlug(), 'event': slide.event.getSlug()}) }}" target="_blank" data-cursor-pointer class="slice-slide__event-bill">
+                                                <a href="{{ path('app.event.show', {'city' : slide.event.city.getSlug(), 'event': slide.event.getSlug()}) }}" target="_blank" data-cursor-pointer class="slice-slide__event-bill button-bill">
                                                     Билеты
                                                 </a>
                                             {% elseif slide.event.tickets[0] is defined %}
-                                                <a href="{{ slide.event.tickets[0].getTickets() }}" target="_blank" data-cursor-pointer class="slice-slide__event-bill">
+                                                <a href="{{ slide.event.tickets[0].getTickets() }}" target="_blank" data-cursor-pointer class="slice-slide__event-bill button-bill">
                                                     Билеты
                                                 </a>
                                             {% endif %}
