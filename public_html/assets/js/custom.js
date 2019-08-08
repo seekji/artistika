@@ -2,8 +2,7 @@ $(document).ready(function() {
     /*
     * Filter Portfolio
     * */
-    var $filterGroup = $('.js-group-filter'),
-        tags = [],
+    var tags = [],
         eventsContainer = $('section.events'),
         instagramElement = eventsContainer.find('a.event.event_instagramm'),
         feedbackContainer = $('section.feedback'),
@@ -13,10 +12,6 @@ $(document).ready(function() {
         city = $('#current-city').data('id'),
         inProgress = false,
         $filterGroupBtn = $('.filter-item__tag');
-
-    $filterGroup.isotope({
-        itemSelector: '.event'
-    });
 
     $filterGroupBtn.on('click', function() {
         if(!$(this).hasClass('is-active')) {
