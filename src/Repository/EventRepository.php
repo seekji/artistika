@@ -119,4 +119,26 @@ class EventRepository extends ServiceEntityRepository
             ->getQuery()
             ->getSingleScalarResult();
     }
+
+    public function searchEventsByQuery(string $query)
+    {
+        $strings = explode(' ', $query);
+
+        foreach($strings as $key => $string) {
+            $strings[$key] = "{$string}*";
+        }
+
+        $query = implode(' ', $strings);
+
+        return $this->createQueryBuilder('e')
+            ->select('e.id', 'e.artist', 'e.startedAt', 'e.description', 'e.slug', 'city.name as cityName', 'city.slug as citySlug')
+            ->where('MATCH (e.description, e.artist) AGAINST (:query boolean) > 0')
+            ->leftJoin('e.city', 'city')
+            ->setParameter('query', $query)
+            ->orderBy('e.startedAt', 'ASC')
+            ->setMaxResults(15)
+            ->getQuery()
+            ->getArrayResult();
+        ;
+    }
 }

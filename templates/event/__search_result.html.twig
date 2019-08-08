@@ -1,0 +1,14 @@
+{% if events is defined and events|length > 0 %}
+    {% for event in events %}
+        <div class="search__list-item">
+            <a href="{{ path('app.event.show', {'city' : event.citySlug, 'event': event.slug }) }}" class="search__list-link">
+                {{ event.artist }}
+                <span class="search__list-item-date">{{ event.startedAt|localizeddate('none', 'none', app.request.locale, null, 'd MMMM' )|upper }} / {{ event.cityName }}</span>
+            </a>
+        </div>
+    {% endfor %}
+{% else %}
+    <div class="search__list-item">
+        НИЧЕГО ПОХОЖЕГО НЕ НАШЛОСЬ
+    </div>
+{% endif %}

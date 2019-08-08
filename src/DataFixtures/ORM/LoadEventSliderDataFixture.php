@@ -2,7 +2,9 @@
 
 namespace App\DataFixtures\ORM;
 
-use App\Entity\Handbook\Hall;
+use App\Application\Sonata\MediaBundle\Entity\Media;
+use App\Entity\Event;
+use App\Entity\EventSlider;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -11,14 +13,15 @@ use Faker\Factory;
 use Faker\Generator;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Class LoadHallDataFixture
+ * Class LoadEventSliderDataFixture
  * @package App\DataFixtures\ORM
  */
-class LoadHallDataFixture extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+class LoadEventSliderDataFixture extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
-    const REFERENCE_SLUG = 'app.hall.id.';
+    const REFERENCE_SLUG = 'app.slide.id.';
 
     /**
      * @var ContainerInterface
@@ -49,16 +52,27 @@ class LoadHallDataFixture extends AbstractFixture implements FixtureInterface, C
     {
         $this->faker = Factory::create();
 
-        for($i = 1; $i < 10; $i++) {
-            $hall = new Hall();
+        $events = $manager->getRepository(Event::class)->findBy([], [], 3);
 
-            $hall->setTitle($this->faker->text(10));
-            $hall->setAddress($this->faker->address);
-            $hall->setPhone($this->faker->phoneNumber);
+        $image = new UploadedFile(__DIR__ . '/../static/slide.png', basename(__DIR__ . '/../static/slide.png'), null, null, null, true);
 
-            $manager->persist($hall);
+        $media = new Media();
+        $media->setBinaryContent($image);
+        $media->setContext('slider');
+        $media->setProviderName('sonata.media.provider.image');
 
-            $this->setReference(self::REFERENCE_SLUG . $i, $hall);
+        for($i = 0; $i < 3; $i++) {
+            $slide = new EventSlider();
+
+            $slide->setTitle($this->faker->title);
+            $slide->setPicture($media);
+            $slide->setIsActive(true);
+            $slide->setSort(rand(0, 50));
+            $slide->setEvent($events[array_rand($events)]);
+
+            $manager->persist($slide);
+
+            $this->setReference(self::REFERENCE_SLUG . $i, $slide);
         }
 
         $manager->flush();
@@ -71,6 +85,6 @@ class LoadHallDataFixture extends AbstractFixture implements FixtureInterface, C
      */
     public function getOrder()
     {
-        return 30;
+        return 80;
     }
 }
