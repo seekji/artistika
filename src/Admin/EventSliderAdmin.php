@@ -61,7 +61,7 @@ class EventSliderAdmin extends AbstractAdmin
             ->with('Свойства слайда')
                 ->add('isActive')
                 ->add('title')
-                ->add('picture', ModelListType::class, [], ['link_parameters' => ['context' => 'default']])
+                ->add('picture', ModelListType::class, [], ['link_parameters' => ['context' => 'slider']])
                 ->add('event',  ModelListType::class)
                 ->add('sort')
             ->end();
