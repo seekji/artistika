@@ -32,6 +32,10 @@ sonata_media:
             - sonata.media.provider.image
             - sonata.media.provider.file
 
+        slider:
+          providers:
+            - sonata.media.provider.image
+
         static_pages:
           providers:
             - sonata.media.provider.image
