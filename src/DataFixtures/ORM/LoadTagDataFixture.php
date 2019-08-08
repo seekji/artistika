@@ -40,7 +40,7 @@ class LoadTagDataFixture extends AbstractFixture implements FixtureInterface, Co
      */
     public function load(ObjectManager $manager)
     {
-        for($i = 1; $i < 10; $i++) {
+        for($i = 1; $i < 6; $i++) {
             $tag = new Tag();
 
             $tag->setTitle('Тег номер - ' . $i);
@@ -61,6 +61,6 @@ class LoadTagDataFixture extends AbstractFixture implements FixtureInterface, Co
      */
     public function getOrder()
     {
-        return 30;
+        return 40;
     }
 }

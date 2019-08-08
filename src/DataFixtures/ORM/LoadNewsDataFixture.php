@@ -2,7 +2,8 @@
 
 namespace App\DataFixtures\ORM;
 
-use App\Entity\Handbook\Hall;
+use App\Application\Sonata\MediaBundle\Entity\Media;
+use App\Entity\News;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -11,14 +12,15 @@ use Faker\Factory;
 use Faker\Generator;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * Class LoadHallDataFixture
+ * Class LoadNewsDataFixture
  * @package App\DataFixtures\ORM
  */
-class LoadHallDataFixture extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+class LoadNewsDataFixture extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
-    const REFERENCE_SLUG = 'app.hall.id.';
+    const REFERENCE_SLUG = 'app.news.id.';
 
     /**
      * @var ContainerInterface
@@ -49,16 +51,29 @@ class LoadHallDataFixture extends AbstractFixture implements FixtureInterface, C
     {
         $this->faker = Factory::create();
 
-        for($i = 1; $i < 10; $i++) {
-            $hall = new Hall();
+        $image = new UploadedFile(__DIR__ . '/../static/news.png', basename(__DIR__ . '/../static/news.png'), null, null, null, true);
 
-            $hall->setTitle($this->faker->text(10));
-            $hall->setAddress($this->faker->address);
-            $hall->setPhone($this->faker->phoneNumber);
+        $media = new Media();
+        $media->setBinaryContent($image);
+        $media->setContext('news');
+        $media->setProviderName('sonata.media.provider.image');
 
-            $manager->persist($hall);
+        for($i = 0; $i < 20; $i++) {
+            $news = new News();
 
-            $this->setReference(self::REFERENCE_SLUG . $i, $hall);
+            $news->setTitle($this->faker->title);
+            $news->setDescription($this->faker->realText(600));
+            $news->setSlug($news->getTitle());
+            $news->setIsPublished($this->faker->boolean(90));
+            $news->setPreviewDescription($this->faker->text(150));
+
+            if($this->faker->boolean(70)) {
+                $news->setPicture($media);
+            }
+
+            $manager->persist($news);
+
+            $this->setReference(self::REFERENCE_SLUG . $i, $news);
         }
 
         $manager->flush();
@@ -71,6 +86,6 @@ class LoadHallDataFixture extends AbstractFixture implements FixtureInterface, C
      */
     public function getOrder()
     {
-        return 30;
+        return 90;
     }
 }

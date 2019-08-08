@@ -2,7 +2,7 @@
 
 namespace App\DataFixtures\ORM;
 
-use App\Entity\Handbook\City;
+use App\Entity\Menu;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\FixtureInterface;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -13,19 +13,21 @@ use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class LoadCityDataFixture
+ * Class LoadMenuDataFixture
  * @package App\DataFixtures\ORM
  */
-class LoadCityDataFixture extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
+class LoadMenuDataFixture extends AbstractFixture implements FixtureInterface, ContainerAwareInterface, OrderedFixtureInterface
 {
-    const REFERENCE_SLUG = 'app.city.id.';
+    const REFERENCE_SLUG = 'app.menu.id.';
 
     /**
      * @var ContainerInterface
      */
     private $container;
 
-    /** @var Generator */
+    /**
+     * @var Generator;
+     */
     private $faker;
 
     /**
@@ -46,25 +48,18 @@ class LoadCityDataFixture extends AbstractFixture implements FixtureInterface, C
     public function load(ObjectManager $manager)
     {
         $this->faker = Factory::create();
-        $defaultCityExists = false;
 
-        for($i = 1; $i < 10; $i++) {
-            $city = new City();
+        for($i = 0; $i < 5; $i++) {
+            $menu = new Menu();
 
-            $isDefaultCity = $this->faker->boolean;
+            $menu->setTitle($this->faker->text(7));
+            $menu->setSort($this->faker->randomDigit);
+            $menu->setIsActive(true);
+            $menu->setLink($this->faker->url);
 
-            $city->setIsDefault($defaultCityExists === true ? false : $isDefaultCity);
-            $city->setName($this->faker->city);
-            $city->setIsMain($this->faker->boolean);
-            $city->setSlug($city->getName());
+            $manager->persist($menu);
 
-            $manager->persist($city);
-
-            $this->setReference(self::REFERENCE_SLUG . $i, $city);
-
-            if($defaultCityExists === false) {
-                $defaultCityExists = $isDefaultCity;
-            }
+            $this->setReference(self::REFERENCE_SLUG . $i, $menu);
         }
 
         $manager->flush();
@@ -77,6 +72,6 @@ class LoadCityDataFixture extends AbstractFixture implements FixtureInterface, C
      */
     public function getOrder()
     {
-        return 20;
+        return 70;
     }
 }

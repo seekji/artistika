@@ -31,6 +31,9 @@ services:
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones
 
+    App\DataFixtures\ORM\LoadContextDataFixture:
+        tags: [doctrine.fixture.orm]
+
     App\DataFixtures\ORM\LoadAdminDataFixture:
         tags: [doctrine.fixture.orm]
 
@@ -41,6 +44,18 @@ services:
         tags: [doctrine.fixture.orm]
 
     App\DataFixtures\ORM\LoadHallDataFixture:
+      tags: [doctrine.fixture.orm]
+
+    App\DataFixtures\ORM\LoadEventDataFixture:
+      tags: [doctrine.fixture.orm]
+
+    App\DataFixtures\ORM\LoadMenuDataFixture:
+      tags: [doctrine.fixture.orm]
+
+    App\DataFixtures\ORM\LoadNewsDataFixture:
+      tags: [doctrine.fixture.orm]
+
+    App\DataFixtures\ORM\LoadEventSliderDataFixture:
       tags: [doctrine.fixture.orm]
 
     twig.extension.intl:
