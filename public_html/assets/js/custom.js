@@ -142,6 +142,36 @@ $(document).ready(function() {
         $('html').addClass('is-show-search');
     });
 
+    $('#search-input').on('change paste keyup', function (event) {
+        event.preventDefault();
+
+        var searchInProgress = false,
+            formContainer = $(this).parents('form'),
+            query = $(this).val().replace((/[^A-Za-z0-9\s]/g), ''),
+            searchContainerResult = formContainer.find('div.search__list');
+
+        if(searchInProgress === false && query.length > 2) {
+            searchInProgress = true;
+
+            $.ajax({
+                method: 'GET',
+                url: formContainer.attr('action'),
+                data: {
+                    'query': query
+                },
+                dataType: 'json',
+                statusCode: {
+                    200: function (data) {
+                        searchContainerResult.addClass('is-show');
+                        searchContainerResult.html(data.result);
+                    },
+                }
+            }).done(function () {
+                searchInProgress = false;
+            });
+        }
+    });
+
     /*
     *
     * Feedback form

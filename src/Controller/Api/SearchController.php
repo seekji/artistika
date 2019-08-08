@@ -31,19 +31,21 @@
         }
 
         /**
-         * @Rest\Route("/list/", methods={"GET"})
+         * @Rest\Route("/list/", name="app.search.list", methods={"GET"})
          *
          * @param Request $request
          * @return JsonResponse
          */
         public function list(Request $request)
         {
-            $query  = (string) $request->get('query');
+            $query  = preg_replace('/[^a-zA-Z0-9]/', "", (string) $request->get('query'));
 
             if(strlen($query) < 2) {
                 return new JsonResponse([], JsonResponse::HTTP_OK, []);
             }
 
-            return new JsonResponse(['events' => $this->eventService->searchEvents($query)], JsonResponse::HTTP_OK, []);
+            return new JsonResponse(['result' => $this->renderView('event/__search_result.html.twig', [
+                'events' => $this->eventService->searchEvents($query)
+            ])], JsonResponse::HTTP_OK, []);
         }
     }
