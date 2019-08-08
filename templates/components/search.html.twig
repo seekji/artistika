@@ -1,0 +1,15 @@
+<div class="search__overlay"></div>
+<form action="{{ path('app.search.list') }}" class="search__form">
+    <input type="text" name="query" id="search-input" class="search__input">
+    <button class="search__button">
+        <svg class="icon icon-search" width="30" height="29">
+            <use xlink:href="#icon-search" />
+        </svg>
+    </button>
+    <div class="search__list"></div>
+</form>
+<div class="search__open-button js-open-search">
+    <svg class="icon icon-search" width="30" height="29">
+        <use xlink:href="#icon-search" />
+    </svg>
+</div>

@@ -5,7 +5,9 @@
         </a>
 
         <div class="header__box">
-            <div class="search"></div>
+            <div class="search">
+                {% include('components/search.html.twig') %}
+            </div>
 
             <div class="locations">
                 {{ include('components/cities.html.twig') }}
