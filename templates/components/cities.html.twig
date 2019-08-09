@@ -33,10 +33,14 @@
                             {% endif %}
 
                             <li class="locations__city-list-item {{ city.isMain ? 'locations__city-list-item_main' : '' }} {{ isSelected ? 'is-selected' : '' }}">
-                                {% if city.isDefault == true %}
-                                    <a href="{{ path('app.homepage') }}" class="locations__city-list-link">{{ city.name }}</a>
+                                {% if currentRouteName == 'app.archive.default' or currentRouteName == 'app.archive.city' %}
+                                    <a href="{{ city.isDefault == true ? path('app.archive.default') : path('app.archive.city', {'slug': city.slug }) }}" class="locations__city-list-link">
+                                        {{ city.name }}
+                                    </a>
                                 {% else %}
-                                    <a href="{{ path('app.city', {'slug': city.slug }) }}" class="locations__city-list-link">{{ city.name }}</a>
+                                    <a href="{{ city.isDefault == true ? path('app.homepage') : path('app.city', {'slug': city.slug }) }}" class="locations__city-list-link">
+                                        {{ city.name }}
+                                    </a>
                                 {% endif %}
                             </li>
                         {% endfor %}
