@@ -1,5 +1,70 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {{ city }}
+    {{ include('components/main_slider.html.twig', {'slides': slides}) }}
+
+    <section class="events" data-archive="false">
+        <div class="events__filter filter-sort">
+            <div class="filter-sort__container">
+                <div class="filter-sort__heading">
+                    {% if currentCity.tagText is defined and currentCity.tagText is not empty %}
+                        {{ currentCity.tagText }}
+                    {% else %}
+                        Мероприятия:
+                    {% endif %}
+                </div>
+
+                {% if tags is defined and tags is not null and tags|length > 0 %}
+                    <div class="filter-sort__navigation">
+                        <div class="filter-sort__navigation-inner">
+                            <a href="#*" data-id="" class="filter-item__tag filter-sort__navigation-link is-active">Все</a>
+                            {% for tag in tags %}
+                                <a href="#.f_{{ tag.id }}" data-id="{{ tag.id }}"  class="filter-item__tag filter-sort__navigation-link">{{ tag.title }}</a>
+                            {% endfor %}
+                        </div>
+                    </div>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="events__grid events-grid ">
+            {{ include('event/__events_list.html.twig', {'events': events}) }}
+
+            <a href="#" class="events-grid__item event event_instagramm event_size_xs">
+                <span class="event__picture" style="background-image: url({{ asset('assets/img/upload/cover-11.png') }});"></span>
+
+                <div class="event__content">
+                    <div class="event__main">
+                        <div class="event__logo">
+                            <img src="{{ asset('assets/img/instagram-logo.svg') }}" alt="instagram logo"/>
+                        </div>
+                        <div class="event__title">artistikashow</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </section>
+
+    <section class="promo-numbers" style="background-image: url({{ asset('assets/img/upload/cover-12.jpg') }})">
+        <div class="promo-numbers__container">
+            <div class="promo-numbers__heading">ARTISTIKA—ЭТО</div>
+
+            <div class="promo-numbers__numbers">
+                <div class="promo-numbers__numbers-item promo-number">
+                    <div class="promo-number__count">{{ "now"|date('Y') - 2005 }}</div>
+                    <div class="promo-number__info">ЛЕТ РАБОТЫ <br/>с 2005 года</div>
+                </div>
+
+                <div class="promo-numbers__numbers-item promo-number">
+                    <div class="promo-number__count">{{ getSiteSettingByKey('city_count') ? : 30 }}</div>
+                    <div class="promo-number__info">ГОРОдов РОССИИ <br/>{{ getSiteSettingByKey('hall_count') ? : 120 }} площадок</div>
+                </div>
+
+                <div class="promo-numbers__numbers-item promo-number promo-number_size_l">
+                    <div class="promo-number__count">{{ getSiteSettingByKey('event_count') ? : 180 }}</div>
+                    <div class="promo-number__info">мероприятий в год <br/>концерты/туры/фестивали</div>
+                </div>
+            </div>
+        </div>
+    </section>
 {% endblock %}

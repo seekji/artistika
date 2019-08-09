@@ -31,16 +31,6 @@ class City
     private $name;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $shortName;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $description;
-
-    /**
      * @ORM\Column(type="boolean")
      */
     private $isDefault;
@@ -55,6 +45,16 @@ class City
      */
     private $sort = 0;
 
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $subscribeText;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $tagText;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -68,30 +68,6 @@ class City
     public function setName(string $name): self
     {
         $this->name = $name;
-
-        return $this;
-    }
-
-    public function getShortName(): ?string
-    {
-        return $this->shortName;
-    }
-
-    public function setShortName(?string $shortName): self
-    {
-        $this->shortName = $shortName;
-
-        return $this;
-    }
-
-    public function getDescription(): ?string
-    {
-        return $this->description;
-    }
-
-    public function setDescription(?string $description): self
-    {
-        $this->description = $description;
 
         return $this;
     }
@@ -191,6 +167,30 @@ class City
     public function setSort(int $sort): self
     {
         $this->sort = $sort;
+
+        return $this;
+    }
+
+    public function getSubscribeText(): ?string
+    {
+        return $this->subscribeText;
+    }
+
+    public function setSubscribeText(?string $subscribeText): self
+    {
+        $this->subscribeText = $subscribeText;
+
+        return $this;
+    }
+
+    public function getTagText(): ?string
+    {
+        return $this->tagText;
+    }
+
+    public function setTagText(string $tagText): self
+    {
+        $this->tagText = $tagText;
 
         return $this;
     }

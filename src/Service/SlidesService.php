@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Handbook\City;
 use App\Repository\EventSliderRepository;
 
 /**
@@ -30,5 +31,11 @@ class SlidesService
     public function getActiveEventSlides(): array
     {
         return $this->eventSliderRepository->findBy(['isActive' => true], ['sort' => 'ASC']);
+    }
+
+
+    public function getActiveEventSlidesByCity(City $city): array
+    {
+        return $this->eventSliderRepository->getActiveEventSlidesByCity($city);
     }
 }

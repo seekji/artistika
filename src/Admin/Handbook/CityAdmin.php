@@ -57,17 +57,21 @@
         {
             $form->with('Свойства города')
                 ->add('name')
-                ->add('shortName')
                 ->add('sort')
                 ->add('isMain')
-                ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.'])
-                ->add('description');
+                ->add('isDefault', null, ['help' => 'Стандартный город для всех пользователей.']);
 
             if ($this->isCurrentRoute('edit', 'app.admin.handbook.city')) {
                 $form->add('slug');
             }
 
             $form->end();
+
+            $form
+                ->with('Тексты')
+                    ->add('tagText', null, ['help' => 'Текст для тегов.'])
+                    ->add('subscribeText', null, ['help' => 'Текст для формы с подпиской.'])
+                ->end();
         }
 
         /**
@@ -78,9 +82,10 @@
             $showMapper
                 ->add('id')
                 ->add('name')
-                ->add('shortName')
-                ->add('description')
+                ->add('subscribeText')
+                ->add('tagText')
                 ->add('isDefault')
+                ->add('isMain')
                 ->add('createdAt')
                 ->add('updatedAt')
             ;

@@ -1,3 +1,9 @@
+{% set currentRouteName = app.request.get('_route') %}
+{% if currentCity is defined and currentCity is not null %}
+    {% set currentCity = currentCity %}
+{% else %}
+    {% set currentCity = getDefaultCity() %}
+{% endif %}
 <!DOCTYPE html>
 <html>
     <head>
@@ -12,7 +18,6 @@
         {% block stylesheets %}{% endblock %}
     </head>
     <body style="background-color:">
-
         {% include 'blocks/header.html.twig' %}
 
         {% block body %}{% endblock %}
