@@ -47,6 +47,11 @@ class CityController extends AbstractController
 
     /**
      * @Route("-{slug}/", name="app.city")
+     *
+     * @param Request $request
+     * @param City $city
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction(Request $request, City $city)
     {

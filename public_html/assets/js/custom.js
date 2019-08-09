@@ -4,6 +4,7 @@ $(document).ready(function() {
     * */
     var tags = [],
         eventsContainer = $('section.events'),
+        isArchive = eventsContainer.data('archive'),
         instagramElement = eventsContainer.find('a.event.event_instagramm'),
         feedbackContainer = $('section.feedback'),
         offset = eventsContainer.find('.event__item').length,
@@ -55,7 +56,8 @@ $(document).ready(function() {
                 'offset': offset,
                 'limit': limit,
                 'city': city,
-                'tags': tags
+                'tags': tags,
+                'isArchive': isArchive,
             },
             success: function(response) {
                 isDone = response.is_done;
