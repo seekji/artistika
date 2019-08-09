@@ -48,7 +48,7 @@ class LoadCityDataFixture extends AbstractFixture implements FixtureInterface, C
         $this->faker = Factory::create();
         $defaultCityExists = false;
 
-        for($i = 1; $i < 10; $i++) {
+        for($i = 1; $i < 5; $i++) {
             $city = new City();
 
             $isDefaultCity = $this->faker->boolean;
@@ -57,6 +57,8 @@ class LoadCityDataFixture extends AbstractFixture implements FixtureInterface, C
             $city->setName($this->faker->city);
             $city->setIsMain($this->faker->boolean);
             $city->setSlug($city->getName());
+            $city->setSubscribeText($this->faker->text(75));
+            $city->setTagText($this->faker->text(15));
 
             $manager->persist($city);
 

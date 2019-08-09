@@ -7,10 +7,14 @@
         <div class="events__filter filter-sort">
             <div class="filter-sort__container">
                 <div class="filter-sort__heading">
-                    Мероприятия в новосибирске:
+                    {% if currentCity.tagText is defined and currentCity.tagText is not empty %}
+                        {{ currentCity.tagText }}
+                    {% else %}
+                        Мероприятия:
+                    {% endif %}
                 </div>
 
-                {% if tags is defined and tags is not null %}
+                {% if tags is defined and tags is not null and tags|length > 0 %}
                     <div class="filter-sort__navigation">
                         <div class="filter-sort__navigation-inner">
                             <a href="#*" data-id="" class="filter-item__tag filter-sort__navigation-link is-active">Все</a>

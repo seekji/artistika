@@ -13,6 +13,12 @@
     </head>
     <body style="background-color:">
 
+        {% if currentCity is defined and currentCity is not null %}
+            {% set currentCity = currentCity %}
+        {% else %}
+            {% set currentCity = getDefaultCity() %}
+        {% endif %}
+
         {% include 'blocks/header.html.twig' %}
 
         {% block body %}{% endblock %}

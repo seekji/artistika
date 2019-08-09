@@ -20,7 +20,11 @@
                 </div>
 
                 <div class="feedback__welcome">
-                    Будьте в курсе самых важных событий Новосибирска
+                    {% if currentCity is defined and currentCity.subscribeText is not empty %}
+                        {{ currentCity.subscribeText }}
+                    {% else %}
+                        Будьте в курсе самых важных событий
+                    {% endif %}
                 </div>
             </div>
         </form>
