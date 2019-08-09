@@ -40,23 +40,25 @@ class EventService
      * @param array $tags
      * @param int|null $city
      *
+     * @param bool $isArchive
      * @return null|\App\Entity\Event[]
      */
-    public function getEventsByFilter(int $offset = 0, int $limit = 20, array $tags = [], int $city = null): ?array
+    public function getEventsByFilter(int $offset = 0, int $limit = 20, array $tags = [], int $city = null, bool $isArchive = false): ?array
     {
-        return $this->eventRepository->getEventsByFilter($offset, $limit, $tags, $city);
+        return $this->eventRepository->getEventsByFilter($offset, $limit, $tags, $city, $isArchive);
     }
 
     /**
      * @param array $tags
      * @param int|null $city
+     * @param bool $isArchive
      * @return int
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Doctrine\ORM\NonUniqueResultException
      */
-    public function getEventsCountByFilter(array $tags = [], int $city = null): int
+    public function getEventsCountByFilter(array $tags = [], int $city = null, bool $isArchive = false): int
     {
-        return $this->eventRepository->getEventsCountByFilter($tags, $city);
+        return $this->eventRepository->getEventsCountByFilter($tags, $city, $isArchive);
     }
 
     /**
@@ -68,8 +70,30 @@ class EventService
         return $this->eventRepository->getEventTagsByCity($city);
     }
 
+    /**
+     * @param string $query
+     * @return array
+     */
     public function searchEvents(string $query)
     {
         return $this->eventRepository->searchEventsByQuery($query);
+    }
+
+    /**
+     * @param City $city
+     * @return array|null
+     */
+    public function getArchiveEventsByCity(City $city): ?array
+    {
+        return $this->eventRepository->getArchiveEventsByCity($city);
+    }
+
+    /**
+     * @param City $city
+     * @return array|null
+     */
+    public function getArchiveEventTagsByCity(City $city): ?array
+    {
+        return $this->eventRepository->getArchiveEventTagsByCity($city);
     }
 }

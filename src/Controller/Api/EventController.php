@@ -50,10 +50,11 @@ class EventController extends AbstractFOSRestController
         $offset = (int) $request->get('offset', 0);
         $limit  = (int) $request->get('limit', 20);
         $tags   = (array) $request->get('tags', []);
+        $isArchive   = $request->get('isArchive', false) === 'true';
         $city   = $request->get('city', null);
 
-        $events = $this->eventService->getEventsByFilter($offset, $limit, $tags, $city);
-        $eventsCount = $this->eventService->getEventsCountByFilter($tags, $city);
+        $events = $this->eventService->getEventsByFilter($offset, $limit, $tags, $city, $isArchive);
+        $eventsCount = $this->eventService->getEventsCountByFilter($tags, $city, $isArchive);
 
         $json = $this->serializer->serialize([ 'events' => $this->renderView('event/__events_list.html.twig', ['events' => $events]), 'limit' => $limit, 'offset' => $offset, 'total' => $eventsCount, 'is_done' => ($offset + count($events) >= $eventsCount)], 'json');
 
