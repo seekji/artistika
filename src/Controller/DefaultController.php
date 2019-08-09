@@ -54,7 +54,7 @@ class DefaultController extends AbstractController
         $defaultCity = $this->cityService->getDefaultCity();
 
         return $this->render('default/index.html.twig', [
-            'slides' => $this->slidesService->getActiveEventSlides(),
+            'slides' => $this->slidesService->getActiveEventSlidesByCity($defaultCity),
             'events' => $this->eventService->getEventsByCity($defaultCity),
             'tags' => $this->eventService->getEventTagsByCity($defaultCity)
         ]);

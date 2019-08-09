@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\EventSlider;
+use App\Entity\Handbook\City;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -17,6 +18,23 @@ class EventSliderRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, EventSlider::class);
+    }
+
+    /**
+     * @param City $city
+     * @return array|null
+     */
+    public function getActiveEventSlidesByCity(City $city): ?array
+    {
+        return $this->createQueryBuilder('es')
+            ->where('es.isActive = true')
+            ->leftJoin('es.event', 'event')
+            ->andWhere('event.city = :city')
+            ->setParameter('city', $city)
+            ->orderBy('es.sort', 'ASC')
+            ->orderBy('es.id', 'DESC')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

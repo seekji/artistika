@@ -1,7 +1,7 @@
-{% if slides is defined and slides|length > 0 %}
-    <section class="promo-slider js-promo-slider">
-        <div class="promo-slider__container swiper-container">
-            <div class="promo-slider__wrapper swiper-wrapper">
+<section class="promo-slider js-promo-slider">
+    <div class="promo-slider__container swiper-container">
+        <div class="promo-slider__wrapper swiper-wrapper">
+            {% if slides is defined and slides|length > 0 %}
                 {% for slide in slides %}
                     {% if slide.event is defined %}
                         <div class="promo-slider__slide slice-slide swiper-slide">
@@ -37,16 +37,16 @@
                         </div>
                     {% endif %}
                 {% endfor %}
-            </div>
-
-            <div class="promo-slider__arrow arrow-prev"></div>
-            <div class="promo-slider__arrow arrow-next"></div>
-
-            <div class="custom-cursor">
-                <svg class="icon custom-cursor__arrow" width="40" height="40">
-                    <use xlink:href="#arrow-cursor"/>
-                </svg>
-            </div>
+            {% endif %}
         </div>
-    </section>
-{% endif %}
+
+        <div class="promo-slider__arrow arrow-prev"></div>
+        <div class="promo-slider__arrow arrow-next"></div>
+
+        <div class="custom-cursor">
+            <svg class="icon custom-cursor__arrow" width="40" height="40">
+                <use xlink:href="#arrow-cursor"/>
+            </svg>
+        </div>
+    </div>
+</section>
