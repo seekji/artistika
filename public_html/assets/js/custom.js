@@ -87,6 +87,9 @@ $(document).ready(function() {
         $(this).addClass('is-active');
 
         $('[data-time]').text(time).attr('data-time', time);
+        $('.event-detail_ticket').attr('href', $(this).data('tickets'));
+        $('#google-calendar').attr('href', $(this).data('add-google'));
+        $('#apple-calendar, #outlook-calendar').attr('href', $(this).data('add-ics'));
     });
 
     /*

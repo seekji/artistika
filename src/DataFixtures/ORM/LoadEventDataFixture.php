@@ -60,6 +60,7 @@ class LoadEventDataFixture extends AbstractFixture implements FixtureInterface, 
 
         $smallImage = new UploadedFile(__DIR__ . '/../static/event_small.png', basename(__DIR__ . '/../static/event_small.png'), null, null, null, true);
         $bigImage = new UploadedFile(__DIR__ . '/../static/event_big.png', basename(__DIR__ . '/../static/event_big.png'), null, null, null, true);
+        $detailImage = new UploadedFile(__DIR__ . '/../static/detail_image.png', basename(__DIR__ . '/../static/detail_image.png'), null, null, null, true);
 
         $smallMedia = new Media();
         $smallMedia->setBinaryContent($smallImage);
@@ -69,7 +70,12 @@ class LoadEventDataFixture extends AbstractFixture implements FixtureInterface, 
         $bigMedia = new Media();
         $bigMedia->setBinaryContent($bigImage);
         $bigMedia->setContext('events');
-        $bigMedia->setProviderName('sonata.media.provider.file');
+        $bigMedia->setProviderName('sonata.media.provider.image');
+
+        $detailMedia = new Media();
+        $detailMedia->setBinaryContent($detailImage);
+        $detailMedia->setContext('events');
+        $detailMedia->setProviderName('sonata.media.provider.image');
 
         for($i = 0; $i < self::COUNT_ELEMENTS; $i++) {
             $event = new Event();
@@ -85,6 +91,10 @@ class LoadEventDataFixture extends AbstractFixture implements FixtureInterface, 
             $event->setDescription($this->faker->text(1500));
             $event->setStartedAt($this->faker->dateTimeBetween('-5 days', '+100 days'));
             $event->setCity($cities[array_rand($cities)]);
+            $event->setAge($this->faker->randomDigit);
+            $event->setAdditionalText($this->faker->text(100));
+            $event->setDetailPicture($detailMedia);
+            $event->setSocialLinks(['vk' => 'vk.com/some_event', 'facebook' => 'facebook.com/some_event']);
 
             $tagsRandomKeys = array_rand($tags, rand(2, 5));
 

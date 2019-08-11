@@ -2,7 +2,6 @@
 
     namespace App\Admin;
 
-    use App\Entity\EventSchedule;
     use App\Form\Type\EventScheduleForm;
     use FOS\CKEditorBundle\Form\Type\CKEditorType;
     use Sonata\AdminBundle\Admin\AbstractAdmin;
@@ -12,13 +11,13 @@
     use Sonata\AdminBundle\Form\Type\ModelListType;
     use Sonata\AdminBundle\Form\Type\ModelType;
     use Sonata\AdminBundle\Show\ShowMapper;
+    use Sonata\Form\Type\ImmutableArrayType;
     use Symfony\Component\Form\Extension\Core\Type\CollectionType;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
-    use Symfony\Component\Form\Extension\Core\Type\TimeType;
     use Symfony\Component\Form\Extension\Core\Type\ColorType;
 
     /**
-     * Class HallAdmin
+     * Class EventAdmin
      * @package App\Admin
      */
     class EventAdmin extends AbstractAdmin
@@ -32,6 +31,13 @@
             $filter
                 ->add('id')
                 ->add('title')
+                ->add('artist')
+                ->add('startedAt')
+                ->add('city')
+                ->add('hall')
+                ->add('slug')
+                ->add('isActive')
+                ->add('isCanceled')
             ;
         }
 
@@ -44,10 +50,13 @@
 
             $list
                 ->add('id')
-                ->add('title')
+                ->add('artist')
                 ->add('city')
-                ->add('createdAt')
-                ->add('updatedAt')
+                ->add('hall')
+                ->add('startedAt')
+                ->add('slug')
+                ->add('isCanceled')
+                ->add('isActive')
                 ->add('_action', null, [
                     'actions' => [
                         'show'   => [],
@@ -66,8 +75,7 @@
                 ->tab('Основные свойства мероприятия')
                     ->with('Основные свойства мероприятия', ['class' => 'col-md-9'])
                         ->add('title')
-                        ->add('isActive')
-                        ->add('isCanceled')
+                        ->add('artist',  TextType::class)
             ;
 
             if ($this->isCurrentRoute('edit', 'app.admin.event')) {
@@ -75,35 +83,63 @@
             }
 
             $form
-                    ->add('artist',  TextType::class)
                     ->add('city',  ModelListType::class)
                     ->add('hall', ModelListType::class)
+                ->end()
+                ->with('Состояние', ['class' => 'col-md-3'])
+                    ->add('isActive')
+                    ->add('isCanceled')
                 ->end()
                 ->with('Теги', ['class' => 'col-md-3'])
                     ->add('tags', ModelType::class, ['multiple' => true])
                 ->end()
                 ->end()
-                ->tab('Описание и визуал')
-                    ->with('Описание и визуал')
-                        ->add('color', ColorType::class)
-                        ->add('isPreviewBig')
+                ->tab('Описание')
+                    ->with('Описание')
+                        ->add('additionalText')
                         ->add('description', CKEditorType::class)
-                        ->add('picture', ModelListType::class, [], ['link_parameters' => ['context' => 'events']])
-                        ->add('bigPicture', ModelListType::class, [], ['link_parameters' => ['context' => 'events']])
+                    ->end()
+                ->end()
+                ->tab('Визуал')
+                    ->with('Картинки', ['class' => 'col-md-9'])
+                        ->add('picture', ModelListType::class, ['label' => 'Маленькая картинка для списка', 'required' => false], ['link_parameters' => ['context' => 'events']])
+                        ->add('bigPicture', ModelListType::class,
+                            ['label' => 'Большая картинка для списка', 'help' => 'Необходимо отметить состояние для отображения.', 'required' => false],
+                            ['link_parameters' => ['context' => 'events']]
+                        )
+                        ->add('detailPicture', ModelListType::class, ['label' => 'Картинка для детальной страницы', 'required' => false], ['link_parameters' => ['context' => 'events']]
+                        )
+                    ->end()
+                    ->with('Состояние', ['class' => 'col-md-3'])
+                        ->add('color', ColorType::class, ['help' => 'Основной цвет детальной страницы.'])
+                        ->add('isPreviewBig', null, ['help' => 'Отображение мероприятия в списке.'])
                     ->end()
                 ->end()
                 ->tab('Время')
                     ->with('Время')
                         ->add('startedAt')
                         ->add('tickets', CollectionType::class, [
-                            'by_reference' => false, // Use this because of reasons
-                            'allow_add' => true, // True if you want allow adding new entries to the collection
-                            'allow_delete' => true, // True if you want to allow deleting entries
-                            'prototype' => true, // True if you want to use a custom form type
-                            'entry_type' => EventScheduleForm::class, // Form type for the Entity that is being attached to the object
+                            'by_reference' => false,
+                            'allow_add' => true,
+                            'allow_delete' => true,
+                            'prototype' => true,
+                            'entry_type' => EventScheduleForm::class,
                         ])
                     ->end()
-                ->end();
+                ->end()
+                ->tab('Остальное')
+                    ->with('Остальное')
+                        ->add('age')
+                        ->add('social_links', ImmutableArrayType::class, [
+                            'keys' => [
+                                ['vk', TextType::class, ['required' => false]],
+                                ['facebook', TextType::class, ['required' => false]],
+                            ],
+                            'required' => false
+                        ])
+                    ->end()
+                ->end()
+            ;
         }
 
         /**
@@ -114,8 +150,12 @@
             $showMapper
                 ->add('id')
                 ->add('title')
+                ->add('artist')
+                ->add('tags')
                 ->add('city')
                 ->add('hall')
+                ->add('slug')
+                ->add('startedAt')
                 ->add('createdAt')
                 ->add('updatedAt')
             ;

@@ -1,0 +1,25 @@
+{% if events is defined and events|length > 0 %}
+    {% for event in events %}
+        <div class="events-grid__item event event__item {{ event.isPreviewBig ? 'event_size_md' : 'event_size_xs' }} {{ event.isCanceled ? 'is-canceled' : '' }}">
+            {% if event.isCanceled %}
+                <span class="event__status">Отмена</span>
+            {% endif %}
+
+            {% if event.isPreviewBig and event.bigPicture is defined %}
+                <span class="event__picture" style="background-image: url({% path event.bigPicture, 'reference' %});"></span>
+            {% else %}
+                <span class="event__picture" style="background-image: url({% path event.picture, 'reference' %});"></span>
+            {% endif %}
+
+            <div class="event__content">
+                <a href="{{ path('app.event.show', {'city' : event.city.getSlug(), 'event': event.getSlug()}) }}" class="event__main">
+                    <span class="event__title">{{ event.artist }}</span>
+                    <span class="event__info">
+                        <time class="event__time">{{ event.getStartedAt()|localizeddate('none', 'none', app.request.locale, null, 'd MMMM' )|upper }}</time> /
+                        <span class="event__place">{{ event.hall.title }}</span>
+                    </span>
+                </a>
+            </div>
+        </div>
+    {% endfor %}
+{% endif %}

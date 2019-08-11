@@ -1,5 +1,156 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+    {% if event.detailPicture is defined and event.detailPicture is not null %}
+        <style>
+            .event-detail-promo {
+                background-image: url({% path event.detailPicture, 'reference' %});
+            }
+        </style>
+    {% endif %}
 
+    <main class="page-content">
+        <section class="event-detail-promo">
+            <div class="event-detail-promo__container">
+                <div class="event-detail-promo__content">
+                    {% if event.tickets is defined and event.tickets|length > 1 %}
+                        <div class="event-detail-promo__time event-time">
+                            <svg class="icon icon-clock" width="42" height="42">
+                                <use xlink:href="#icon-clock" />
+                            </svg>
+                            {% for item in event.tickets %}
+                                <button class="event-time__button js-btn-time {{ loop.first ? 'is-active' : '' }}"
+                                        data-tickets="{{ item.tickets }}"
+                                        data-add-google="{{ include('components/event/__google_event_add.html.twig', {'event': event, 'schedule': item}) }}"
+                                        data-add-ics="{{ path('app_event_calendar', {'event_id': event.id, 'schedule_id': item.id}) }}"
+                                        type="button">
+                                    {{ item.time|date('H:i') }}
+                                </button>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
+                    <div class="event-detail-promo__heading">
+                        <h1 class="event-detail-promo__name">{{ event.artist }}</h1>
+                        {% if event.tickets is defined and event.tickets[0] is not null %}
+                            <a href="{{ event.tickets[0].tickets }}" target="_blank" class="event-detail-promo__bill button-bill button-bill_size_lg event-detail_ticket">Билеты</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="event-detail-main">
+            <div class="event-detail-main__sidebar">
+                <div class="event-detail-main__event-widget-info event-widget-info">
+                    <div class="event-widget-info__date">
+                        <div class="event-widget-info__date-day">
+                            {{ event.getStartedAt()|localizeddate('none', 'none', app.request.locale, null, 'd' )|upper }}
+                        </div>
+                        <div class="event-widget-info__date-info">
+                            <div class="event-widget-info__date-month">
+                                {{ event.getStartedAt()|localizeddate('none', 'none', app.request.locale, null, 'MMMM' )|upper }}
+                                <span class="event-widget-info__date-weekend">/
+                                    {{ event.getStartedAt()|localizeddate('none', 'none', app.request.locale, null, 'EEEE' )|upper }}
+                                </span>
+                            </div>
+
+                            {% if event.tickets is defined and event.tickets[0] is not null %}
+                                <div data-time="" class="event-widget-info__date-time">{{ event.tickets[0].time|date('H:i') }}</div>
+                            {% endif %}
+                        </div>
+                    </div>
+
+                    {% if event.hall is defined and event.hall is not null %}
+                        <div class="event-widget-info__place">
+                            <svg class="icon icon-pin" width="23" height="28">
+                                <use xlink:href="#icon-pin" />
+                            </svg>
+                            {{ event.hall.title }}
+                        </div>
+
+                        <div class="event-widget-info__address">
+                            {{ event.hall.address }} <br/>
+                            <a href="tel:+{{ event.hall.getHrefPhone() }}">{{ event.hall.phone }}</a>
+                        </div>
+                    {% endif %}
+
+                    <div class="event-widget-info__footer">
+
+                        {% if event.tickets is defined and event.tickets[0] is not null %}
+                            <div class="event-calendar">
+                                <div class="event-calendar__current js-event-calendar">
+                                    <svg class="icon icon-plus" width="20" height="20">
+                                        <use xlink:href="#icon-plus" />
+                                    </svg>
+                                    В календарь
+                                </div>
+
+                                <div class="event-calendar__dropdown">
+                                    <ul class="event-calendar__list">
+                                        <li class="event-calendar__list-item">
+                                            <a href="{{ include('components/event/__google_event_add.html.twig', {'event': event, 'schedule': event.tickets[0]}) }}"
+                                               class="event-calendar__list-link" id="google-calendar" target="_blank">
+                                                Google Calendar
+                                            </a>
+                                        </li>
+                                        <li class="event-calendar__list-item">
+                                            <a target="_blank" href="{{ path('app_event_calendar', {'event_id': event.id, 'schedule_id': event.tickets[0].id}) }}"
+                                               class="event-calendar__list-link" id="apple-calendar">
+                                                Apple Calendar
+                                            </a>
+                                        </li>
+                                        <li class="event-calendar__list-item">
+                                            <a target="_blank" href="{{ path('app_event_calendar', {'event_id': event.id, 'schedule_id': event.tickets[0].id}) }}"
+                                               class="event-calendar__list-link" id="outlook-calendar">
+                                                Outlook
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        {% if event.socialLinks is defined and event.socialLinks is not null %}
+                            <div class="event-widget-info__social social social_type_share">
+                                <span class="social__title">Встречи:</span>
+                                {% if event.socialLinks['vk'] is defined and event.socialLinks['vk'] is not empty %}
+                                    <a href="{{ event.socialLinks['vk'] }}" class="social__link" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.55 51.55">
+                                            <path fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3.5" d="M25.78 1.75a24 24 0 1 0 24 24 24 24 0 0 0-24-24z"/>
+                                            <path fill="#fff" d="M37.79 28.53c1.12 1.1 2.3 2.13 3.31 3.33a10 10 0 0 1 1.18 1.71c.46.89 0 1.86-.75 1.91h-4.92a3.84 3.84 0 0 1-3.14-1.28c-.68-.69-1.31-1.43-2-2.15a4.8 4.8 0 0 0-.89-.79 1 1 0 0 0-1.64.4 5.26 5.26 0 0 0-.52 2.3c-.05 1.16-.4 1.46-1.57 1.52a12.63 12.63 0 0 1-7-1.52 15.55 15.55 0 0 1-4.74-4.43A59.86 59.86 0 0 1 8.87 18.4c-.39-.87-.1-1.34.86-1.36h4.82a1.41 1.41 0 0 1 1.34 1 29.45 29.45 0 0 0 3.27 6.05 4.85 4.85 0 0 0 1.23 1.36.75.75 0 0 0 1.27-.37A4 4 0 0 0 22 23.8a18.84 18.84 0 0 0-.08-4.44 1.85 1.85 0 0 0-1.58-1.7c-.47-.09-.4-.27-.17-.53a1.74 1.74 0 0 1 1.51-.75h5.56c.88.18 1.07.57 1.19 1.45V24c0 .34.17 1.36.78 1.58s.82-.23 1.11-.54a19.41 19.41 0 0 0 3.14-4.82c.37-.76.7-1.55 1-2.34a1.2 1.2 0 0 1 1.23-.88H41a3.87 3.87 0 0 1 .48 0c.9.16 1.15.55.87 1.43a13.6 13.6 0 0 1-2.13 3.69c-.89 1.23-1.85 2.43-2.73 3.67s-.71 1.76.3 2.74z"/>
+                                        </svg>
+                                        <span class="social__link-text">Vkontakte</span>
+                                    </a>
+                                {% endif %}
+                                {% if event.socialLinks['facebook'] is defined and event.socialLinks['facebook'] is not empty %}
+                                    <a href="{{ event.socialLinks['facebook'] }}" class="social__link" target="_blank">
+                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 51.85 51.85">
+                                            <path fill="none" stroke="#fff" stroke-miterlimit="10" stroke-width="3.5" d="M25.92 1.75A24.18 24.18 0 1 0 50.1 25.92 24.17 24.17 0 0 0 25.92 1.75z"/>
+                                            <path fill="#fff" d="M32.59 16.23h-3.52a1.32 1.32 0 0 0-1.38 1.51V21h4.88L32 26.56h-4.31v15.8h-6.54v-15.8H18V21h3.11v-3.59c0-2.57 1.22-6.6 6.6-6.6h4.84z"/>
+                                        </svg>
+                                        <span class="social__link-text">Facebook</span>
+                                    </a>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        {% if event.tickets is defined and event.tickets[0] is not null %}
+                            <a href="{{ event.tickets[0].tickets }}" class="event-widget-info__bill button-bill event-detail_ticket">Купить билеты</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+            <div class="event-detail-main__content">
+                <div class="event-detail-main__description">
+                    {{ event.additionalText|raw }}
+                </div>
+                {{ event.description|raw }}
+                <div class="hint-old">
+                    {{ event.age is defined ? event.age : 0 }}+
+                </div>
+            </div>
+        </section>
+    </main>
 {% endblock %}

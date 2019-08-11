@@ -14,7 +14,6 @@
     /**
      * Class EventController
      * @package App\Controller
-     * @Route("/event")
      */
     class EventController extends AbstractController
     {
@@ -22,7 +21,7 @@
          * @param Event $event
          * @param City $city
          *
-         * @Route("/{city}/{event}/", name="app.event.show")
+         * @Route("/city-{city}/{event}/", name="app.event.show")
          *
          * @ParamConverter("city", options={"mapping": {"city": "slug"}})
          * @ParamConverter("event", options={"mapping": {"event": "slug"}})
@@ -31,11 +30,14 @@
          */
         public function show(City $city, Event $event)
         {
-            return $this->render('event/index.html.twig', ['event' => $event]);
+            return $this->render('event/index.html.twig', [
+                'currentCity' => $city,
+                'event' => $event
+            ]);
         }
 
         /**
-         * @Route("/calendar/{event_id}/{schedule_id}/")
+         * @Route("/event/calendar/{event_id}/{schedule_id}/")
          *
          * @param Event $event
          * @param EventSchedule $eventSchedule
@@ -47,6 +49,10 @@
          */
         public function calendar(Event $event, EventSchedule $eventSchedule)
         {
+            if(!$event->getTickets()->contains($eventSchedule)) {
+                throw $this->createNotFoundException();
+            }
+
             $filename = 'event.ics';
             $eventStartDate = date('Ymd\THis', strtotime($event->getStartedAt()->format('Ymd\T') . $eventSchedule->getTime()->format('Hi')));
 

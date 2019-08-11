@@ -106,6 +106,17 @@ class Event
      * )
      * @ORM\JoinColumn(onDelete="SET NULL")
      */
+    private $detailPicture;
+
+    /**
+     * @var Media
+     *
+     * @ORM\ManyToOne(
+     *     targetEntity="App\Application\Sonata\MediaBundle\Entity\Media",
+     *     cascade={"persist", "remove"},
+     * )
+     * @ORM\JoinColumn(onDelete="SET NULL")
+     */
     private $bigPicture;
 
     /**
@@ -113,6 +124,21 @@ class Event
      * @Assert\NotBlank()
      */
     private $tickets;
+
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $age;
+
+    /**
+     * @ORM\Column(type="text", nullable=true)
+     */
+    private $additionalText;
+
+    /**
+     * @ORM\Column(type="array", nullable=true)
+     */
+    private $socialLinks = [];
 
     public function __construct()
     {
@@ -357,6 +383,26 @@ class Event
     /**
      * @return null|Media
      */
+    public function getDetailPicture(): ?Media
+    {
+        return $this->detailPicture;
+    }
+
+    /**
+     * @param Media $detailPicture
+     *
+     * @return $this
+     */
+    public function setDetailPicture(Media $detailPicture): self
+    {
+        $this->detailPicture = $detailPicture;
+
+        return $this;
+    }
+
+    /**
+     * @return null|Media
+     */
     public function getBigPicture(): ?Media
     {
         return $this->bigPicture;
@@ -401,6 +447,42 @@ class Event
                 $ticket->setEvent(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getAge(): ?int
+    {
+        return $this->age;
+    }
+
+    public function setAge(?int $age): self
+    {
+        $this->age = $age;
+
+        return $this;
+    }
+
+    public function getAdditionalText(): ?string
+    {
+        return $this->additionalText;
+    }
+
+    public function setAdditionalText(?string $additionalText): self
+    {
+        $this->additionalText = $additionalText;
+
+        return $this;
+    }
+
+    public function getSocialLinks(): ?array
+    {
+        return $this->socialLinks;
+    }
+
+    public function setSocialLinks(?array $socialLinks): self
+    {
+        $this->socialLinks = $socialLinks;
 
         return $this;
     }
