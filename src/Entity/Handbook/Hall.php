@@ -82,4 +82,9 @@ class Hall
     {
         return $this->title;
     }
+
+    public function getHrefPhone(): string
+    {
+        return preg_replace('/[^0-9]/', '', $this->getPhone());
+    }
 }
