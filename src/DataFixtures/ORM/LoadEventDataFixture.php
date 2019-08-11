@@ -72,10 +72,10 @@ class LoadEventDataFixture extends AbstractFixture implements FixtureInterface, 
         $bigMedia->setContext('events');
         $bigMedia->setProviderName('sonata.media.provider.image');
 
-        $detailImage = new Media();
-        $detailImage->setBinaryContent($detailImage);
-        $detailImage->setContext('events');
-        $detailImage->setProviderName('sonata.media.provider.image');
+        $detailMedia = new Media();
+        $detailMedia->setBinaryContent($detailImage);
+        $detailMedia->setContext('events');
+        $detailMedia->setProviderName('sonata.media.provider.image');
 
         for($i = 0; $i < self::COUNT_ELEMENTS; $i++) {
             $event = new Event();
@@ -93,7 +93,7 @@ class LoadEventDataFixture extends AbstractFixture implements FixtureInterface, 
             $event->setCity($cities[array_rand($cities)]);
             $event->setAge($this->faker->randomDigit);
             $event->setAdditionalText($this->faker->text(100));
-            $event->setDetailPicture($detailImage);
+            $event->setDetailPicture($detailMedia);
             $event->setSocialLinks(['vk' => 'vk.com/some_event', 'facebook' => 'facebook.com/some_event']);
 
             $tagsRandomKeys = array_rand($tags, rand(2, 5));
