@@ -3,7 +3,7 @@
     namespace App\Controller;
 
     use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-    use Symfony\Component\HttpFoundation\Request;
+    use App\Entity\Page;
     use Symfony\Component\Routing\Annotation\Route;
     use Symfony\Component\HttpFoundation\Response;
 
@@ -17,10 +17,13 @@
         /**
          * @Route("-{slug}/", name="app.page.show")
          *
+         * @param Page $page
          * @return Response
          */
-        public function show()
+        public function show(Page $page)
         {
-            return $this->render('page/index.html.twig');
+            $template = Page::TEMPLATES[$page->getTemplate()];
+
+            return $this->render("page/{$template}.html.twig", ['page' => $page]);
         }
     }
