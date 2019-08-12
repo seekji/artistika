@@ -7,8 +7,8 @@ monolog:
             level: debug
             channels: ["!event"]
 
-    feedback:
-        type:  rotating_file
-        level: debug
-        path:  "%kernel.logs_dir%/feedback/feedback-%kernel.environment%.log"
-        channels: ["feedback"]
+        feedback:
+            type:  rotating_file
+            level: debug
+            path:  "%kernel.logs_dir%/feedback/feedback-%kernel.environment%.log"
+            channels: ["feedback"]
