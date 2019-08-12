@@ -1,7 +1,14 @@
 monolog:
+    channels: ['feedback']
     handlers:
         main:
             type: stream
             path: "%kernel.logs_dir%/%kernel.environment%.log"
             level: debug
             channels: ["!event"]
+
+        feedback:
+            type:  rotating_file
+            level: debug
+            path:  "%kernel.logs_dir%/feedback/feedback-%kernel.environment%.log"
+            channels: ["feedback"]

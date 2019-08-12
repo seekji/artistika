@@ -6,14 +6,14 @@ use Sonata\AdminBundle\Admin\AbstractAdmin;
 use Sonata\AdminBundle\Datagrid\DatagridMapper;
 use Sonata\AdminBundle\Datagrid\ListMapper;
 use Sonata\AdminBundle\Form\FormMapper;
-use Sonata\AdminBundle\Form\Type\ModelListType;
+use Sonata\AdminBundle\Form\Type\ModelListType;;
 use Sonata\AdminBundle\Show\ShowMapper;
 
 /**
- * Class EventSliderAdmin
+ * Class PageSlidesAdmin
  * @package App\Admin
  */
-class EventSliderAdmin extends AbstractAdmin
+class PageSlidesAdmin extends AbstractAdmin
 {
 
     /**
@@ -23,8 +23,7 @@ class EventSliderAdmin extends AbstractAdmin
     {
         $filter
             ->add('id')
-            ->add('title')
-            ->add('isActive')
+            ->add('text')
         ;
     }
 
@@ -37,9 +36,8 @@ class EventSliderAdmin extends AbstractAdmin
 
         $list
             ->add('id')
-            ->add('title')
-            ->add('sort')
-            ->add('isActive')
+            ->add('text')
+            ->add('smallText')
             ->add('createdAt')
             ->add('updatedAt')
             ->add('_action', null, [
@@ -58,11 +56,11 @@ class EventSliderAdmin extends AbstractAdmin
     {
         $form
             ->with('Свойства слайда')
-                ->add('isActive')
-                ->add('title')
+                ->add('text')
+                ->add('smallText')
+                ->add('link', null, ['help' => 'Ссылка на страницу.'])
                 ->add('picture', ModelListType::class, [], ['link_parameters' => ['context' => 'slider']])
-                ->add('event',  ModelListType::class)
-                ->add('sort')
+                ->add('event',  ModelListType::class, ['required' => false])
             ->end();
     }
 
@@ -73,10 +71,9 @@ class EventSliderAdmin extends AbstractAdmin
     {
         $showMapper
             ->add('id')
-            ->add('title')
+            ->add('text')
+            ->add('smallText')
             ->add('event')
-            ->add('sort')
-            ->add('isActive')
             ->add('createdAt')
             ->add('updatedAt')
         ;

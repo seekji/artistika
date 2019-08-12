@@ -1,0 +1,104 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="page-content">
+        <section class="promo-numbers promo-numbers_top" style="background-image: url({{ asset('assets/img/upload/cover-12.jpg') }})">
+            <div class="promo-numbers__container">
+                <div class="promo-numbers__heading">ARTISTIKA—ЭТО</div>
+
+                <div class="promo-numbers__numbers">
+                    <div class="promo-numbers__numbers-item promo-number">
+                        <div class="promo-number__count">{{ "now"|date('Y') - 2005 }}</div>
+                        <div class="promo-number__info">ЛЕТ РАБОТЫ <br/>с 2005 года</div>
+                    </div>
+
+                    <div class="promo-numbers__numbers-item promo-number">
+                        <div class="promo-number__count">{{ getSiteSettingByKey('city_count') ? : 30 }}</div>
+                        <div class="promo-number__info">ГОРОдов РОССИИ <br/>{{ getSiteSettingByKey('hall_count') ? : 120 }} площадок</div>
+                    </div>
+
+                    <div class="promo-numbers__numbers-item promo-number promo-number_size_l">
+                        <div class="promo-number__count">{{ getSiteSettingByKey('event_count') ? : 180 }}</div>
+                        <div class="promo-number__info">мероприятий в год <br/>концерты/туры/фестивали</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        <section class="section-promo-article">
+            <div class="section-promo-article__container">
+                <aside class="section-promo-article__aside">
+                    <div class="section-promo-article__aside-float">
+                        <h2>{{ page.title }}</h2>
+                    </div>
+                </aside>
+
+                {% if page.text is defined and page.text is not null %}
+                    <div class="section-promo-article__content">
+                        {{ page.text|raw }}
+                    </div>
+                {% endif %}
+            </div>
+        </section>
+
+        <section class="slider-event-archive js-slider-event-archive">
+            <div class="slider-event-archive__container swiper-container">
+                <div class="slider-event-archive__wrapper swiper-wrapper">
+                    {% if page.slides is defined and page.slides|length > 0 %}
+                        {% for slide in page.slides %}
+                            <div class="slider-event-archive__slide swiper-slide">
+                                <div class="slider-event-archive__slide-container">
+                                    {% if slide.picture is defined and slide.picture is not null %}
+                                        <span class="slider-event-archive__slide-picture" style="background-image: url({% path slide.picture, 'reference' %})"></span>
+                                    {% endif %}
+                                    <div class="slider-event-archive__slide-info">
+                                        {% if slide.event is defined and slide.event is not null %}
+                                            <a href="{{ path('app.event.show', {'city' : slide.event.city.getSlug(), 'event': slide.event.getSlug()}) }}" class="slider-event-archive__slide-title">
+                                                {{ slide.event.artist }}
+                                            </a>
+
+                                            <div class="slider-event-archive__slide-footer">
+                                                <div class="slider-event-archive__slide-event-info">
+                                                    <time class="slider-event-archive__slide-event-time">{{ slide.event.startedAt|date('Y') }}</time>
+                                                    /
+                                                    <span class="slider-event-archive__slide-event-place">{{ slide.event.city.name }}</span>
+                                                </div>
+                                            </div>
+                                        {% else %}
+                                            <a href="{{ slide.link is defined and slide.link is not empty ? slide.link : '#' }}" class="slider-event-archive__slide-title">
+                                                {{ slide.text }}
+                                            </a>
+
+                                            {% if slide.smallText is defined and slide.smallText is not null %}
+                                                <div class="slider-event-archive__slide-footer">
+                                                    <div class="slider-event-archive__slide-event-info">
+                                                        {{ slide.smallText }}
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+
+                <div class="slider-event-archive__arrow arrow-prev"></div>
+                <div class="slider-event-archive__arrow arrow-next"></div>
+
+                <div class="custom-cursor">
+                    <svg class="icon custom-cursor__arrow" width="40" height="40">
+                        <use xlink:href="#arrow-cursor" />
+                    </svg>
+                </div>
+            </div>
+
+            <a href="{{ path('app.archive.default') }}" class="slider-event-archive__link-archive">
+                <svg class="icon icon-archive" width="37" height="32">
+                    <use xlink:href="#icon-archive" />
+                </svg>
+                Весь архив
+            </a>
+        </section>
+    </main>
+{% endblock %}

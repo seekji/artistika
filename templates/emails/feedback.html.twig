@@ -1,0 +1,16 @@
+Причина обращения: {{ data.reason }}
+{% if data.smi_link is not null %}
+    Ссылка на СМИ: {{ data.smi_link }}
+{% endif %}
+{% if data.artist_name is not null %}
+   Имя артиста: {{ data.artist_name }}
+{% endif %}
+{% if data.event_format is not null %}
+    Формат мероприятия: {{ data.event_format }}
+{% endif %}
+Имя отправителя: {{ data.name }}
+Телефон отправителя: {{ data.phone }}
+Email отправителя: {{ data.email }}
+{% if data.comment is not null %}
+    Комментарий отправителя: {{ data.comment }}
+{% endif %}
