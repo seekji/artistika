@@ -28,6 +28,8 @@ class SettingsForm extends AbstractType
             ->add('city_count', IntegerType::class, ['label' => 'Кол-во городов', 'required' => false])
             ->add('hall_count', IntegerType::class, ['label' => 'Кол-во площадок', 'required' => false])
             ->add('event_count', IntegerType::class, ['label' => 'Кол-во мероприятий в год', 'required' => false])
+            ->add('email_send_from', EmailType::class, ['label' => 'Отправлять заявки с форм от:', 'required' => false])
+            ->add('email_send_to', EmailType::class, ['label' => 'Отправлять завяки с форм на:', 'required' => false])
         ;
     }
 
