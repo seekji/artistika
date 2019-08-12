@@ -17,6 +17,24 @@ services:
     tags:
       - { name: sonata.admin, manager_type: orm, audit: false, group: Мероприятия, label: Слайдер "Мероприятия" }
 
+  app.admin.news:
+    class: App\Admin\NewsAdmin
+    arguments: [~, App\Entity\News, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Новости, label: Новости }
+
+  app.admin.page:
+    class: App\Admin\PageAdmin
+    arguments: [~, App\Entity\Page, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Статичные страницы, label: Страницы }
+
+  app.admin.page_slides:
+    class: App\Admin\PageSlidesAdmin
+    arguments: [~, App\Entity\PageSlides, SonataAdminBundle:CRUD]
+    tags:
+      - { name: sonata.admin, manager_type: orm, audit: false, group: Статичные страницы, label: Слайды }
+
   app.admin.menu:
     class: App\Admin\MenuAdmin
     arguments: [~, App\Entity\Menu, SonataAdminBundle:CRUD]
@@ -28,9 +46,3 @@ services:
     arguments: [~, App\Entity\Subscribe, SonataAdminBundle:CRUD]
     tags:
       - { name: sonata.admin, manager_type: orm, audit: false, group: Сайт, label: Подписки }
-
-  app.admin.news:
-    class: App\Admin\NewsAdmin
-    arguments: [~, App\Entity\News, SonataAdminBundle:CRUD]
-    tags:
-      - { name: sonata.admin, manager_type: orm, audit: false, group: Сайт, label: Новости }
