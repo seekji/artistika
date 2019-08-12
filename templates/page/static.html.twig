@@ -1,0 +1,14 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <main class="page-content">
+        <div class="page-content__container">
+            <h1>{{ page.title }}</h1>
+            {% if page.text is defined and page.text is not null %}
+                <div class="text-page">
+                    {{ page.text|raw }}
+                </div>
+            {% endif %}
+        </div>
+    </main>
+{% endblock %}
