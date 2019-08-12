@@ -176,7 +176,7 @@ $(document).ready(function() {
     *
     * Feedback form
      */
-    $('.feedback__form').on('submit', function (event) {
+    $('.feedback__form, .contact-form').on('submit', function (event) {
         event.preventDefault();
 
         var form = $(this);
@@ -194,6 +194,13 @@ $(document).ready(function() {
                 },
                 400: function (data) {
                     $('div.notification_error').addClass('is-opened');
+                    $('div.notification_error div.notification__title').html('');
+
+                    if(data.responseJSON.errors.length > 0) {
+                        data.responseJSON.errors.forEach(item => {
+                            $('div.notification_error div.notification__title').prepend('<p>' + item + '</p>')
+                        });
+                    }
                 }
             }
         });
