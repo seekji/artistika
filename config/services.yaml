@@ -84,6 +84,10 @@ services:
         - { name: jms_serializer.handler, type: App\Entity\Event, direction: serialization, format: json, method: serializeEvent }
       arguments: [ "@sonata.media.provider.image", "@sonata.media.provider.file", "@router.default" ]
 
+    App\Log\FeedbackLogger:
+      arguments: ['@monolog.logger.feedback']
+      public: true
+
 
 #    App\EventListener\RequestListener:
 #        tags:

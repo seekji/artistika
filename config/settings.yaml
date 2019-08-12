@@ -1,4 +1,4 @@
-address: 'Test address'
+address: 'Новосибирск, ул. Октябрьская 42 офис 513'
 phone: +7(905)2814286
 email: seeekji@gmail.com
 vk: test
@@ -7,3 +7,5 @@ instagram: null
 city_count: 1
 hall_count: null
 event_count: null
+email_send_from: test@test.com
+email_send_to: test@test.com
