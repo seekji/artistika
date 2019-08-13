@@ -10,6 +10,7 @@
     use Sonata\AdminBundle\Form\FormMapper;
     use Sonata\AdminBundle\Form\Type\ModelListType;
     use Sonata\AdminBundle\Form\Type\ModelType;
+    use Sonata\Form\Type\DatePickerType;
     use Sonata\AdminBundle\Show\ShowMapper;
     use Sonata\Form\Type\ImmutableArrayType;
     use Symfony\Component\Form\Extension\Core\Type\CollectionType;
@@ -117,7 +118,7 @@
                 ->end()
                 ->tab('Время')
                     ->with('Время')
-                        ->add('startedAt')
+                        ->add('startedAt', DatePickerType::class)
                         ->add('tickets', CollectionType::class, [
                             'by_reference' => false,
                             'allow_add' => true,
