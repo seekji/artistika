@@ -21,8 +21,8 @@ class CityRepository extends ServiceEntityRepository
 
     /**
      * @param string $city
-     *
      * @return City
+     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function getCityByCookieOrDefault(string $city): City
     {
@@ -33,6 +33,25 @@ class CityRepository extends ServiceEntityRepository
             ->setMaxResults(1)
             ->getQuery()
             ->getOneOrNullResult();
+    }
+
+    public function getCitiesListWithEvents(): ?array
+    {
+        $currentDate = new \DateTime('now');
+
+        return $this->createQueryBuilder('c')
+            ->join('\App\Entity\Event', 'e', 'WITH', 'c.id = e.city')
+            ->andWhere('e.isActive = true')
+            ->andWhere('e.startedAt >= :currentDate')
+            ->andHaving('COUNT(e.id) > 0')
+            ->setParameter('currentDate', $currentDate->format('Y-m-d'))
+            ->addGroupBy('c.id')
+            ->addOrderBy('c.isDefault', 'DESC')
+            ->addOrderBy('c.isMain', 'DESC')
+            ->addOrderBy('c.sort', 'ASC')
+            ->addOrderBy('c.name', 'ASC')
+            ->getQuery()
+            ->getResult();
     }
 
     // /**

@@ -23,14 +23,19 @@ class EventSliderRepository extends ServiceEntityRepository
     /**
      * @param City $city
      * @return array|null
+     * @throws \Exception
      */
     public function getActiveEventSlidesByCity(City $city): ?array
     {
+        $currentDate = new \DateTime('now');
+
         return $this->createQueryBuilder('es')
             ->where('es.isActive = true')
             ->leftJoin('es.event', 'event')
             ->andWhere('event.city = :city')
+            ->andWhere('event.startedAt >= :currentDate')
             ->setParameter('city', $city)
+            ->setParameter('currentDate', $currentDate->format('Y-m-d'))
             ->orderBy('es.sort', 'ASC')
             ->orderBy('es.id', 'DESC')
             ->getQuery()

@@ -17,7 +17,7 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
     </head>
-    <body style="background-color:">
+    <body style="background-color: {{ event is defined and event.color is defined and event.color is not null ? event.color : '' }}">
         {% include 'blocks/header.html.twig' %}
 
         {% block body %}{% endblock %}

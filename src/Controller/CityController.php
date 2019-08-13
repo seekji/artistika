@@ -55,6 +55,10 @@ class CityController extends AbstractController
      */
     public function indexAction(Request $request, City $city)
     {
+        if($city->getIsDefault()) {
+            return $this->redirectToRoute('app.homepage');
+        }
+
         return $this->render('city/index.html.twig', [
             'currentCity' => $city,
             'events' => $this->eventService->getEventsByCity($city),

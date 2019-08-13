@@ -32,7 +32,7 @@
 
                     <div class="event-detail-promo__heading">
                         <h1 class="event-detail-promo__name">{{ event.artist }}</h1>
-                        {% if event.tickets is defined and event.tickets[0] is not null %}
+                        {% if event.tickets is defined and event.tickets[0] is not null and event.startedAt|date('Y-m-d') >= date('now')|date('Y-m-d') %}
                             <a href="{{ event.tickets[0].tickets }}" target="_blank" class="event-detail-promo__bill button-bill button-bill_size_lg event-detail_ticket">Билеты</a>
                         {% endif %}
                     </div>
@@ -135,7 +135,7 @@
                             </div>
                         {% endif %}
 
-                        {% if event.tickets is defined and event.tickets[0] is not null %}
+                        {% if event.tickets is defined and event.tickets[0] is not null and event.startedAt|date('Y-m-d') >= date('now')|date('Y-m-d') %}
                             <a href="{{ event.tickets[0].tickets }}" class="event-widget-info__bill button-bill event-detail_ticket">Купить билеты</a>
                         {% endif %}
                     </div>
@@ -148,7 +148,7 @@
                 </div>
                 {{ event.description|raw }}
                 <div class="hint-old">
-                    {{ event.age is defined ? event.age : 0 }}+
+                    {{ event.age is defined and event.age is not null ? event.age : 0 }}+
                 </div>
             </div>
         </section>

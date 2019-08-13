@@ -74,6 +74,10 @@ services:
       tags:
         - { name: kernel.event_listener, event: sonata.admin.event.configure.menu.sidebar, method: addMenuItems }
 
+    App\EventListener\UniqueSlugListener:
+      tags:
+        - { name: doctrine.event_listener, event: prePersist, connection: default }
+
     App\Service\SettingsService:
       arguments:
         - '%kernel.root_dir%'
@@ -87,7 +91,6 @@ services:
     App\Log\FeedbackLogger:
       arguments: ['@monolog.logger.feedback']
       public: true
-
 
 #    App\EventListener\RequestListener:
 #        tags:

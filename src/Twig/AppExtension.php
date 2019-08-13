@@ -7,6 +7,7 @@
     use App\Service\SettingsService;
     use Twig\Extension\AbstractExtension;
     use Twig\TwigFunction;
+    use Twig\TwigFilter;
 
     class AppExtension extends AbstractExtension
     {
@@ -49,6 +50,25 @@
                 new TwigFunction('getSiteSettingByKey', [$this, 'getSiteSettingByKey']),
                 new TwigFunction('getActiveMenuItems', [$this, 'getActiveMenuItems']),
             ];
+        }
+
+        /**
+         * @return array|TwigFilter[]
+         */
+        public function getFilters()
+        {
+            return [
+                new TwigFilter('phoneHref', [$this, 'phoneHref']),
+            ];
+        }
+
+        /**
+         * @param $phone
+         * @return string|string[]|null
+         */
+        public function phoneHref($phone)
+        {
+            return preg_replace('/[^0-9]/', '', $phone);
         }
 
         /**

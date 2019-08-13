@@ -13,10 +13,12 @@ use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Sluggable\Sluggable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventRepository")
  * @ORM\Table(indexes={@ORM\Index(columns={"description", "artist"}, flags={"fulltext"})})
+ * @UniqueEntity("slug", message="slug.not_unique")
  */
 class Event
 {
