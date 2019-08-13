@@ -51,6 +51,18 @@ class SettingsService
     }
 
     /**
+     * @param $key
+     * @param $value
+     * @return $this
+     */
+    public function saveValue($key, $value)
+    {
+        file_put_contents($this->getRootDir() . self::SETTINGS_YAML_PATH, Yaml::dump(array_merge($this->getValues(), [$key => $value])));
+
+        return $this;
+    }
+
+    /**
      * @param string $roodDir
      * @return $this
      */
