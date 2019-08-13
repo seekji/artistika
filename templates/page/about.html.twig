@@ -3,6 +3,13 @@
 {% block body %}
     <main class="page-content">
         <section class="promo-numbers promo-numbers_top" style="background-image: url({{ asset('assets/img/upload/cover-12.jpg') }})">
+            <div class="promo-numbers__back-video" style="background-image: url({{ asset('assets/img/upload/poster.jpg') }})">
+                <video loop muted autoplay>
+                    <source src="{{ asset('assets/video/video.ogv') }}" type='video/ogg; codecs="theora, vorbis"'>
+                    <source src="{{ asset('assets/video/video.mp4') }}" type='video/mp4; codecs="avc1.42E01E, mp4a.40.2"'>
+                    <source src="{{ asset('assets/video/video.webm') }}" type='video/webm; codecs="vp8, vorbis"'>
+                </video>
+            </div>
             <div class="promo-numbers__container">
                 <div class="promo-numbers__heading">ARTISTIKA—ЭТО</div>
 
