@@ -123,6 +123,7 @@ class Event
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\EventSchedule", mappedBy="event", orphanRemoval=true, cascade={"persist"})
+     * @ORM\OrderBy({"time" = "ASC"})
      * @Assert\NotBlank()
      */
     private $tickets;
