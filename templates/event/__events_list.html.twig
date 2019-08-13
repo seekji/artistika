@@ -13,7 +13,7 @@
 
             <div class="event__content">
                 {% if event.isCanceled %}
-                    <a href="{{ path('app.event.show', {'city' : event.city.getSlug(), 'event': event.getSlug()}) }}" target="_blank" class="event__bill button-bill button-bill_size_xs">
+                    <a href="{{ path('app.event.show', {'city' : event.city.getSlug(), 'event': event.getSlug()}) }}" target="_blank" class="event__bill button-bill button-bill_size_xs is-disabled">
                         Билеты
                     </a>
                 {% elseif event.tickets is not null %}
