@@ -4,6 +4,10 @@ namespace App\Service;
 
 use Doctrine\ORM\EntityManagerInterface;
 
+/**
+ * Class ContentService
+ * @package App\Service
+ */
 class ContentService
 {
     /**
@@ -20,18 +24,36 @@ class ContentService
      * @param $entity
      * @param $slug
      * @return string
-     * @throws \Doctrine\ORM\NonUniqueResultException
      */
     public function createUniqueSlug($entity, $slug): string
     {
-        $countEntities = (int) $this->entityManager->createQueryBuilder()
-            ->select('count(object.id)')
-            ->from($entity, 'object')
-            ->where('object.slug = :slug')
-            ->setParameter('slug', $slug)
+        $countEntities = 0;
+        $entitySlug = $this->entityManager->createQueryBuilder()
+            ->select('entity.slug')
+            ->from($entity, 'entity')
+            ->where('entity.slug LIKE :slug')
+            ->setParameter('slug', "{$slug}%")
+            ->orderBy('entity.slug', 'DESC')
+            ->andHaving('count(entity.slug) > 0')
+            ->groupBy('entity.slug')
+            ->setMaxResults(1)
             ->getQuery()
-            ->getSingleScalarResult();
+            ->getResult();
 
-        return $countEntities > 0 ? sprintf('%s-%d', $slug, $countEntities + 1) : $slug;
+        if (isset($entitySlug[0]['slug']) && !empty($entitySlug[0]['slug'])) {
+            $pieces = explode('-', $entitySlug[0]['slug']);
+            $countEntities = intval(end($pieces)) + 1;
+        }
+
+        return $countEntities > 0 ? sprintf('%s-%d', $this->cleanSlug($slug), $countEntities) : $slug;
+    }
+
+    /**
+     * @param string $slug
+     * @return string
+     */
+    private function cleanSlug(string $slug): string
+    {
+        return preg_replace("/[^A-Za-z-]/", "", $slug);
     }
 }
