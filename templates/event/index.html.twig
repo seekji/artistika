@@ -148,7 +148,7 @@
                 </div>
                 {{ event.description|raw }}
                 <div class="hint-old">
-                    {{ event.age is defined ? event.age : 0 }}+
+                    {{ event.age is defined and event.age is not null ? event.age : 0 }}+
                 </div>
             </div>
         </section>

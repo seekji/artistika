@@ -9,9 +9,11 @@
                 {% include('components/search.html.twig') %}
             </div>
 
-            <div class="locations">
-                {{ include('components/cities.html.twig') }}
-            </div>
+            {% if currentRouteName != 'app.page.show' and currentRouteName != 'app.news.list' and currentRouteName != 'app.news.show' %}
+                <div class="locations">
+                    {{ include('components/cities.html.twig') }}
+                </div>
+            {% endif %}
 
             <div class="navigation">
                 {{ include('blocks/main_menu.html.twig') }}
