@@ -37,6 +37,11 @@ class Subscribe
      */
     private $city;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $mailchimpId;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -62,6 +67,18 @@ class Subscribe
     public function setCity(?City $city): self
     {
         $this->city = $city;
+
+        return $this;
+    }
+
+    public function getMailchimpId(): ?string
+    {
+        return $this->mailchimpId;
+    }
+
+    public function setMailchimpId(?string $mailchimpId): self
+    {
+        $this->mailchimpId = $mailchimpId;
 
         return $this;
     }

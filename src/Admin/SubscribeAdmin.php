@@ -24,6 +24,7 @@
                 ->add('id')
                 ->add('email')
                 ->add('city')
+                ->add('mailchimpId')
             ;
         }
 
@@ -38,6 +39,7 @@
                 ->add('id')
                 ->add('email')
                 ->add('city')
+                ->add('mailchimpId')
                 ->add('createdAt')
                 ->add('updatedAt')
                 ->add('_action', null, [
@@ -70,6 +72,7 @@
                 ->add('id')
                 ->add('email')
                 ->add('city')
+                ->add('mailchimpId')
                 ->add('createdAt')
                 ->add('updatedAt')
             ;

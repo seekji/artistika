@@ -4,7 +4,6 @@ namespace App\EventListener;
 
 use App\Service\ContentService;
 use Doctrine\Common\Persistence\Event\LifecycleEventArgs;
-use Doctrine\ORM\Events;
 
 /**
  * Class UniqueSlugListener
