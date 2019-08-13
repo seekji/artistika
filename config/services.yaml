@@ -78,6 +78,13 @@ services:
       tags:
         - { name: doctrine.event_listener, event: prePersist, connection: default }
 
+    App\EventListener\SubscribeMailchimpListener:
+      arguments:
+        - '@logger'
+      tags:
+        - { name: doctrine.event_listener, event: prePersist, connection: default }
+        - { name: monolog.logger, channel: mailchimp }
+
     App\Service\SettingsService:
       arguments:
         - '%kernel.root_dir%'
