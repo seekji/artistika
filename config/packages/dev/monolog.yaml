@@ -1,5 +1,5 @@
 monolog:
-    channels: ['feedback']
+    channels: ['feedback', 'mailchimp']
     handlers:
         main:
             type: stream
@@ -24,3 +24,9 @@ monolog:
             level: debug
             path:  "%kernel.logs_dir%/feedback/feedback-%kernel.environment%.log"
             channels: ["feedback"]
+
+        mailchimp:
+            type:  rotating_file
+            level: debug
+            path:  "%kernel.logs_dir%/mailchimp/mailchimp-%kernel.environment%.log"
+            channels: ["mailchimp"]
