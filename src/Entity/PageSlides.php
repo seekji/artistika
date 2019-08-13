@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\PageSlidesRepository")
@@ -50,6 +51,7 @@ class PageSlides
      *     cascade={"persist", "remove"},
      * )
      * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Assert\NotBlank()
      */
     private $picture;
 

@@ -5,6 +5,7 @@ namespace App\Entity;
 use App\Application\Sonata\MediaBundle\Entity\Media;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\EventSliderRepository")
@@ -28,6 +29,7 @@ class EventSlider
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Event")
      * @ORM\JoinColumn(nullable=false)
+     * @Assert\NotBlank()
      */
     private $event;
 
@@ -39,6 +41,7 @@ class EventSlider
      *     cascade={"persist", "remove"},
      * )
      * @ORM\JoinColumn(onDelete="SET NULL")
+     * @Assert\NotBlank()
      */
     private $picture;
 
