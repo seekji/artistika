@@ -12,7 +12,7 @@
         </style>
 
     <main class="page-content">
-        <section class="event-detail-promo">
+        <section class="event-detail-promo {{ event.isCanceled ? 'is-canceled' : '' }}">
             <div class="event-detail-promo__container">
                 <div class="event-detail-promo__content">
                     {% if event.tickets is defined and event.tickets|length > 1 %}
@@ -34,11 +34,16 @@
 
                     <div class="event-detail-promo__heading">
                         <h1 class="event-detail-promo__name">{{ event.artist }}</h1>
-                        {% if event.tickets is defined and event.tickets[0] is not null and event.startedAt|date('Y-m-d') >= date('now')|date('Y-m-d') %}
+                        {% if event.isCanceled  %}
+                            <a href="#" target="_blank" class="event-detail-promo__bill button-bill button-bill_size_lg event-detail_ticket is-disabled">Билеты</a>
+                        {% elseif event.tickets is defined and event.tickets[0] is not null and event.startedAt|date('Y-m-d') >= date('now')|date('Y-m-d') %}
                             <a href="{{ event.tickets[0].tickets }}" target="_blank" class="event-detail-promo__bill button-bill button-bill_size_lg event-detail_ticket">Билеты</a>
                         {% endif %}
                     </div>
                 </div>
+                {% if event.isCanceled %}
+                    <span class="event-detail-promo__status">Мероприятие отменено</span>
+                {% endif %}
             </div>
         </section>
 
@@ -137,7 +142,9 @@
                             </div>
                         {% endif %}
 
-                        {% if event.tickets is defined and event.tickets[0] is not null and event.startedAt|date('Y-m-d') >= date('now')|date('Y-m-d') %}
+                        {% if event.isCanceled %}
+                            <a href="#" class="event-widget-info__bill button-bill event-detail_ticket is-disabled">Купить билеты</a>
+                        {% elseif event.tickets is defined and event.tickets[0] is not null and event.startedAt|date('Y-m-d') >= date('now')|date('Y-m-d') %}
                             <a href="{{ event.tickets[0].tickets }}" class="event-widget-info__bill button-bill event-detail_ticket">Купить билеты</a>
                         {% endif %}
                     </div>
