@@ -39,7 +39,7 @@ class News
      *
      * @ORM\ManyToOne(
      *     targetEntity="App\Application\Sonata\MediaBundle\Entity\Media",
-     *     cascade={"persist", "remove"},
+     *     cascade={"persist"},
      * )
      * @ORM\JoinColumn(onDelete="SET NULL")
      */

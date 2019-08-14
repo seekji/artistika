@@ -49,7 +49,7 @@
         public function show(News $news)
         {
             if(!$news->getIsPublished()) {
-                $this->createNotFoundException();
+                throw $this->createNotFoundException();
             }
 
             return $this->render('news/index.html.twig', [
