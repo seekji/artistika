@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    {% if event.detailPicture is defined and event.detailPicture is not null %}
         <style>
             .event-detail-promo {
-                background-image: url({% path event.detailPicture, 'reference' %});
+                {% if event.detailPicture is defined and event.detailPicture is not null %}
+                    background-image: url({% path event.detailPicture, 'reference' %});
+                {% else %}
+                    background-image: url({{ asset('assets/img/upload/dummy.jpg') }});
+                {% endif %}
             }
         </style>
-    {% endif %}
 
     <main class="page-content">
         <section class="event-detail-promo">

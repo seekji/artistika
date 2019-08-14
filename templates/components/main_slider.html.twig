@@ -37,6 +37,12 @@
                         </div>
                     {% endif %}
                 {% endfor %}
+            {% else %}
+                <div class="promo-slider__slide slice-slide swiper-slide">
+                    <div class="slice-slide__container">
+                        <span class="slice-slide__picture" style="background-image: url({{ asset('assets/img/upload/dummy.jpg') }})"></span>
+                    </div>
+                </div>
             {% endif %}
         </div>
         <div class="promo-slider__arrow arrow-prev"></div>
