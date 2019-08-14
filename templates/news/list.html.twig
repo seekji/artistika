@@ -11,10 +11,9 @@
 
                         {% for item in news %}
                             <a href="{{ path('app.news.show', {'slug' : item.getSlug()}) }}" class="news__grid-item post">
-
                                 {% if item.picture is defined and item.picture is not null %}
                                     <div class="post__pic">
-                                        <span class="post__pic-img" style="background-image: url({% path item.getPicture(), 'reference' %});"></span>
+                                        <span class="post__pic-img" style="background-image: url({% path item.getPicture(), 'list' %});"></span>
                                     </div>
                                 {% endif %}
 
