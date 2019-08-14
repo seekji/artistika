@@ -396,7 +396,7 @@ class Event
      *
      * @return $this
      */
-    public function setDetailPicture(Media $detailPicture): self
+    public function setDetailPicture(?Media $detailPicture): self
     {
         $this->detailPicture = $detailPicture;
 
@@ -416,7 +416,7 @@ class Event
      *
      * @return $this
      */
-    public function setBigPicture(Media $bigPicture): self
+    public function setBigPicture(?Media $bigPicture): self
     {
         $this->bigPicture = $bigPicture;
 
