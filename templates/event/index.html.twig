@@ -111,7 +111,7 @@
                             </div>
                         {% endif %}
 
-                        {% if event.socialLinks is defined and event.socialLinks is not null %}
+                        {% if event.socialLinks is defined and event.socialLinks is not null and (event.socialLinks['vk'] is not null or event.socialLinks['facebook'] is not null) %}
                             <div class="event-widget-info__social social social_type_share">
                                 <span class="social__title">Встречи:</span>
                                 {% if event.socialLinks['vk'] is defined and event.socialLinks['vk'] is not empty %}
