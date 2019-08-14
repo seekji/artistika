@@ -22,6 +22,10 @@
          */
         public function show(Page $page)
         {
+            if(!$page->getIsPublished()) {
+                throw $this->createNotFoundException();
+            }
+
             $template = Page::TEMPLATES[$page->getTemplate()];
 
             return $this->render("page/{$template}.html.twig", ['page' => $page]);
