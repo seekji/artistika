@@ -59,19 +59,27 @@ class FeedbackController extends AbstractFOSRestController
             );
         }
 
-        $message = (new \Swift_Message('Новое сообщение с формы обратной связи.'))
-            ->setFrom('send@example.com')
-            ->setTo('denibasov@yandex.ru')
-            ->setBody(
-                $this->renderView(
-                    'emails/feedback.html.twig',
-                    ['data' => $form->getData()]
-                ),
-                'text/html'
-            )
-        ;
+        try {
+            $emailTo = $this->settingsService->getValue('email_send_to');
+            $emailFrom = $this->settingsService->getValue('email_send_from');
 
-        $mailer->send($message);
+            $message = (new \Swift_Message('Artistika.show: новое сообщение с формы обратной связи.'))
+                ->setFrom($emailFrom)
+                ->setTo($emailTo)
+                ->setBody(
+                    $this->renderView(
+                        'emails/feedback.html.twig',
+                        ['data' => $form->getData()]
+                    ),
+                    'text/html'
+                )
+            ;
+
+            $mailer->send($message);
+        } catch(\Exception $exception) {
+            $logger->log(LogLevel::INFO, sprintf('Sending mail failed, exception message: %s', $exception->getMessage()));
+        }
+
         $logger->log(LogLevel::INFO, 'submitted data: ' . serialize($form->getData()));
 
         return new JsonResponse([ 'status' => 'success' ], JsonResponse::HTTP_CREATED);
