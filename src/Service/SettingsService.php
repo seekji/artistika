@@ -63,6 +63,15 @@ class SettingsService
     }
 
     /**
+     * @param $key
+     * @return null
+     */
+    public function getValue($key)
+    {
+        return isset($this->values[$key]) ? $this->values[$key] : null;
+    }
+
+    /**
      * @param string $roodDir
      * @return $this
      */

@@ -1,16 +1,18 @@
-Причина обращения: {{ data.reason }}
+{% if data.reason is not null %}
+<p>Причина обращения: {{ data.reason }}</p>
+{% endif %}
 {% if data.smi_link is not null %}
-    Ссылка на СМИ: {{ data.smi_link }}
+    <p>Ссылка на СМИ: {{ data.smi_link }}</p>
 {% endif %}
 {% if data.artist_name is not null %}
-   Имя артиста: {{ data.artist_name }}
+    <p>Имя артиста: {{ data.artist_name }}</p>
 {% endif %}
 {% if data.event_format is not null %}
-    Формат мероприятия: {{ data.event_format }}
+    <p>Формат мероприятия: {{ data.event_format }}</p>
 {% endif %}
-Имя отправителя: {{ data.name }}
-Телефон отправителя: {{ data.phone }}
-Email отправителя: {{ data.email }}
+<p>Имя отправителя: {{ data.name }}</p>
+<p>Телефон отправителя: {{ data.phone }}</p>
+<p>Email отправителя: {{ data.email }}</p>
 {% if data.comment is not null %}
-    Комментарий отправителя: {{ data.comment }}
+    <p>Комментарий отправителя: {{ data.comment }}</p>
 {% endif %}
