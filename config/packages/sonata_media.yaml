@@ -23,7 +23,6 @@ sonata_media:
         events:
           providers:
             - sonata.media.provider.image
-            - sonata.media.provider.file
 
           formats:
             small: { width: 450, quality: 70}
