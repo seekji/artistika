@@ -66,29 +66,39 @@ class PageAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $form)
     {
-        $form->with('Свойства страницы', ['class' => 'col-md-9'])
-            ->add('title');
+        $form->tab('Свойства страницы')
+            ->with('Свойства', ['class' => 'col-md-9'])
+                ->add('title');
 
         if ($this->isCurrentRoute('edit', 'app.admin.page')) {
             $form->add('slug', null, ['required' => true]);
         }
 
         $form
-            ->add('template', ChoiceFieldMaskType::class, [
-                'choices' => array_flip(Page::TEMPLATES),
-                'map' => [
-                    Page::TEMPLATE_STATIC => [],
-                    Page::TEMPLATE_CONTACTS => [],
-                    Page::TEMPLATE_ABOUT => ['slides'],
-                ],
-                'required' => true
-            ])
-            ->add('text', CKEditorType::class)
-            ->add('slides', ModelType::class, ['multiple' => true, 'required' => false])
+                ->add('template', ChoiceFieldMaskType::class, [
+                    'choices' => array_flip(Page::TEMPLATES),
+                    'map' => [
+                        Page::TEMPLATE_STATIC => [],
+                        Page::TEMPLATE_CONTACTS => [],
+                        Page::TEMPLATE_ABOUT => ['slides'],
+                    ],
+                    'required' => true
+                ])
+                ->add('text', CKEditorType::class)
+                ->add('slides', ModelType::class, ['multiple' => true, 'required' => false])
+            ->end()
+            ->with('Состояние', ['class' => 'col-md-3'])
+                ->add('isPublished')
+            ->end()
         ->end()
-        ->with('Состояние', ['class' => 'col-md-3'])
-            ->add('isPublished')
-        ->end();
+        ->tab('СЕО')
+            ->with('СЕО')
+                ->add('metaTitle')
+                ->add('metaDescription')
+                ->add('metaKeywords')
+            ->end()
+        ->end()
+        ;
     }
 
     /**

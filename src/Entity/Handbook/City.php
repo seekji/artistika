@@ -3,6 +3,7 @@
 namespace App\Entity\Handbook;
 
 use App\Entity\Event;
+use App\Entity\Traits\SeoTrait;
 use Knp\DoctrineBehaviors\Model\Sluggable\Sluggable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -18,7 +19,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class City
 {
-    use Timestampable, Sluggable;
+    use Timestampable, Sluggable, SeoTrait;
 
     /**
      * @ORM\Id()

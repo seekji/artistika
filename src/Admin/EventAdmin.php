@@ -165,6 +165,13 @@
                         ])
                     ->end()
                 ->end()
+                ->tab('СЕО')
+                    ->with('СЕО')
+                        ->add('metaTitle')
+                        ->add('metaDescription')
+                        ->add('metaKeywords')
+                    ->end()
+                ->end()
             ;
         }
 
