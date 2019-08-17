@@ -3,7 +3,6 @@
 namespace App\Entity;
 
 use App\Application\Sonata\MediaBundle\Entity\Media;
-use App\Entity\Traits\SeoTrait;
 use Cocur\Slugify\Slugify;
 use Doctrine\ORM\Mapping as ORM;
 use Knp\DoctrineBehaviors\Model\Sluggable\Sluggable;
@@ -16,7 +15,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class News
 {
-    use Timestampable, Sluggable, SeoTrait;
+    use Timestampable, Sluggable;
 
     /**
      * @ORM\Id()

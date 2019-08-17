@@ -14,8 +14,13 @@
         <link href="https://fonts.googleapis.com/css?family=Montserrat:300,400,500,600,700|Oswald:300,400,500,600,700&display=swap&subset=cyrillic" rel="stylesheet">
         <link rel="stylesheet" href="{{ asset('assets/css/main.css') }}" >
         <script src="{{ asset('assets/js/jquery-3.2.1.min.js') }}"></script>
-        <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}{% endblock %}
+
+        {% block seo_block %}
+            {% set seoData = seo_load() %}
+            {{ seo_title(seoData) }}
+            {{ seo_meta_tags(seoData) }}
+        {% endblock %}
     </head>
     <body style="background-color: {{ event is defined and event.color is defined and event.color is not null ? event.color : '' }}">
         {% include 'blocks/header.html.twig' %}

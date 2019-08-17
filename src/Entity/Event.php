@@ -6,7 +6,6 @@ use App\Application\Sonata\MediaBundle\Entity\Media;
 use App\Entity\Classification\Tag;
 use App\Entity\Handbook\City;
 use App\Entity\Handbook\Hall;
-use App\Entity\Traits\SeoTrait;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,7 +22,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Event
 {
-    use Timestampable, Sluggable, SeoTrait;
+    use Timestampable, Sluggable;
 
     /**
      * @ORM\Id()

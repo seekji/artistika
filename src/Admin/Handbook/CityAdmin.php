@@ -74,13 +74,6 @@
                     ->add('subscribeText', null, ['help' => 'Текст для формы с подпиской.'])
                 ->end()
             ->end()
-            ->tab('СЕО')
-                ->with('СЕО')
-                    ->add('metaTitle')
-                    ->add('metaDescription')
-                    ->add('metaKeywords')
-                ->end()
-            ->end()
             ;
         }
 

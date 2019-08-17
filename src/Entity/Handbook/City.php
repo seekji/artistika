@@ -2,14 +2,9 @@
 
 namespace App\Entity\Handbook;
 
-use App\Entity\Event;
-use App\Entity\Traits\SeoTrait;
 use Knp\DoctrineBehaviors\Model\Sluggable\Sluggable;
 use Knp\DoctrineBehaviors\Model\Timestampable\Timestampable;
-use Doctrine\Common\Collections\ArrayCollection;
-use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
-use App\Entity\Subscribe;
 use Cocur\Slugify\Slugify;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
@@ -19,7 +14,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class City
 {
-    use Timestampable, Sluggable, SeoTrait;
+    use Timestampable, Sluggable;
 
     /**
      * @ORM\Id()

@@ -2,7 +2,6 @@
 
 namespace App\Entity;
 
-use App\Entity\Traits\SeoTrait;
 use Cocur\Slugify\Slugify;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -17,7 +16,7 @@ use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
  */
 class Page
 {
-    use Timestampable, Sluggable, SeoTrait;
+    use Timestampable, Sluggable;
 
     /**
      * Page templates
