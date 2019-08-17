@@ -55,6 +55,11 @@ class Event
 
     /**
      * @ORM\ManyToMany(targetEntity="App\Entity\Classification\Tag")
+     * @Assert\NotBlank()
+     * @Assert\Count(
+     *     min=1,
+     *     minMessage="tags.count.min"
+     * )
      */
     private $tags;
 
@@ -131,7 +136,7 @@ class Event
     /**
      * @ORM\Column(type="integer", nullable=true)
      */
-    private $age;
+    private $age = 16;
 
     /**
      * @ORM\Column(type="text", nullable=true)

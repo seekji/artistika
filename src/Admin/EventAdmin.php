@@ -25,6 +25,19 @@
     {
 
         /**
+         * @param array $actions
+         * @return array
+         */
+        protected function configureBatchActions($actions)
+        {
+            if(isset($actions['delete'])) {
+                unset($actions['delete']);
+            }
+
+            return $actions;
+        }
+
+        /**
          * @param DatagridMapper $filter
          */
         protected function configureDatagridFilters(DatagridMapper $filter)
