@@ -39,7 +39,7 @@ class ArchiveController extends AbstractController
     }
 
     /**
-     * @Route("/", name="app.archive.default")
+     * @Route("/", name="app.archive.default", options={"sitemap" = true})
      *
      * @return Response
      */
