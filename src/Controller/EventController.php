@@ -30,6 +30,10 @@
          */
         public function show(City $city, Event $event)
         {
+            if($event->getCity() !== $city) {
+                throw $this->createNotFoundException();
+            }
+
             return $this->render('event/index.html.twig', [
                 'currentCity' => $city,
                 'event' => $event
