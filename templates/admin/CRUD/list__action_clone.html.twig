@@ -1,0 +1,6 @@
+{% if admin.hasAccess('show', object) and admin.hasRoute('show') %}
+    <a class="btn btn-sm btn-default" href="{{ admin.generateObjectUrl('clone', object) }}">
+        <i class="fa fa-clone" aria-hidden="true"></i>
+        Копировать
+    </a>
+{% endif %}

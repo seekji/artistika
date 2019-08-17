@@ -16,6 +16,7 @@
     use Symfony\Component\Form\Extension\Core\Type\CollectionType;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Symfony\Component\Form\Extension\Core\Type\ColorType;
+    use Sonata\AdminBundle\Route\RouteCollection;
 
     /**
      * Class EventAdmin
@@ -23,6 +24,15 @@
      */
     class EventAdmin extends AbstractAdmin
     {
+
+        /**
+         * @param RouteCollection $collection
+         */
+        protected function configureRoutes(RouteCollection $collection)
+        {
+            $collection
+                ->add('clone', $this->getRouterIdParameter() . '/clone');
+        }
 
         /**
          * @param array $actions
@@ -75,6 +85,9 @@
                     'actions' => [
                         'show'   => [],
                         'edit'   => [],
+                        'clone' => [
+                            'template' => 'admin/CRUD/list__action_clone.html.twig',
+                        ],
                         'delete' => [],
                     ],
                 ]);
