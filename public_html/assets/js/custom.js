@@ -136,10 +136,16 @@ $(document).ready(function() {
     *
     * Search open
     * */
-    $('.js-open-search').on('click', function(e) {
+    $('.js-open-search, .search__button').on('click', function(e) {
         e.preventDefault();
 
-        $('html').addClass('is-show-search');
+        $('.search__form')[0].reset();
+        $('html').toggleClass('is-show-search');
+        $('div.search__list').toggleClass('is-show').html('');
+    });
+
+    $('.search__form').on('submit', function (event) {
+       event.preventDefault();
     });
 
     $('#search-input').on('change paste keyup', function (event) {
@@ -147,7 +153,7 @@ $(document).ready(function() {
 
         var searchInProgress = false,
             formContainer = $(this).parents('form'),
-            query = $(this).val().replace((/[^A-Za-z0-9\s]/g), ''),
+            query = $(this).val().replace((/[^а-яёА-ЯЁA-Za-z0-9\s]/g), ''),
             searchContainerResult = formContainer.find('div.search__list');
 
         if(searchInProgress === false && query.length > 2) {

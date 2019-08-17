@@ -117,11 +117,10 @@
                 ->tab('Визуал')
                     ->with('Картинки', ['class' => 'col-md-9'])
                         ->add('picture', ModelListType::class, ['label' => 'Маленькая картинка для списка', 'required' => false], ['link_parameters' => ['context' => 'events']])
+                        ->add('detailPicture', ModelListType::class, ['label' => 'Картинка для детальной страницы', 'required' => false], ['link_parameters' => ['context' => 'events']])
                         ->add('bigPicture', ModelListType::class,
                             ['label' => 'Большая картинка для списка', 'help' => 'Необходимо отметить состояние для отображения.', 'required' => false],
                             ['link_parameters' => ['context' => 'events']]
-                        )
-                        ->add('detailPicture', ModelListType::class, ['label' => 'Картинка для детальной страницы', 'required' => false], ['link_parameters' => ['context' => 'events']]
                         )
                     ->end()
                     ->with('Состояние', ['class' => 'col-md-3'])

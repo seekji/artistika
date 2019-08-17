@@ -38,7 +38,7 @@
          */
         public function list(Request $request)
         {
-            $query  = preg_replace('/[^a-zA-Z0-9]/', "", (string) $request->get('query'));
+            $query  = preg_replace('/[^а-яёА-ЯЁa-zA-Z0-9]/u', "", (string) $request->get('query'));
 
             if(strlen($query) < 2) {
                 return new JsonResponse([], JsonResponse::HTTP_OK, []);
