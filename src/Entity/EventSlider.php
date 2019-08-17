@@ -48,7 +48,7 @@ class EventSlider
     /**
      * @ORM\Column(type="boolean")
      */
-    private $isActive = false;
+    private $isActive = true;
 
     /**
      * @ORM\Column(type="integer")

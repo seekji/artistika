@@ -31,7 +31,7 @@
         }
 
         /**
-         * @Route("/", name="app.news.list")
+         * @Route("/", name="app.news.list", options={"sitemap" = true})
          *
          * @return Response
          */

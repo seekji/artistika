@@ -16,6 +16,7 @@
     use Symfony\Component\Form\Extension\Core\Type\CollectionType;
     use Symfony\Component\Form\Extension\Core\Type\TextType;
     use Symfony\Component\Form\Extension\Core\Type\ColorType;
+    use Sonata\AdminBundle\Route\RouteCollection;
 
     /**
      * Class EventAdmin
@@ -23,6 +24,28 @@
      */
     class EventAdmin extends AbstractAdmin
     {
+
+        /**
+         * @param RouteCollection $collection
+         */
+        protected function configureRoutes(RouteCollection $collection)
+        {
+            $collection
+                ->add('clone', $this->getRouterIdParameter() . '/clone');
+        }
+
+        /**
+         * @param array $actions
+         * @return array
+         */
+        protected function configureBatchActions($actions)
+        {
+            if(isset($actions['delete'])) {
+                unset($actions['delete']);
+            }
+
+            return $actions;
+        }
 
         /**
          * @param DatagridMapper $filter
@@ -62,6 +85,9 @@
                     'actions' => [
                         'show'   => [],
                         'edit'   => [],
+                        'clone' => [
+                            'template' => 'admin/CRUD/list__action_clone.html.twig',
+                        ],
                         'delete' => [],
                     ],
                 ]);
@@ -104,11 +130,10 @@
                 ->tab('Визуал')
                     ->with('Картинки', ['class' => 'col-md-9'])
                         ->add('picture', ModelListType::class, ['label' => 'Маленькая картинка для списка', 'required' => false], ['link_parameters' => ['context' => 'events']])
+                        ->add('detailPicture', ModelListType::class, ['label' => 'Картинка для детальной страницы', 'required' => false], ['link_parameters' => ['context' => 'events']])
                         ->add('bigPicture', ModelListType::class,
                             ['label' => 'Большая картинка для списка', 'help' => 'Необходимо отметить состояние для отображения.', 'required' => false],
                             ['link_parameters' => ['context' => 'events']]
-                        )
-                        ->add('detailPicture', ModelListType::class, ['label' => 'Картинка для детальной страницы', 'required' => false], ['link_parameters' => ['context' => 'events']]
                         )
                     ->end()
                     ->with('Состояние', ['class' => 'col-md-3'])

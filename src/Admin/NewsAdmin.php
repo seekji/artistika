@@ -58,19 +58,24 @@ class NewsAdmin extends AbstractAdmin
      */
     protected function configureFormFields(FormMapper $form)
     {
-        $form->with('Свойства новости')
-            ->add('title');
+        $form->tab('Свойства новости')
+                ->with('Свойства', ['class' => 'col-md-9'])
+                    ->add('title');
 
         if ($this->isCurrentRoute('edit', 'app.admin.news')) {
             $form->add('slug');
         }
 
         $form
-            ->add('isPublished')
-            ->add('picture', ModelListType::class, ['required' => false], ['link_parameters' => ['context' => 'news']])
-            ->add('previewDescription', TextareaType::class)
-            ->add('description', CKEditorType::class)
-            ->end();
+                    ->add('picture', ModelListType::class, ['required' => false], ['link_parameters' => ['context' => 'news']])
+                    ->add('previewDescription', TextareaType::class)
+                    ->add('description', CKEditorType::class)
+                ->end()
+                ->with('Состояние', ['class' => 'col-md-3'])
+                    ->add('isPublished')
+                ->end()
+            ->end()
+        ;
     }
 
     /**

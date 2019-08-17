@@ -44,7 +44,7 @@ class DefaultController extends AbstractController
     }
 
     /**
-     * @Route("/", name="app.homepage")
+     * @Route("/", name="app.homepage", options={"sitemap" = true})
      *
      * @param Request $request
      * @return \Symfony\Component\HttpFoundation\Response
