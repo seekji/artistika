@@ -124,6 +124,15 @@ $(document).ready(function() {
         $(this).parent().toggleClass('is-opened');
     });
 
+    $(document).click( function(event){
+        if($('.event-calendar').hasClass('is-opened')) {
+            if( $(event.target).closest('.event-calendar').length )
+                return;
+            $('.event-calendar').removeClass('is-opened');
+            event.stopPropagation();
+        }
+    });
+
     /*
     *
     * Notification close
@@ -138,7 +147,7 @@ $(document).ready(function() {
     *
     * Search open
     * */
-    $('.js-open-search, .search__button').on('click', function(e) {
+    $('.js-open-search, .js-close-search').on('click', function(e) {
         e.preventDefault();
 
         $('.search__form')[0].reset();
