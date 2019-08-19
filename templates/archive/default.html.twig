@@ -36,7 +36,7 @@
 
             <div class="events__grid events-grid js-group-filter">
                 {{ include('event/__archive_events_list.html.twig', {'events': events}) }}
-                <a href="#" class="events-grid__item event event_instagramm event_size_xs">
+                <a href="{{ getSiteSettingByKey('instagram') is not null ? getSiteSettingByKey('instagram') : '#' }}" target="_blank" class="events-grid__item event event_instagramm event_size_xs">
                     <span class="event__picture" style="background-image: url({{ getSiteSettingByKey('instagram_last_photo') ? : asset('assets/img/upload/cover-11.png') }});"></span>
 
                     <div class="event__content">
