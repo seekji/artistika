@@ -22,6 +22,7 @@ class SettingsForm extends AbstractType
             ->add('address', TextType::class, ['label' => 'Адрес', 'required' => false])
             ->add('phone', TextType::class, ['label' => 'Телефон', 'required' => false])
             ->add('email', EmailType::class, ['label' => 'Email', 'required' => false])
+            ->add('personal_rules_link', TextType::class, ['label' => 'Ссылка на страницу с правилами обработки персональных данных', 'required' => false])
             ->add('vk', TextType::class, ['label' => 'VK', 'required' => false, 'help' => 'Ссылка на группу.'])
             ->add('facebook', TextType::class, ['label' => 'Facebook', 'required' => false, 'help' => 'Ссылка на группу.'])
             ->add('instagram', TextType::class, ['label' => 'Instagram', 'required' => false, 'help' => 'Ссылка на профиль.'])
