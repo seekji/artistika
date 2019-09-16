@@ -66,7 +66,10 @@ $(document).ready(function() {
                 offset = offset + limit;
 
                 if(response.events.length > 0) {
-                    instagramElement.fadeIn(150, function () {$(this).before($(response.events)); checkoutElementsInGridRow();});
+                    instagramElement.fadeIn(150, function () {
+                        $(this).before($(response.events).addClass('animated fadeIn')); //анимация на появление
+                        checkoutElementsInGridRow();
+                    });
                 }
 
                 inProgress = false;
