@@ -24,6 +24,8 @@ class EventSliderAdmin extends AbstractAdmin
         $filter
             ->add('id')
             ->add('title')
+            ->add('event')
+            ->add('event.city')
             ->add('isActive')
         ;
     }
@@ -39,6 +41,9 @@ class EventSliderAdmin extends AbstractAdmin
             ->add('id')
             ->add('title')
             ->add('sort')
+            ->add('event')
+            ->add('event.city')
+            ->add('event.startedAt')
             ->add('isActive')
             ->add('createdAt')
             ->add('updatedAt')
