@@ -36,8 +36,8 @@ class EventSliderRepository extends ServiceEntityRepository
             ->andWhere('event.startedAt >= :currentDate')
             ->setParameter('city', $city)
             ->setParameter('currentDate', $currentDate->format('Y-m-d'))
-            ->orderBy('es.sort', 'ASC')
-            ->orderBy('es.id', 'DESC')
+            ->addOrderBy('es.sort', 'ASC')
+            ->addOrderBy('event.startedAt', 'ASC')
             ->getQuery()
             ->getResult();
     }

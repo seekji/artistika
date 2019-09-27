@@ -27,9 +27,15 @@
                 &copy; Концертное Агентство <b>ARTISTIKA</b>
             </div>
 
-            <div class="footer__developer">
+            {% if getSiteSettingByKey('personal_rules_link') is not null %}
+                <div class="footer__box">
+                    <a href="{{ getSiteSettingByKey('personal_rules_link') }}" target="_blank">Правила обработки перс. данных</a>
+                </div>
+            {% endif %}
+
+            <a href="http://oxyo.space" target="_blank" class="footer__developer">
                 СДЕЛАНО <b>OXYO</b>
-            </div>
+            </a>
         </div>
     </div>
 </footer>

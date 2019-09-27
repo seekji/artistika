@@ -53,7 +53,7 @@ class EventSlider
     /**
      * @ORM\Column(type="integer")
      */
-    private $sort = 0;
+    private $sort = 500;
 
     public function getId(): ?int
     {
