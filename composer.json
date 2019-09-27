@@ -115,7 +115,6 @@
     "repositories": [
         { "type": "vcs", "url": "https://bitbucket.org/prodhub/js-context-bundle.git" },
         { "type": "vcs", "url": "https://bitbucket.org/prodhub/seo-bundle.git"},
-        { "type": "vcs", "url": "https://bitbucket.org/prodhub/adw-sonata-media-extra-bundle.git"},
-        { "type": "vcs", "url": "https://bitbucket.org/prodhub/adw-geoip-bundle.git" }
+        { "type": "vcs", "url": "https://bitbucket.org/prodhub/adw-sonata-media-extra-bundle.git"}
     ]
 }
