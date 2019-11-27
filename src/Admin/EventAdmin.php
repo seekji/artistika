@@ -143,7 +143,7 @@
                 ->end()
                 ->tab('Время')
                     ->with('Время')
-                        ->add('startedAt', DatePickerType::class)
+                        ->add('startedAt', DatePickerType::class, ['format' => 'YYYY/MM/dd'])
                         ->add('tickets', CollectionType::class, [
                             'by_reference' => false,
                             'allow_add' => true,
