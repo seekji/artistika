@@ -25,7 +25,7 @@ matrix:
 before_install:
   - cp .env.travis .env
   - cp .env.travis .env.test
-  - composer self-update
+  - composer self-update --1
   - pear config-set preferred_state beta
   - pecl channel-update pecl.php.net
   - yes | pecl install imagick
