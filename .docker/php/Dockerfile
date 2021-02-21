@@ -64,6 +64,7 @@ RUN apk update                          && \
     echo "expose_php=0" > /usr/local/etc/php/php.ini            && \
     echo 'www-data  ALL=(ALL:ALL) NOPASSWD: ALL' > /etc/sudoers.d/www-data && \
     curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/bin --filename=composer && \
+    composer self-update --1 && \
     apk del .build-dependencies                                 && \
     docker-php-source delete                                    && \
     rm -rf /tmp/* /var/cache/apk/*
